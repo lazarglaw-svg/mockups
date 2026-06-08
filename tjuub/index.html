@@ -1,0 +1,932 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hossa – Planentasche groß aus LKW-Plane | TJUUB</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      color: #1a1a1a;
+      background: #fff;
+    }
+
+    /* ─── HEADER ─── */
+    header {
+      background: #fff;
+      border-bottom: 1px solid #e8e8e8;
+      padding: 0 40px;
+    }
+    .nav-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 72px;
+    }
+    .nav-left, .nav-right {
+      display: flex;
+      gap: 32px;
+      align-items: center;
+    }
+    .nav-left a, .nav-right a {
+      text-decoration: none;
+      color: #1a1a1a;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      font-weight: 500;
+      text-transform: uppercase;
+    }
+    .nav-logo {
+      font-size: 36px;
+      font-weight: 900;
+      color: #5fa8c8;
+      letter-spacing: -0.04em;
+      font-style: italic;
+      text-decoration: none;
+      position: relative;
+    }
+    .nav-logo span { color: #5fa8c8; }
+    .widerruf-btn {
+      background: #f0f0f0;
+      border: none;
+      border-radius: 20px;
+      padding: 8px 18px;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      font-weight: 500;
+      color: #1a1a1a;
+    }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    .announcement-bar {
+      background: #6e9eb5;
+      color: #fff;
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+    }
+    .announcement-bar strong { font-weight: 700; margin-right: 8px; }
+
+    /* ─── PRODUCT HERO ─── */
+    .product-hero {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 40px 40px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 60px;
+      align-items: start;
+    }
+    /* GALLERY */
+    .gallery { display: flex; flex-direction: column; gap: 10px; }
+    .gallery-main {
+      width: 100%;
+      aspect-ratio: 1;
+      overflow: hidden;
+      background: #f5f5f5;
+    }
+    .gallery-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      cursor: zoom-in;
+    }
+    .gallery-thumbs {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+    }
+    .gallery-thumbs img {
+      width: 100%;
+      aspect-ratio: 1;
+      object-fit: cover;
+      cursor: pointer;
+      border: 2px solid transparent;
+      transition: border-color 0.15s;
+      display: block;
+    }
+    .gallery-thumbs img.active,
+    .gallery-thumbs img:hover { border-color: #1a1a1a; }
+
+    /* RIGHT SIDE */
+    .product-info { padding-top: 10px; }
+    .product-info h1 {
+      font-size: 26px;
+      font-weight: 600;
+      line-height: 1.3;
+      letter-spacing: -0.01em;
+      margin-bottom: 14px;
+    }
+    .price-row {
+      font-size: 22px;
+      font-weight: 400;
+      margin-bottom: 4px;
+    }
+    .price-row span { font-size: 13px; color: #666; margin-left: 8px; font-weight: 400; }
+    .divider { border: none; border-top: 1px solid #ddd; margin: 20px 0; }
+
+    /* USP ICONS (NEW) */
+    .usp-icons {
+      display: flex;
+      gap: 0;
+      margin-bottom: 22px;
+      border: 1px solid #e0e0e0;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .usp-item {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      padding: 14px 8px;
+      border-right: 1px solid #e0e0e0;
+      font-size: 10px;
+      letter-spacing: 0.04em;
+      text-align: center;
+      color: #333;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+    .usp-item:last-child { border-right: none; }
+    .usp-item svg { width: 22px; height: 22px; flex-shrink: 0; }
+
+    /* VARIANT */
+    .label {
+      font-size: 11px;
+      letter-spacing: 0.12em;
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+      color: #1a1a1a;
+    }
+    .color-options {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 20px;
+    }
+    .color-btn {
+      padding: 8px 20px;
+      border: 2px solid #1a1a1a;
+      background: #fff;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+      cursor: pointer;
+      font-weight: 500;
+    }
+    .color-btn.inactive { border-color: #ccc; color: #888; }
+    .qty-row {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border: 1px solid #1a1a1a;
+      width: fit-content;
+      margin-bottom: 20px;
+    }
+    .qty-btn {
+      width: 38px; height: 38px;
+      border: none; background: #fff;
+      font-size: 18px; cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .qty-num { width: 38px; text-align: center; font-size: 14px; border-left: 1px solid #1a1a1a; border-right: 1px solid #1a1a1a; line-height: 38px; }
+
+    .btn-cart {
+      width: 100%;
+      padding: 16px;
+      background: #fff;
+      border: 2px solid #1a1a1a;
+      font-size: 12px;
+      letter-spacing: 0.12em;
+      font-weight: 700;
+      text-transform: uppercase;
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .btn-paypal {
+      width: 100%;
+      padding: 14px;
+      background: #f5c542;
+      border: none;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      color: #1a1a1a;
+      margin-bottom: 8px;
+    }
+    .btn-more {
+      width: 100%;
+      text-align: center;
+      font-size: 12px;
+      color: #444;
+      text-decoration: underline;
+      cursor: pointer;
+      margin-bottom: 20px;
+      background: none;
+      border: none;
+    }
+
+    /* TRUST BADGES (NEW) */
+    .trust-badges {
+      display: flex;
+      gap: 16px;
+      padding: 14px 0;
+      border-top: 1px solid #eee;
+      margin-top: 4px;
+    }
+    .trust-badge {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      color: #555;
+      letter-spacing: 0.04em;
+    }
+    .trust-badge svg { width: 16px; height: 16px; color: #5fa8c8; flex-shrink: 0; }
+
+    /* ─── SECTIONS BELOW ─── */
+    .section-wrap { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+
+    /* INTRO TAGLINE */
+    .tagline-section {
+      background: #f7f7f7;
+      padding: 60px 40px;
+      text-align: center;
+    }
+    .tagline-section h2 {
+      font-size: 28px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+      max-width: 700px;
+      margin: 0 auto 16px;
+      line-height: 1.5;
+    }
+    .tagline-section p {
+      font-size: 14px;
+      color: #666;
+      max-width: 500px;
+      margin: 0 auto;
+      line-height: 1.7;
+    }
+
+    /* MATERIAL FEATURES */
+    .features-section {
+      padding: 70px 40px;
+      max-width: 1280px;
+      margin: 0 auto;
+    }
+    .section-title {
+      font-size: 11px;
+      letter-spacing: 0.16em;
+      font-weight: 600;
+      text-transform: uppercase;
+      color: #5fa8c8;
+      margin-bottom: 10px;
+    }
+    .section-heading {
+      font-size: 28px;
+      font-weight: 600;
+      margin-bottom: 40px;
+      letter-spacing: -0.01em;
+    }
+    .features-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .feature-card {
+      border: 1px solid #e8e8e8;
+      padding: 28px 22px;
+      text-align: center;
+    }
+    .feature-card svg { width: 36px; height: 36px; margin-bottom: 14px; color: #5fa8c8; }
+    .feature-card h3 { font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .feature-card p { font-size: 12px; color: #666; line-height: 1.6; }
+
+    /* USE CASES */
+    .usecases-section {
+      background: #1a1a1a;
+      padding: 70px 40px;
+      color: #fff;
+    }
+    .usecases-inner { max-width: 1280px; margin: 0 auto; }
+    .usecases-section .section-title { color: #5fa8c8; }
+    .usecases-section .section-heading { color: #fff; }
+    .usecases-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 2px;
+    }
+    .usecase-card {
+      background: #242424;
+      overflow: hidden;
+    }
+    .usecase-card img {
+      width: 100%;
+      aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.75);
+    }
+    .usecase-card-body { padding: 24px; }
+    .usecase-card svg { width: 28px; height: 28px; margin-bottom: 12px; color: #5fa8c8; }
+    .usecase-card h3 { font-size: 14px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; margin-bottom: 8px; color: #fff; }
+    .usecase-card p { font-size: 12px; color: #aaa; line-height: 1.7; }
+
+    /* BRAND STORY */
+    .brand-section {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 80px 40px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .brand-image-placeholder {
+      width: 100%;
+      aspect-ratio: 4/3;
+      background: #ebebeb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 13px;
+      color: #999;
+    }
+    .brand-text .section-title { margin-bottom: 12px; }
+    .brand-text h2 { font-size: 30px; font-weight: 600; margin-bottom: 20px; line-height: 1.3; letter-spacing: -0.01em; }
+    .brand-text p { font-size: 14px; color: #555; line-height: 1.8; margin-bottom: 16px; }
+    .brand-pills { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 10px; }
+    .brand-pill {
+      border: 1px solid #1a1a1a;
+      padding: 6px 14px;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      font-weight: 500;
+    }
+
+    /* SPECS */
+    .specs-section {
+      background: #f7f7f7;
+      padding: 70px 40px;
+    }
+    .specs-inner { max-width: 1280px; margin: 0 auto; }
+    .specs-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 2px;
+      margin-top: 40px;
+    }
+    .spec-card {
+      background: #fff;
+      padding: 28px 20px;
+      text-align: center;
+      border: 1px solid #e8e8e8;
+    }
+    .spec-card svg { width: 28px; height: 28px; margin-bottom: 12px; color: #5fa8c8; }
+    .spec-value { font-size: 22px; font-weight: 700; margin-bottom: 4px; letter-spacing: -0.02em; }
+    .spec-label { font-size: 10px; letter-spacing: 0.12em; text-transform: uppercase; color: #888; font-weight: 500; }
+
+    /* FAQ */
+    .faq-section {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 80px 40px;
+    }
+    .faq-section .section-title { text-align: center; margin-bottom: 10px; }
+    .faq-section .section-heading { text-align: center; margin-bottom: 40px; }
+    .faq-item {
+      border-top: 1px solid #e0e0e0;
+      padding: 20px 0;
+    }
+    .faq-item:last-child { border-bottom: 1px solid #e0e0e0; }
+    .faq-q {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+      letter-spacing: 0.01em;
+    }
+    .faq-q .faq-icon {
+      width: 20px; height: 20px;
+      border: 1px solid #1a1a1a;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; flex-shrink: 0;
+    }
+    .faq-a { font-size: 13px; color: #666; margin-top: 12px; line-height: 1.7; }
+
+    /* NEWSLETTER */
+    .newsletter-section {
+      background: #6e9eb5;
+      color: #fff;
+      text-align: center;
+      padding: 60px 40px;
+    }
+    .newsletter-section h2 { font-size: 20px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 8px; }
+    .newsletter-section p { font-size: 13px; opacity: 0.85; margin-bottom: 24px; }
+    .newsletter-form { display: flex; gap: 0; max-width: 400px; margin: 0 auto; }
+    .newsletter-form input {
+      flex: 1; padding: 14px 18px; border: none; font-size: 13px; outline: none;
+    }
+    .newsletter-form button {
+      padding: 14px 22px; background: #1a1a1a; color: #fff; border: none;
+      font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; font-weight: 600; cursor: pointer;
+    }
+
+    /* RELATED */
+    .related-section { padding: 70px 40px; max-width: 1280px; margin: 0 auto; }
+    .related-section .section-heading { margin-bottom: 36px; }
+    .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .related-card { cursor: pointer; }
+    .related-img-placeholder {
+      width: 100%; aspect-ratio: 1;
+      background: #f0f0f0;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 12px; color: #aaa; margin-bottom: 12px;
+    }
+    .related-name { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+    .related-price { font-size: 13px; color: #444; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      .nav-left { display: none; }
+      .nav-right a { display: none; }
+      .nav-right { gap: 10px; }
+      .nav-logo { font-size: 28px; }
+
+      .announcement-bar { font-size: 11px; padding: 8px 12px; }
+
+      .product-hero {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 20px 16px 40px;
+      }
+
+      .tagline-section { padding: 40px 20px; }
+      .tagline-section h2 { font-size: 22px; }
+
+      .features-section { padding: 40px 16px; }
+      .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+
+      .usecases-section { padding: 40px 16px; }
+      .usecases-grid { grid-template-columns: 1fr 1fr; gap: 2px; }
+
+      .brand-section {
+        grid-template-columns: 1fr;
+        gap: 28px;
+        padding: 40px 16px;
+      }
+      .brand-text h2 { font-size: 22px; }
+
+      .specs-section { padding: 40px 16px; }
+      .specs-grid { grid-template-columns: repeat(3, 1fr); }
+      .specs-grid .spec-card:nth-child(4),
+      .specs-grid .spec-card:nth-child(5) { grid-column: span 1; }
+
+      .faq-section { padding: 40px 16px; }
+
+      .newsletter-section { padding: 40px 16px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input,
+      .newsletter-form button { width: 100%; }
+
+      .related-section { padding: 40px 16px; }
+      .related-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+
+      .usp-icons { flex-wrap: wrap; }
+      .usp-item { min-width: calc(50% - 1px); border-bottom: 1px solid #e0e0e0; }
+      .usp-item:nth-child(2) { border-right: none; }
+
+      .trust-badges { flex-direction: column; gap: 10px; }
+
+      footer { padding: 16px; font-size: 10px; }
+    }
+
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .usecases-grid { grid-template-columns: 1fr; }
+      .related-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* FOOTER NAV */
+    footer {
+      background: #1a1a1a;
+      color: #fff;
+      padding: 20px 40px;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      color: #888;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="nav-inner">
+    <nav class="nav-left">
+      <a href="#">Taschen</a>
+      <a href="#">Van und Wohnmobil</a>
+    </nav>
+    <a class="nav-logo" href="#">tjuub</a>
+    <nav class="nav-right">
+      <a href="#">Material</a>
+      <a href="#">Über</a>
+      <a href="#">Termine</a>
+      <button class="widerruf-btn">Widerruf</button>
+    </nav>
+  </div>
+</header>
+
+<!-- ─── ANNOUNCEMENT BAR ─── -->
+<div class="announcement-bar">
+  <strong>WIR VERSENDEN MIT DHL</strong> 2–4 Werktage nach Bestelleingang
+</div>
+
+<!-- ─── PRODUCT HERO ─── -->
+<div class="product-hero">
+  <div class="gallery">
+    <div class="gallery-main">
+      <img id="mainImg"
+           src="https://tjuub.de/cdn/shop/files/LKW_Planentasche_tjuub_gross-schwarz_Hossa_Planentasche_Zubehoer_Wohnmobil_Aufbewahrungsystem_tjuub24_1800x1800.jpg?v=1776403149"
+           alt="Hossa Planentasche groß schwarz" />
+    </div>
+    <div class="gallery-thumbs">
+      <img class="active"
+           src="https://tjuub.de/cdn/shop/files/LKW_Planentasche_tjuub_gross-schwarz_Hossa_Planentasche_Zubehoer_Wohnmobil_Aufbewahrungsystem_tjuub24_1800x1800.jpg?v=1776403149"
+           alt="Hossa 1" onclick="setMain(this)" />
+      <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-06_1800x1800.jpg?v=1776620593"
+           alt="Hossa 2" onclick="setMain(this)" />
+      <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-07_1800x1800.jpg?v=1776620593"
+           alt="Hossa 3" onclick="setMain(this)" />
+      <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-09_1800x1800.jpg?v=1776620593"
+           alt="Hossa 4" onclick="setMain(this)" />
+    </div>
+  </div>
+
+  <div class="product-info">
+    <h1>Hossa – Planentasche groß aus LKW-Plane schwarz</h1>
+    <div class="price-row">89,00 € <span>inkl. MwSt. zzgl. Versandkosten</span></div>
+
+    <hr class="divider" />
+
+    <!-- USP ICONS — NEU -->
+    <div class="usp-icons">
+      <div class="usp-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z"/>
+        </svg>
+        Handgefertigt
+      </div>
+      <div class="usp-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/>
+          <path d="M3.27 6.96L12 12.01l8.73-5.05M12 22.08V12"/>
+        </svg>
+        Upcycling
+      </div>
+      <div class="usp-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/>
+          <circle cx="12" cy="11" r="3"/>
+        </svg>
+        Made in Bayreuth
+      </div>
+      <div class="usp-item">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <rect x="1" y="3" width="15" height="13"/>
+          <path d="M16 8h4l3 3v5h-7V8zM1 16h4M7 16h2"/>
+          <circle cx="5.5" cy="18.5" r="2.5"/>
+          <circle cx="18.5" cy="18.5" r="2.5"/>
+        </svg>
+        Kostenloser Versand
+      </div>
+    </div>
+
+    <!-- FARBE -->
+    <div class="label">Farbe</div>
+    <div class="color-options">
+      <button class="color-btn">Schwarz</button>
+      <button class="color-btn inactive">Olivgrün</button>
+    </div>
+
+    <!-- MENGE -->
+    <div class="label">Menge</div>
+    <div class="qty-row">
+      <button class="qty-btn">−</button>
+      <span class="qty-num">1</span>
+      <button class="qty-btn">+</button>
+    </div>
+
+    <button class="btn-cart">In den Warenkorb</button>
+    <button class="btn-paypal">Mit <b>PayPal</b> zahlen</button>
+    <button class="btn-more">Weitere Bezahlmöglichkeiten</button>
+
+    <!-- TRUST BADGES — NEU -->
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+        </svg>
+        Sichere Zahlung
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="20 6 9 17 4 12"/>
+        </svg>
+        30 Tage Rückgabe
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"/>
+          <path d="M12 6v6l4 2"/>
+        </svg>
+        2–4 Werktage Lieferung
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TAGLINE ─── -->
+<div class="tagline-section">
+  <h2>Robust. Wasserabweisend. Gemacht um zu halten.</h2>
+  <p>Hossa ist keine modische Tasche. Sie ist ein Werkzeug – für alles, was nass, schmutzig oder sperrig ist. Gefertigt in kleiner Stückzahl in Bayreuth, aus echtem Upcycling-Material.</p>
+</div>
+
+<!-- ─── MATERIAL FEATURES ─── -->
+<div class="features-section">
+  <div class="section-title">Das Material</div>
+  <div class="section-heading">LKW-Plane – kein Kompromiss</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/>
+      </svg>
+      <h3>Wasserabweisend</h3>
+      <p>Die Plane saugt sich nicht voll. Nasse Neoprenanzüge und schlammige Schuhe bleiben innen – nicht auf deinem Sitzbezug.</p>
+    </div>
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/>
+        <path d="M8 12l2.5 2.5L16 9"/>
+      </svg>
+      <h3>Abriebfest</h3>
+      <p>Das Material ist für den Alltag auf der Ladefläche von LKWs entwickelt – das hält.</p>
+    </div>
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192l-3.536 3.536M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0zm-5 0a4 4 0 1 1-8 0 4 4 0 0 1 8 0z"/>
+      </svg>
+      <h3>Formstabil</h3>
+      <p>Die Tasche hält ihre Form – auch wenn sie leer ist. Kein Einrollen, kein Zusammenfallen.</p>
+    </div>
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+        <path d="M9 3H5a2 2 0 0 0-2 2v4m6-6h10a2 2 0 0 1 2 2v4M9 3v18m0 0h10a2 2 0 0 0 2-2V9M9 21H5a2 2 0 0 1-2-2V9m0 0h18"/>
+      </svg>
+      <h3>Einfach abwischbar</h3>
+      <p>Feucht auswischen – fertig. Keine Waschmaschine, kein Aufwand. Einfach sauber halten.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── USE CASES ─── -->
+<div class="usecases-section">
+  <div class="usecases-inner">
+    <div class="section-title">Einsatzbereiche</div>
+    <div class="section-heading" style="color:#fff; font-size:28px; font-weight:600; margin-bottom:32px; letter-spacing:-0.01em;">Für jeden, der unterwegs ist</div>
+    <div class="usecases-grid">
+      <div class="usecase-card">
+        <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-06_1800x1800.jpg?v=1776620593" alt="Strand" />
+        <div class="usecase-card-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2z"/>
+            <path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+          </svg>
+          <h3>Strand</h3>
+          <p>Sand, nasse Handtücher, Badebekleidung – alles rein, nach Hause, auswischen. Fertig.</p>
+        </div>
+      </div>
+      <div class="usecase-card">
+        <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-07_1800x1800.jpg?v=1776620593" alt="Sport" />
+        <div class="usecase-card-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M18 8h1a4 4 0 0 1 0 8h-1"/>
+            <path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/>
+            <line x1="6" y1="1" x2="6" y2="4"/>
+            <line x1="10" y1="1" x2="10" y2="4"/>
+            <line x1="14" y1="1" x2="14" y2="4"/>
+          </svg>
+          <h3>Sport & Training</h3>
+          <p>Sportschuhe, verschwitztes Zeug, Trainingszubehör. Die Plane nimmt keine Feuchtigkeit auf.</p>
+        </div>
+      </div>
+      <div class="usecase-card">
+        <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-09_1800x1800.jpg?v=1776620593" alt="Van" />
+        <div class="usecase-card-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <rect x="1" y="3" width="15" height="13"/>
+            <path d="M16 8h4l3 3v5h-7V8z"/>
+            <circle cx="5.5" cy="18.5" r="2.5"/>
+            <circle cx="18.5" cy="18.5" r="2.5"/>
+          </svg>
+          <h3>Van & Camper</h3>
+          <p>Schuhe, Mülltrennung, nasse Kleidung. Hossa hält den Innenraum sauber – bei jedem Terrain.</p>
+        </div>
+      </div>
+      <div class="usecase-card">
+        <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-10_1800x1800.jpg?v=1776620593" alt="Einkaufen" />
+        <div class="usecase-card-body">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+            <path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/>
+            <line x1="3" y1="6" x2="21" y2="6"/>
+            <path d="M16 10a4 4 0 0 1-8 0"/>
+          </svg>
+          <h3>Einkaufen</h3>
+          <p>Stabil, reißfest, 35 Liter. Auch schwere Einkäufe trägt Hossa ohne Murren.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BRAND STORY ─── -->
+<div class="brand-section">
+  <img src="https://tjuub.de/cdn/shop/files/planentasche-hossa-schwarz-gross-aufbewahrung-wohnmobil-lkw-plane-tjuub-12_1800x1800.jpg?v=1776620593"
+       alt="Hossa Planentasche Detail"
+       style="width:100%; object-fit:cover; aspect-ratio:4/3;" />
+  <div class="brand-text">
+    <div class="section-title">Über TJUUB</div>
+    <h2>Handwerk statt Massenware. Bayreuth statt Fabrik.</h2>
+    <p>Hossa entsteht im Ladenatelier in Bayreuth – in kleiner Stückzahl, von Hand genäht. Kein industrielles Fließband, keine Wegwerfqualität.</p>
+    <p>Die verwendete LKW-Plane ist Upcycling-Material: Sie hat ein früheres Leben gehabt – und bekommt jetzt ein neues. Das spart Ressourcen und produziert etwas, das wirklich hält.</p>
+    <p>TJUUB macht Produkte für Menschen, die wissen, was sie wollen: funktional, ehrlich, langlebig.</p>
+    <div class="brand-pills">
+      <span class="brand-pill">Handgefertigt</span>
+      <span class="brand-pill">Kleine Stückzahl</span>
+      <span class="brand-pill">Upcycling</span>
+      <span class="brand-pill">Bayreuth</span>
+    </div>
+  </div>
+</div>
+
+<!-- ─── SPECS ─── -->
+<div class="specs-section">
+  <div class="specs-inner">
+    <div class="section-title">Technische Daten</div>
+    <div class="section-heading">Was drin steckt</div>
+    <div class="specs-grid">
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M21 3H3v7c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V3z"/>
+        </svg>
+        <div class="spec-value">35 L</div>
+        <div class="spec-label">Volumen</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <line x1="12" y1="2" x2="12" y2="22"/><line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M12 2l3 10H9z"/>
+        </svg>
+        <div class="spec-value">37 cm</div>
+        <div class="spec-label">Höhe</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <line x1="2" y1="12" x2="22" y2="12"/>
+          <path d="M2 12l10-3v6z M22 12l-10-3v6z"/>
+        </svg>
+        <div class="spec-value">34 cm</div>
+        <div class="spec-label">Breite</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <rect x="3" y="3" width="18" height="18" rx="2"/>
+          <path d="M3 9h18M9 21V9"/>
+        </svg>
+        <div class="spec-value">28 cm</div>
+        <div class="spec-label">Tiefe</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7">
+          <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+        </svg>
+        <div class="spec-value">440 g</div>
+        <div class="spec-label">Gewicht</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── FAQ ─── -->
+<div class="faq-section">
+  <div class="section-title" style="text-align:center;">FAQ</div>
+  <div class="section-heading" style="text-align:center;">Häufige Fragen</div>
+
+  <div class="faq-item">
+    <div class="faq-q">
+      Ist die Hossa wasserdicht?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">Die schwarze LKW-Plane ist wasserabweisend und schützt Inhalt und Außenmaterial zuverlässig vor Feuchtigkeit.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">
+      Eignet sich Hossa als Strandtasche?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">Ja. Sand, nasse Handtücher und Badebekleidung kein Problem. Danach einfach auswischen – fertig.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">
+      Kann ich Hossa im Van oder Wohnmobil nutzen?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">Ja – ideal für Schuhe, nasse Kleidung oder Mülltrennung. Schmutz bleibt in der Tasche, nicht im Innenraum.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">
+      Ist die Tasche nachhaltig produziert?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">Die Plane ist Upcycling-Material, die Tasche wird lokal in Bayreuth in kleiner Stückzahl von Hand gefertigt.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">
+      Wie groß ist die Hossa genau?
+      <span class="faq-icon">+</span>
+    </div>
+    <div class="faq-a">37 cm Höhe × 34 cm Breite × 28 cm Tiefe, 35 Liter Volumen, 440 g Gewicht.</div>
+  </div>
+</div>
+
+<!-- ─── NEWSLETTER ─── -->
+<div class="newsletter-section">
+  <h2>TJUUB Newsletter – Sichere dir 10 % Rabatt</h2>
+  <p>Neue Produkte, Termine & Einblicke aus der Manufaktur – direkt in dein Postfach.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Deine E-Mail-Adresse" />
+    <button>Anmelden</button>
+  </div>
+</div>
+
+<!-- ─── RELATED PRODUCTS ─── -->
+<div class="related-section">
+  <div class="section-heading">Weitere einzigartige Upcycling-Produkte</div>
+  <div class="related-grid">
+    <div class="related-card">
+      <img src="https://tjuub.de/cdn/shop/files/tasche-lassen-schwarz-ohne-reissverschluss-gross-upcycling-lkw-plane-tjuub-01.jpg"
+           style="width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:12px;" alt="Lassen" />
+      <div class="related-name">Lassen – Große Tasche aus LKW-Plane</div>
+      <div class="related-price">89,00 €</div>
+    </div>
+    <div class="related-card">
+      <img src="https://tjuub.de/cdn/shop/files/tasche-sila-schwarz-ohne-reissverschluss-upcycling-lkw-plane-tjuub-01_1800x1800.jpg"
+           style="width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:12px;" alt="Sila" />
+      <div class="related-name">Sila – Kleine Tasche aus LKW-Plane</div>
+      <div class="related-price">74,00 €</div>
+    </div>
+    <div class="related-card">
+      <img src="https://tjuub.de/cdn/shop/files/reisetasche-reisa-grau-mit-innentasche-upcycling-lkw-plane-tjuub-01_1800x1800.jpg"
+           style="width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:12px;" alt="Reisa" />
+      <div class="related-name">Reisa – Reisetasche & Weekender</div>
+      <div class="related-price">ab 159,00 €</div>
+    </div>
+    <div class="related-card">
+      <img src="https://tjuub.de/cdn/shop/files/Weekender_aus_Plane_Tasche_von_tjuub_in_Grau_1800x1800.jpg"
+           style="width:100%;aspect-ratio:1;object-fit:cover;margin-bottom:12px;" alt="Reisa Weekender" />
+      <div class="related-name">Reisa – Weekender Grau</div>
+      <div class="related-price">ab 159,00 €</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © TJUUB · Shop · Termine · Story · Newsletter · Impressum · Datenschutz
+</footer>
+
+<script>
+function setMain(thumb) {
+  document.getElementById('mainImg').src = thumb.src;
+  document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
+  thumb.classList.add('active');
+}
+</script>
+
+</body>
+</html>
