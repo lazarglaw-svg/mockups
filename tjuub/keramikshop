@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Espresso Tasse Handgefertigt | Alte Schmiede Keramik</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; color: #2c2215; background: #fff; }
+
+    /* ─── ANNOUNCEMENT BAR ─── */
+    .announcement-bar {
+      background: #2c2215; color: #f5ede3;
+      text-align: center; padding: 9px 20px;
+      font-size: 12px; letter-spacing: 0.08em;
+    }
+    .announcement-bar span { opacity: 0.5; margin: 0 14px; }
+
+    /* ─── HEADER ─── */
+    header {
+      background: #faf8f5; border-bottom: 1px solid #e8e0d5;
+      padding: 0 40px; position: sticky; top: 0; z-index: 100;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto;
+      display: flex; align-items: center; justify-content: space-between; height: 70px;
+    }
+    .nav-logo img { height: 40px; object-fit: contain; }
+    .nav-logo-text { font-size: 22px; font-weight: 700; color: #2c2215; text-decoration: none; }
+    .nav-links { display: flex; gap: 24px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #2c2215; font-size: 12px; letter-spacing: 0.1em; font-weight: 500; text-transform: uppercase; opacity: 0.75; }
+    .nav-links a:hover { opacity: 1; }
+    .nav-icons { display: flex; gap: 18px; align-items: center; }
+    .nav-icons svg { width: 20px; height: 20px; cursor: pointer; }
+
+    /* ─── PRODUCT HERO ─── */
+    .product-hero {
+      max-width: 1280px; margin: 0 auto;
+      padding: 48px 40px 64px;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+    }
+
+    /* GALLERY */
+    .gallery { display: flex; flex-direction: column; gap: 10px; }
+    .gallery-main { width: 100%; aspect-ratio: 1; overflow: hidden; background: #f0ebe3; }
+    .gallery-main img { width: 100%; height: 100%; object-fit: cover; display: block; cursor: zoom-in; }
+    .gallery-thumbs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+    .gallery-thumbs img { width: 100%; aspect-ratio: 1; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: border-color 0.15s; background: #f0ebe3; }
+    .gallery-thumbs img.active, .gallery-thumbs img:hover { border-color: #8b5e3c; }
+
+    /* PRODUCT INFO */
+    .product-info { padding-top: 6px; }
+
+    /* BREADCRUMB-STYLE TAG – statt Badge */
+    .product-tag {
+      font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase;
+      color: #8b5e3c; font-weight: 600; margin-bottom: 10px;
+    }
+
+    .product-info h1 {
+      font-size: 28px; font-weight: 600; line-height: 1.25;
+      letter-spacing: -0.01em; margin-bottom: 8px; color: #1e160e;
+    }
+
+    /* STERNE-BEWERTUNG */
+    .rating-row {
+      display: flex; align-items: center; gap: 8px; margin-bottom: 14px;
+    }
+    .stars { color: #f5c228; font-size: 16px; letter-spacing: 2px; }
+    .rating-score { font-size: 13px; font-weight: 700; color: #1e160e; }
+    .rating-link { font-size: 12px; color: #8b5e3c; text-decoration: underline; cursor: pointer; }
+
+    .product-subtitle { font-size: 14px; color: #7a6450; margin-bottom: 18px; line-height: 1.65; }
+    .price-row { font-size: 26px; font-weight: 500; color: #1e160e; margin-bottom: 4px; }
+    .price-note { font-size: 12px; color: #9a8270; margin-bottom: 20px; }
+    .divider { border: none; border-top: 1px solid #e8e0d5; margin: 18px 0; }
+
+    /* USP – schlichte horizontale Zeile mit Häkchen */
+    .usp-strip {
+      display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 22px;
+    }
+    .usp-pill {
+      display: flex; align-items: center; gap: 6px;
+      padding: 6px 12px; border-radius: 20px;
+      border: 1px solid #ddd0c0;
+      font-size: 11px; font-weight: 600; letter-spacing: 0.06em;
+      color: #5a4232; text-transform: uppercase;
+      background: #faf8f5;
+    }
+    .usp-pill svg { width: 13px; height: 13px; color: #8b5e3c; flex-shrink: 0; }
+
+    /* GLASUR – runde Farbkreise */
+    .label {
+      font-size: 11px; letter-spacing: 0.12em; font-weight: 700;
+      text-transform: uppercase; margin-bottom: 12px; color: #2c2215;
+    }
+    .swatch-options { display: flex; gap: 12px; flex-wrap: wrap; margin-bottom: 24px; }
+    .swatch-btn {
+      display: flex; flex-direction: column; align-items: center; gap: 7px;
+      cursor: pointer; background: none; border: none; padding: 0;
+      width: 64px;
+    }
+    .swatch-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      border: 2px solid transparent;
+      outline: 2px solid transparent;
+      transition: outline-color 0.15s, border-color 0.15s;
+      position: relative; overflow: hidden;
+    }
+    .swatch-btn.active .swatch-circle,
+    .swatch-btn:hover .swatch-circle {
+      outline-color: #8b5e3c; outline-offset: 3px;
+    }
+    .swatch-name { font-size: 9px; letter-spacing: 0.06em; text-transform: uppercase; color: #5a4232; font-weight: 600; }
+
+    /* Glasur-Farben */
+    .s-erdig { background: #c4a882; }
+    .s-gruen { background: #6b9e6b; }
+    .s-gruen-s { background: radial-gradient(circle at 25% 35%, #3a6e3a 3px, transparent 3px),
+                              radial-gradient(circle at 65% 70%, #2f5c2f 2px, transparent 2px),
+                              radial-gradient(circle at 80% 25%, #3a6e3a 2px, transparent 2px),
+                              #6b9e6b; }
+    .s-tuerkis { background: #5aa8b0; }
+    .s-tuerkis-s { background: radial-gradient(circle at 30% 40%, #2d7a82 3px, transparent 3px),
+                                radial-gradient(circle at 70% 65%, #256870 2px, transparent 2px),
+                                radial-gradient(circle at 55% 20%, #2d7a82 2px, transparent 2px),
+                                #5aa8b0; }
+
+    /* QTY + CART */
+    .qty-row { display: flex; align-items: center; border: 1px solid #c8b8a4; width: fit-content; margin-bottom: 16px; }
+    .qty-btn { width: 40px; height: 44px; border: none; background: #faf8f5; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; color: #2c2215; }
+    .qty-num { width: 44px; text-align: center; font-size: 14px; border-left: 1px solid #c8b8a4; border-right: 1px solid #c8b8a4; line-height: 44px; font-weight: 500; }
+    .btn-cart { width: 100%; padding: 16px; background: #2c2215; color: #f5ede3; border: none; font-size: 12px; letter-spacing: 0.14em; font-weight: 700; text-transform: uppercase; cursor: pointer; margin-bottom: 10px; }
+    .btn-cart:hover { background: #3d3020; }
+    .btn-wishlist { width: 100%; padding: 14px; background: #fff; border: 1px solid #c8b8a4; font-size: 12px; letter-spacing: 0.1em; font-weight: 500; text-transform: uppercase; cursor: pointer; color: #5a4232; margin-bottom: 20px; }
+
+    /* TRUST BADGES */
+    .trust-badges { display: flex; flex-direction: column; gap: 10px; padding: 16px; background: #faf8f5; border: 1px solid #e8e0d5; border-radius: 6px; }
+    .trust-badge { display: flex; align-items: center; gap: 10px; font-size: 12px; color: #5a4232; }
+    .trust-badge svg { width: 15px; height: 15px; color: #8b5e3c; flex-shrink: 0; }
+
+    /* ─── SECTIONS ─── */
+    .section-title { font-size: 11px; letter-spacing: 0.18em; font-weight: 700; text-transform: uppercase; color: #8b5e3c; margin-bottom: 10px; }
+    .section-heading { font-size: 28px; font-weight: 600; margin-bottom: 40px; letter-spacing: -0.01em; color: #1e160e; }
+
+    /* ─── TAGLINE ─── */
+    .tagline-section { background: #f0ebe3; padding: 64px 40px; text-align: center; }
+    .tagline-section h2 { font-size: 34px; font-weight: 300; line-height: 1.4; max-width: 640px; margin: 0 auto 16px; color: #1e160e; letter-spacing: -0.01em; }
+    .tagline-section p { font-size: 14px; color: #7a6450; max-width: 500px; margin: 0 auto; line-height: 1.8; }
+
+    /* ─── FEATURES ─── */
+    .features-section { padding: 72px 40px; max-width: 1280px; margin: 0 auto; }
+    .features-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+    .feature-card { border: 1px solid #e8e0d5; padding: 30px 22px; text-align: center; background: #faf8f5; }
+    .feature-card svg { width: 36px; height: 36px; margin-bottom: 16px; color: #8b5e3c; }
+    .feature-card h3 { font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; color: #1e160e; }
+    .feature-card p { font-size: 12px; color: #7a6450; line-height: 1.7; }
+
+    /* ─── PROZESS-SWIPER ─── */
+    .process-flow-section { background: #2c2215; padding: 72px 0 80px; overflow: hidden; }
+    .process-flow-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .process-flow-section .section-title { color: #c4906a; }
+    .process-flow-section .section-heading { color: #f5ede3; margin-bottom: 40px; }
+
+    .process-swiper-wrap {
+      overflow-x: auto;
+      overflow-y: visible;
+      scroll-snap-type: x mandatory;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      display: flex;
+      gap: 16px;
+      padding: 0 40px 20px;
+      cursor: grab;
+    }
+    .process-swiper-wrap::-webkit-scrollbar { display: none; }
+    .process-swiper-wrap.grabbing { cursor: grabbing; }
+
+    .process-step-card {
+      flex: 0 0 280px;
+      scroll-snap-align: start;
+      background: #3d3020;
+      border-radius: 4px;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .process-step-card .step-photo {
+      width: 100%; aspect-ratio: 4/3;
+      object-fit: cover;
+      display: block;
+      filter: brightness(0.88);
+    }
+    .process-step-body { padding: 20px; flex: 1; }
+    .step-num-line {
+      font-size: 10px; font-weight: 700; letter-spacing: 0.16em;
+      color: #8b5e3c; text-transform: uppercase; margin-bottom: 8px;
+    }
+    .step-title { font-size: 14px; font-weight: 700; color: #f5ede3; margin-bottom: 8px; letter-spacing: 0.02em; }
+    .step-desc { font-size: 12px; color: #9a8270; line-height: 1.7; }
+
+    /* Scroll-Indikator Dots */
+    .swiper-dots { display: flex; gap: 6px; justify-content: center; margin-top: 20px; }
+    .swiper-dot { width: 6px; height: 6px; border-radius: 50%; background: #5a4232; transition: background 0.2s; }
+    .swiper-dot.active { background: #c4906a; }
+
+    /* ─── SPECS ─── */
+    .specs-section { background: #f0ebe3; padding: 72px 40px; }
+    .specs-inner { max-width: 1280px; margin: 0 auto; }
+    .specs-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 2px; margin-top: 0; }
+    .spec-card { background: #fff; padding: 30px 20px; text-align: center; border: 1px solid #e8e0d5; }
+    .spec-card svg { width: 28px; height: 28px; margin-bottom: 12px; color: #8b5e3c; }
+    .spec-value { font-size: 24px; font-weight: 700; margin-bottom: 4px; color: #1e160e; letter-spacing: -0.02em; }
+    .spec-label { font-size: 10px; letter-spacing: 0.14em; text-transform: uppercase; color: #9a8270; font-weight: 500; }
+
+    /* ─── REVIEWS ─── */
+    #reviews { padding: 72px 40px; max-width: 900px; margin: 0 auto; }
+    #reviews .section-heading { margin-bottom: 8px; }
+    .reviews-summary {
+      display: flex; align-items: center; gap: 20px;
+      padding: 24px; background: #faf8f5; border: 1px solid #e8e0d5;
+      margin-bottom: 32px; border-radius: 4px;
+    }
+    .reviews-big-score { font-size: 52px; font-weight: 700; color: #1e160e; line-height: 1; }
+    .reviews-stars-row { color: #f5c228; font-size: 20px; letter-spacing: 3px; margin-bottom: 4px; }
+    .reviews-count { font-size: 12px; color: #9a8270; }
+    .review-card { padding: 20px 0; border-top: 1px solid #e8e0d5; }
+    .review-card:last-child { border-bottom: 1px solid #e8e0d5; }
+    .review-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 8px; }
+    .review-author { font-size: 13px; font-weight: 700; color: #1e160e; }
+    .review-stars { color: #f5c228; font-size: 13px; }
+    .review-date { font-size: 11px; color: #aaa; margin-top: 2px; }
+    .review-text { font-size: 13px; color: #6a5444; line-height: 1.7; }
+
+    /* ─── FAQ ─── */
+    .faq-section { max-width: 800px; margin: 0 auto; padding: 72px 40px; }
+    .faq-item { border-top: 1px solid #e8e0d5; padding: 20px 0; }
+    .faq-item:last-child { border-bottom: 1px solid #e8e0d5; }
+    .faq-q { display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 600; cursor: pointer; color: #1e160e; }
+    .faq-icon { width: 22px; height: 22px; border: 1px solid #c8b8a4; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; color: #8b5e3c; }
+    .faq-a { font-size: 13px; color: #7a6450; margin-top: 12px; line-height: 1.8; }
+
+    /* ─── NEWSLETTER ─── */
+    .newsletter-section { background: #2c2215; padding: 64px 40px; text-align: center; }
+    .newsletter-section h2 { font-size: 22px; font-weight: 600; color: #f5ede3; margin-bottom: 8px; }
+    .newsletter-section p { font-size: 13px; color: #9a8270; margin-bottom: 28px; line-height: 1.7; }
+    .newsletter-form { display: flex; gap: 0; max-width: 420px; margin: 0 auto; }
+    .newsletter-form input { flex: 1; padding: 14px 18px; border: 1px solid #5a4232; border-right: none; font-size: 13px; outline: none; background: #3d3020; color: #f5ede3; }
+    .newsletter-form input::placeholder { color: #7a6450; }
+    .newsletter-form button { padding: 14px 24px; background: #8b5e3c; color: #fff; border: none; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; cursor: pointer; }
+
+    /* ─── RELATED ─── */
+    .related-section { padding: 72px 40px; max-width: 1280px; margin: 0 auto; }
+    .related-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 28px; }
+    .related-card { cursor: pointer; }
+    .related-card img { width: 100%; aspect-ratio: 1; object-fit: cover; margin-bottom: 14px; background: #f0ebe3; }
+    .related-name { font-size: 13px; font-weight: 600; margin-bottom: 4px; color: #1e160e; }
+    .related-price { font-size: 13px; color: #8b5e3c; font-weight: 500; }
+
+    /* ─── FOOTER ─── */
+    footer { background: #1e160e; color: #9a8270; padding: 20px 40px; text-align: center; font-size: 11px; letter-spacing: 0.08em; }
+
+    /* ─── MOBILE ─── */
+    @media (max-width: 768px) {
+      header { padding: 0 16px; }
+      .nav-links { display: none; }
+      .nav-logo img { height: 32px; }
+      .announcement-bar { font-size: 10px; padding: 8px 12px; }
+      .product-hero { grid-template-columns: 1fr; gap: 24px; padding: 20px 16px 40px; }
+      .tagline-section { padding: 40px 20px; }
+      .tagline-section h2 { font-size: 24px; }
+      .features-section { padding: 40px 16px; }
+      .features-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+      .process-flow-section { padding: 40px 0 48px; }
+      .process-flow-inner { padding: 0 16px; }
+      .process-swiper-wrap { padding: 0 16px 16px; }
+      .process-step-card { flex: 0 0 260px; }
+      .specs-section { padding: 40px 16px; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+      #reviews { padding: 40px 16px; }
+      .faq-section { padding: 40px 16px; }
+      .newsletter-section { padding: 40px 16px; }
+      .newsletter-form { flex-direction: column; }
+      .newsletter-form input, .newsletter-form button { width: 100%; border-right: 1px solid #5a4232; }
+      .related-section { padding: 40px 16px; }
+      .related-grid { grid-template-columns: 1fr 1fr; gap: 16px; }
+      .usp-strip { gap: 6px; }
+    }
+    @media (max-width: 480px) {
+      .features-grid { grid-template-columns: 1fr; }
+      .process-flow-grid { grid-template-columns: 1fr; }
+      .specs-grid { grid-template-columns: 1fr 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ─── ANNOUNCEMENT BAR ─── -->
+<div class="announcement-bar">
+  Handgemacht mit Liebe 🏺
+  <span>·</span>
+  Jedes Stück ein Unikat
+  <span>·</span>
+  Kostenloser Versand ab 250 €
+</div>
+
+<!-- ─── HEADER ─── -->
+<header>
+  <div class="nav-inner">
+    <a href="#" class="nav-logo">
+      <img src="https://keramikshop.shop/cdn/shop/files/logo-rechteck.jpg?v=1738575628"
+           alt="Alte Schmiede Keramik"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block';" />
+      <span class="nav-logo-text" style="display:none;">Alte Schmiede</span>
+    </a>
+    <nav class="nav-links">
+      <a href="#">Tassen & Becher</a>
+      <a href="#">Keramik Geschirr</a>
+      <a href="#">Küche & Vorratsgefäße</a>
+      <a href="#">Ambiente & Deko</a>
+      <a href="#">Geschenktipp</a>
+      <a href="#">Über uns</a>
+    </nav>
+    <div class="nav-icons">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+    </div>
+  </div>
+</header>
+
+<!-- ─── PRODUCT HERO ─── -->
+<div class="product-hero">
+  <div class="gallery">
+    <div class="gallery-main">
+      <img id="mainImg" src="https://keramikshop.shop/cdn/shop/products/Espressotasse-erdig.jpg?v=1669479869" alt="Espresso Tasse erdig" />
+    </div>
+    <div class="gallery-thumbs">
+      <img class="active" src="https://keramikshop.shop/cdn/shop/products/Espressotasse-erdig.jpg?v=1669479869" alt="Erdig" onclick="setMain(this)" />
+      <img src="https://keramikshop.shop/cdn/shop/products/2CCE0E17-4FC6-4A94-A544-EFE709902E16-876974.jpg?v=1623163313" alt="Detail" onclick="setMain(this)" />
+      <img src="https://keramikshop.shop/cdn/shop/products/Espresso-set.jpg?v=1669479698" alt="Set" onclick="setMain(this)" />
+      <img src="https://keramikshop.shop/cdn/shop/products/Espressotassen-set1.jpg?v=1669479869" alt="Set 2" onclick="setMain(this)" />
+    </div>
+  </div>
+
+  <div class="product-info">
+    <!-- Klein über dem Titel – kein Badge-Box -->
+    <div class="product-tag">Handgemacht in Deutschland</div>
+
+    <h1>Espresso Tasse aus Keramik – Handgefertigt</h1>
+
+    <!-- STERNE -->
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-score">4,9</span>
+      <a class="rating-link" href="#reviews">23 Bewertungen</a>
+    </div>
+
+    <p class="product-subtitle">Handgedreht auf der Töpferscheibe. Bauchige Form für optimale Wärmespeicherung. Jedes Stück ein echtes Unikat.</p>
+    <div class="price-row">14,00 €</div>
+    <div class="price-note">inkl. MwSt. · zzgl. Versandkosten</div>
+
+    <hr class="divider" />
+
+    <!-- USP – Pill-Style -->
+    <div class="usp-strip">
+      <div class="usp-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Handgedreht
+      </div>
+      <div class="usp-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Echtes Unikat
+      </div>
+      <div class="usp-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Made in Germany
+      </div>
+      <div class="usp-pill">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+        Steinzeug
+      </div>
+    </div>
+
+    <!-- GLASUR – Farbkreise -->
+    <div class="label">Glasur wählen</div>
+    <div class="swatch-options">
+      <button class="swatch-btn active" onclick="selectSwatch(this,'https://keramikshop.shop/cdn/shop/products/Espressotasse-erdig.jpg?v=1669479869')">
+        <span class="swatch-circle s-erdig"></span>
+        <span class="swatch-name">Erdig</span>
+      </button>
+      <button class="swatch-btn" onclick="selectSwatch(this,'https://keramikshop.shop/cdn/shop/products/Espressotasse-gruen.jpg?v=1669479869')">
+        <span class="swatch-circle s-gruen"></span>
+        <span class="swatch-name">Grün</span>
+      </button>
+      <button class="swatch-btn" onclick="selectSwatch(this,'https://keramikshop.shop/cdn/shop/products/Espressotasse-gruen.gesprenkelt.jpg?v=1669479869')">
+        <span class="swatch-circle s-gruen-s"></span>
+        <span class="swatch-name">Grün gesprenk.</span>
+      </button>
+      <button class="swatch-btn" onclick="selectSwatch(this,'https://keramikshop.shop/cdn/shop/products/Espressotasse-tuerkis.jpg?v=1669479869')">
+        <span class="swatch-circle s-tuerkis"></span>
+        <span class="swatch-name">Türkis</span>
+      </button>
+      <button class="swatch-btn" onclick="selectSwatch(this,'https://keramikshop.shop/cdn/shop/products/Espressotasse-tuerkis.gesprenkelt.jpg?v=1669479869')">
+        <span class="swatch-circle s-tuerkis-s"></span>
+        <span class="swatch-name">Türkis gesprenk.</span>
+      </button>
+    </div>
+
+    <!-- MENGE -->
+    <div class="label">Menge</div>
+    <div class="qty-row">
+      <button class="qty-btn">−</button>
+      <span class="qty-num">1</span>
+      <button class="qty-btn">+</button>
+    </div>
+
+    <button class="btn-cart">In den Warenkorb</button>
+    <button class="btn-wishlist">♡ &nbsp;Auf Wunschliste</button>
+
+    <div class="trust-badges">
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        2 Jahre Garantie auf alle Produkte
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="1" y="3" width="15" height="13"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Kostenloser Versand ab 250 €
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        Ca. 3–4 Wochen Lieferzeit bei Nachbestellung
+      </div>
+      <div class="trust-badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="20 6 9 17 4 12"/></svg>
+        Sichere Zahlung · SSL-verschlüsselt
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── TAGLINE ─── -->
+<div class="tagline-section">
+  <h2>Handgeformt.<br>Für den Kaffee, der zählt.</h2>
+  <p>Nicht jede Tasse ist gleich – und das ist der Punkt. Jedes Stück entsteht von Hand, auf der Töpferscheibe, mit einer Glasur, die beim Brand ihr eigenes Gesicht bekommt.</p>
+</div>
+
+<!-- ─── MATERIAL FEATURES ─── -->
+<div class="features-section">
+  <div class="section-title">Das Material</div>
+  <div class="section-heading">Warum Keramik-Steinzeug?</div>
+  <div class="features-grid">
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"/></svg>
+      <h3>Wärmespeichernd</h3>
+      <p>Die bauchige Form und das massive Steinzeug halten deinen Espresso länger heiß als dünnes Porzellan.</p>
+    </div>
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 22C6.477 22 2 17.523 2 12S6.477 2 12 2s10 4.477 10 10-4.477 10-10 10z"/><path d="M8 12l2.5 2.5L16 9"/></svg>
+      <h3>Langlebig</h3>
+      <p>Hochgebranntes Steinzeug ist robust, spülmaschinengeeignet und begleitet dich jahrelang.</p>
+    </div>
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <h3>Echtes Unikat</h3>
+      <p>Kein Stück gleicht dem anderen. Glasur, Maserung und Form variieren – das macht den Wert aus.</p>
+    </div>
+    <div class="feature-card">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 0 1-2.827 0l-4.244-4.243a8 8 0 1 1 11.314 0z"/><circle cx="12" cy="11" r="3"/></svg>
+      <h3>Made in Germany</h3>
+      <p>Gefertigt in der Alten Schmiede. Kein Import, keine Fabrik – lokales Handwerk.</p>
+    </div>
+  </div>
+</div>
+
+<!-- ─── PROZESS SWIPER ─── -->
+<div class="process-flow-section">
+  <div class="process-flow-inner">
+    <div class="section-title">Vom Ton zur Tasse</div>
+    <div class="section-heading">So entsteht dein Stück</div>
+  </div>
+
+  <div class="process-swiper-wrap" id="processSwiperWrap">
+
+    <div class="process-step-card">
+      <img class="step-photo"
+           src="process images /3.jpg"
+           alt="Ton drehen auf der Töpferscheibe" />
+      <div class="process-step-body">
+        <div class="step-num-line">Schritt 01</div>
+        <div class="step-title">Ton drehen</div>
+        <div class="step-desc">Der Ton wird auf der Töpferscheibe von Hand in Form gebracht. Jede Bewegung, jeder Druck prägt das spätere Stück – keine Maschine kann das ersetzen.</div>
+      </div>
+    </div>
+
+    <div class="process-step-card">
+      <img class="step-photo"
+           src="process images /4.jpg"
+           alt="Keramik trocknen" />
+      <div class="process-step-body">
+        <div class="step-num-line">Schritt 02</div>
+        <div class="step-title">Trocknen</div>
+        <div class="step-desc">Nach dem Drehen muss das Stück langsam an der Luft trocknen. Zu schnell – und es reißt. Geduld ist ein fester Teil des Handwerks.</div>
+      </div>
+    </div>
+
+    <div class="process-step-card">
+      <img class="step-photo"
+           src="process images /5.jpg"
+           alt="Erstbrand im Töpferofen" />
+      <div class="process-step-body">
+        <div class="step-num-line">Schritt 03</div>
+        <div class="step-title">Erstbrand</div>
+        <div class="step-desc">Im Ofen bei ~1000 °C wird der getrocknete Ton zum Scherben gebrannt – porös, aber stabil genug, um die Glasur aufzunehmen.</div>
+      </div>
+    </div>
+
+    <div class="process-step-card">
+      <img class="step-photo"
+           src="process images /6.jpg"
+           alt="Glasur auftragen auf Keramik" />
+      <div class="process-step-body">
+        <div class="step-num-line">Schritt 04</div>
+        <div class="step-title">Glasur auftragen</div>
+        <div class="step-desc">Die Glasur wird von Hand aufgetragen – getaucht, gepinselt oder gegossen. Jede Glasur reagiert beim Brand auf ihre eigene Art. Daher ist kein Stück wie das andere.</div>
+      </div>
+    </div>
+
+    <div class="process-step-card">
+      <img class="step-photo"
+           src="process images /7.jpg"
+           alt="Glasurbrand im Ofen" />
+      <div class="process-step-body">
+        <div class="step-num-line">Schritt 05</div>
+        <div class="step-title">Glasurbrand</div>
+        <div class="step-desc">Bei ~1250 °C schmilzt die Glasur auf den Scherben und wird Teil des Stücks – unveränderlich, für immer. Das fertige Unikat entsteht.</div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="swiper-dots" id="swiperDots">
+    <div class="swiper-dot active"></div>
+    <div class="swiper-dot"></div>
+    <div class="swiper-dot"></div>
+    <div class="swiper-dot"></div>
+    <div class="swiper-dot"></div>
+  </div>
+</div>
+
+<!-- ─── SPECS ─── -->
+<div class="specs-section">
+  <div class="specs-inner">
+    <div class="section-title">Technische Daten</div>
+    <div class="section-heading">Auf einen Blick</div>
+    <div class="specs-grid">
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/></svg>
+        <div class="spec-value">80–100 ml</div>
+        <div class="spec-label">Fassungsvermögen</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/></svg>
+        <div class="spec-value">Ø 6 cm</div>
+        <div class="spec-label">Durchmesser</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><line x1="12" y1="2" x2="12" y2="22"/><path d="M12 2l3 10H9z"/></svg>
+        <div class="spec-value">~ 6 cm</div>
+        <div class="spec-label">Höhe</div>
+      </div>
+      <div class="spec-card">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7"><path d="M21 3H3v7c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V3z"/></svg>
+        <div class="spec-value">Steinzeug</div>
+        <div class="spec-label">Material</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ─── BEWERTUNGEN ─── -->
+<div id="reviews">
+  <div class="section-title">Kundenstimmen</div>
+  <div class="section-heading">Was andere sagen</div>
+  <div class="reviews-summary">
+    <div class="reviews-big-score">4,9</div>
+    <div>
+      <div class="reviews-stars-row">★★★★★</div>
+      <div class="reviews-count">Basierend auf 23 Bewertungen</div>
+    </div>
+  </div>
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div class="review-author">Laura M.</div>
+        <div class="review-date">März 2025</div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+    </div>
+    <div class="review-text">Absolut wunderschöne Tasse. Die Glasur ist noch viel schöner als auf den Fotos – warm, lebendig, unverwechselbar. Espresso schmeckt tatsächlich besser daraus!</div>
+  </div>
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div class="review-author">Tom K.</div>
+        <div class="review-date">Januar 2025</div>
+      </div>
+      <div class="review-stars">★★★★★</div>
+    </div>
+    <div class="review-text">Tolles Geschenk. Meine Frau war begeistert. Man merkt sofort, dass das kein Massenprodukt ist – jede Tasse hat ihren eigenen Charakter.</div>
+  </div>
+  <div class="review-card">
+    <div class="review-header">
+      <div>
+        <div class="review-author">Anna S.</div>
+        <div class="review-date">November 2024</div>
+      </div>
+      <div class="review-stars">★★★★☆</div>
+    </div>
+    <div class="review-text">Sehr gute Qualität. Die Lieferzeit war etwas länger, aber das ist bei Handarbeit völlig verständlich. Würde ich jederzeit wieder kaufen.</div>
+  </div>
+</div>
+
+<!-- ─── FAQ ─── -->
+<div class="faq-section">
+  <div class="section-title" style="text-align:center;">FAQ</div>
+  <div class="section-heading" style="text-align:center; margin-bottom:32px;">Häufige Fragen</div>
+  <div class="faq-item">
+    <div class="faq-q">Ist die Tasse spülmaschinenfest? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Ja. Hochgebranntes Steinzeug ist spülmaschinengeeignet. Handwäsche verlängert die Lebensdauer der Glasur, ist aber nicht notwendig.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Sind alle Tassen gleich groß? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Nein – und das ist gewollt. Jede Tasse wird handgedreht, daher gibt es minimale Abweichungen in Form und Größe. Das macht jedes Stück einzigartig.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Wie lange dauert die Lieferung? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Lagerware wird sofort versendet. Bei Nachbestellung dauert die Produktion ca. 3–4 Wochen, da jede Tasse frisch gefertigt wird.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Kann ich mehrere Glasuren mischen? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Ja. Du kannst verschiedene Varianten bestellen – zum Beispiel zwei Glasuren für ein Set. Alle Tassen lassen sich frei kombinieren.</div>
+  </div>
+  <div class="faq-item">
+    <div class="faq-q">Gibt es passende Untertassen? <span class="faq-icon">+</span></div>
+    <div class="faq-a">Ja – die Tasse ist optional mit einem handgefertigten Untersetzer oder Tablett kombinierbar.</div>
+  </div>
+</div>
+
+<!-- ─── NEWSLETTER ─── -->
+<div class="newsletter-section">
+  <h2>Neue Stücke zuerst sehen</h2>
+  <p>Jede Töpferrunde bringt neue Glasuren, Formen und limitierte Editionen.<br>Meld dich an und erfahre es als Erste·r.</p>
+  <div class="newsletter-form">
+    <input type="email" placeholder="Deine E-Mail-Adresse" />
+    <button>Anmelden</button>
+  </div>
+</div>
+
+<!-- ─── RELATED ─── -->
+<div class="related-section">
+  <div class="section-title">Mehr entdecken</div>
+  <div class="section-heading" style="margin-bottom:28px;">Dazu passt auch</div>
+  <div class="related-grid">
+    <div class="related-card">
+      <img src="https://keramikshop.shop/cdn/shop/products/Espressotasse-gruen.jpg?v=1669479869" alt="Grün" />
+      <div class="related-name">Espresso Tasse – Grün</div>
+      <div class="related-price">14,00 €</div>
+    </div>
+    <div class="related-card">
+      <img src="https://keramikshop.shop/cdn/shop/products/Espressotasse-tuerkis.jpg?v=1669479869" alt="Türkis" />
+      <div class="related-name">Espresso Tasse – Türkis</div>
+      <div class="related-price">14,00 €</div>
+    </div>
+    <div class="related-card">
+      <img src="https://keramikshop.shop/cdn/shop/products/Espresso-set.jpg?v=1669479698" alt="Set" />
+      <div class="related-name">Espresso Set – 2er</div>
+      <div class="related-price">26,00 €</div>
+    </div>
+    <div class="related-card">
+      <img src="https://keramikshop.shop/cdn/shop/products/Espressotassen-set1.jpg?v=1669479869" alt="Alle Glasuren" />
+      <div class="related-name">Espresso Tasse – Türkis gesprenkelt</div>
+      <div class="related-price">14,00 €</div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  © Alte Schmiede Keramik · Tassen & Becher · Keramik Geschirr · Über uns · Impressum · Datenschutz
+</footer>
+
+<script>
+function setMain(img) {
+  document.getElementById('mainImg').src = img.src;
+  document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
+  img.classList.add('active');
+}
+function selectSwatch(btn, imgSrc) {
+  document.getElementById('mainImg').src = imgSrc;
+  document.querySelectorAll('.swatch-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
+
+// ── Swiper: drag-to-scroll + dots ──
+(function() {
+  const wrap = document.getElementById('processSwiperWrap');
+  const dots = document.querySelectorAll('#swiperDots .swiper-dot');
+  if (!wrap) return;
+
+  // Drag scroll (desktop)
+  let isDown = false, startX, scrollLeft;
+  wrap.addEventListener('mousedown', e => {
+    isDown = true; wrap.classList.add('grabbing');
+    startX = e.pageX - wrap.offsetLeft;
+    scrollLeft = wrap.scrollLeft;
+  });
+  wrap.addEventListener('mouseleave', () => { isDown = false; wrap.classList.remove('grabbing'); });
+  wrap.addEventListener('mouseup', () => { isDown = false; wrap.classList.remove('grabbing'); });
+  wrap.addEventListener('mousemove', e => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - wrap.offsetLeft;
+    wrap.scrollLeft = scrollLeft - (x - startX) * 1.2;
+  });
+
+  // Dots update on scroll
+  wrap.addEventListener('scroll', () => {
+    const cards = wrap.querySelectorAll('.process-step-card');
+    const wrapLeft = wrap.scrollLeft;
+    let activeIdx = 0;
+    cards.forEach((card, i) => {
+      if (card.offsetLeft - wrap.offsetLeft <= wrapLeft + 10) activeIdx = i;
+    });
+    dots.forEach((d, i) => d.classList.toggle('active', i === activeIdx));
+  }, { passive: true });
+})();
+</script>
+</body>
+</html>
