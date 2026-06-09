@@ -1,0 +1,899 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bone&Teeth Supreme – SUPZ Nutrition</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --black: #0a0a0a;
+    --dark: #1a1a1a;
+    --mid: #555;
+    --light-mid: #888;
+    --border: #e5e5e5;
+    --light: #f7f7f7;
+    --white: #ffffff;
+    --accent: #0a0a0a;
+    --green: #2e8b57;
+    --green-light: #edf7f1;
+    --star: #f5b800;
+    --ff: 'Helvetica Neue', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --r: 4px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff); color: var(--dark); background: var(--white); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button { font-family: var(--ff); cursor: pointer; }
+
+  /* ── ANNOUNCE BAR ── */
+  .bar {
+    background: var(--black); color: #fff;
+    padding: 10px 20px; display: flex; align-items: center;
+    justify-content: center; gap: 36px; flex-wrap: wrap; font-size: 12px;
+    letter-spacing: .04em;
+  }
+  .bar span { display: flex; align-items: center; gap: 7px; }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    padding: 0 48px; display: flex; align-items: center;
+    justify-content: space-between; height: 64px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo img { height: 30px; }
+  .nav-links { display: flex; gap: 36px; }
+  .nav-links a { font-size: 13px; letter-spacing: .06em; text-transform: uppercase; color: var(--mid); transition: color .2s; font-weight: 500; }
+  .nav-links a:hover { color: var(--black); }
+  .nav-icons { display: flex; gap: 18px; align-items: center; }
+  .nav-icons svg { width: 20px; height: 20px; stroke: var(--dark); fill: none; stroke-width: 1.6; cursor: pointer; }
+  .cart-wrap { position: relative; }
+  .cart-dot { position: absolute; top: -5px; right: -6px; background: var(--black); color: #fff; font-size: 9px; width: 15px; height: 15px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .breadcrumb { padding: 12px 48px; font-size: 12px; color: var(--light-mid); border-bottom: 1px solid var(--border); letter-spacing: .02em; }
+  .breadcrumb a { color: var(--mid); }
+  .breadcrumb span { margin: 0 6px; }
+
+  /* ── HERO PRODUCT ── */
+  .product-wrap {
+    max-width: 1160px; margin: 0 auto;
+    padding: 40px 48px 72px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start;
+  }
+
+  /* Gallery */
+  .gallery { position: sticky; top: 76px; }
+  .gal-main {
+    background: var(--light); border-radius: 2px;
+    aspect-ratio: 1; overflow: hidden; margin-bottom: 12px;
+    border: 1px solid var(--border); position: relative;
+  }
+  .gal-main img { width: 100%; height: 100%; object-fit: contain; transition: opacity .25s; }
+  .gal-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--black); color: #fff;
+    font-size: 10px; font-weight: 700; padding: 5px 12px; border-radius: 2px;
+    letter-spacing: .1em; text-transform: uppercase;
+  }
+  .gal-thumbs { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+  .gal-thumb {
+    background: var(--light); border-radius: 2px; aspect-ratio: 1;
+    border: 1.5px solid transparent; cursor: pointer; overflow: hidden;
+    transition: border-color .15s;
+  }
+  .gal-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .gal-thumb.active, .gal-thumb:hover { border-color: var(--black); }
+
+  /* Info */
+  .product-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--mid); margin-bottom: 10px; font-weight: 500; }
+  .product-title {
+    font-size: clamp(22px, 2.8vw, 34px); font-weight: 800;
+    line-height: 1.15; margin-bottom: 6px; color: var(--black);
+    letter-spacing: -.03em;
+  }
+  .product-sub { font-size: 14px; color: var(--mid); margin-bottom: 16px; line-height: 1.6; }
+  .rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 24px; }
+  .stars { color: var(--star); font-size: 15px; letter-spacing: 1px; }
+  .rating-n { font-weight: 700; font-size: 13px; }
+  .rating-c { font-size: 13px; color: var(--mid); border-bottom: 1px solid var(--border); cursor: pointer; }
+
+  /* Badges */
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 24px; }
+  .badge {
+    display: flex; align-items: center; gap: 6px;
+    border: 1px solid var(--border); padding: 6px 12px; border-radius: 2px;
+    font-size: 11px; font-weight: 600; letter-spacing: .06em; text-transform: uppercase; color: var(--mid);
+  }
+  .badge svg { width: 13px; height: 13px; stroke: var(--black); fill: none; stroke-width: 2; }
+
+  /* Key ingredients preview */
+  .ingr-preview { margin-bottom: 28px; }
+  .ingr-preview-title { font-size: 11px; text-transform: uppercase; letter-spacing: .14em; color: var(--mid); margin-bottom: 12px; font-weight: 600; }
+  .ingr-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+  .ingr-chip { background: var(--light); border: 1px solid var(--border); padding: 6px 12px; font-size: 12px; font-weight: 600; border-radius: 2px; color: var(--dark); }
+
+  /* Sub box */
+  .sub-box { border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .sub-option { display: flex; align-items: center; gap: 14px; padding: 16px 18px; cursor: pointer; transition: background .15s; position: relative; }
+  .sub-option + .sub-option { border-top: 1px solid var(--border); }
+  .sub-option.active { background: var(--light); }
+  .sub-radio { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color .15s; }
+  .sub-option.active .sub-radio { border-color: var(--black); }
+  .sub-radio-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--black); display: none; }
+  .sub-option.active .sub-radio-dot { display: block; }
+  .sub-info { flex: 1; }
+  .sub-title { font-size: 13px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+  .sub-desc { font-size: 12px; color: var(--light-mid); }
+  .sub-price-col { text-align: right; }
+  .sub-price { font-size: 18px; font-weight: 800; color: var(--black); }
+  .sub-save { display: inline-block; background: var(--black); color: #fff; font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 2px; margin-left: 6px; letter-spacing: .06em; }
+  .sub-abo-details { padding: 12px 18px; background: var(--light); border-top: 1px solid var(--border); display: none; font-size: 12px; color: var(--mid); }
+  .sub-abo-details.visible { display: flex; gap: 20px; flex-wrap: wrap; }
+  .sub-detail { display: flex; align-items: center; gap: 5px; }
+  .sub-detail svg { width: 12px; height: 12px; stroke: var(--black); fill: none; stroke-width: 2.5; }
+
+  /* Qty + CTA */
+  .qty-row { display: flex; align-items: center; gap: 12px; margin-bottom: 12px; }
+  .qty-box { display: flex; align-items: center; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .qty-btn { width: 40px; height: 48px; background: none; border: none; font-size: 18px; color: var(--dark); cursor: pointer; transition: background .15s; }
+  .qty-btn:hover { background: var(--light); }
+  .qty-val { width: 48px; height: 48px; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 700; border-left: 1px solid var(--border); border-right: 1px solid var(--border); }
+  .btn-buy {
+    flex: 1; padding: 15px; background: var(--black); color: #fff;
+    font-size: 14px; font-weight: 700; border: none; border-radius: 2px;
+    cursor: pointer; letter-spacing: .06em; text-transform: uppercase;
+    transition: background .2s;
+  }
+  .btn-buy:hover { background: #222; }
+  .btn-wish { width: 100%; padding: 13px; background: var(--white); border: 1px solid var(--border); border-radius: 2px; font-size: 13px; font-weight: 600; color: var(--dark); cursor: pointer; margin-bottom: 20px; letter-spacing: .04em; transition: border-color .2s; }
+  .btn-wish:hover { border-color: var(--black); }
+
+  /* Trust */
+  .trust-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; margin-bottom: 20px; }
+  .trust-cell { background: var(--white); padding: 14px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 6px; }
+  .trust-cell svg { width: 20px; height: 20px; stroke: var(--black); fill: none; stroke-width: 1.6; }
+  .trust-cell span { font-size: 10px; color: var(--mid); line-height: 1.4; text-align: center; letter-spacing: .04em; }
+
+  /* ── BENEFIT STRIP ── */
+  .benefit-strip { background: var(--light); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); padding: 48px; }
+  .benefit-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 32px; }
+  .ben-card { text-align: center; }
+  .ben-ic { width: 48px; height: 48px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; margin: 0 auto 14px; border-radius: 2px; background: var(--white); }
+  .ben-ic svg { width: 22px; height: 22px; stroke: var(--black); fill: none; stroke-width: 1.6; }
+  .ben-card h3 { font-size: 13px; font-weight: 700; color: var(--black); margin-bottom: 6px; letter-spacing: -.01em; }
+  .ben-card p { font-size: 12px; color: var(--mid); line-height: 1.7; }
+
+  /* ── INGREDIENTS EXPLAINER ── */
+  .ingr-section { padding: 72px 48px; }
+  .ingr-inner { max-width: 1060px; margin: 0 auto; }
+  .sec-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--mid); font-weight: 600; margin-bottom: 10px; }
+  .sec-title { font-size: clamp(22px, 2.8vw, 32px); font-weight: 800; color: var(--black); letter-spacing: -.03em; line-height: 1.2; margin-bottom: 12px; }
+  .sec-sub { font-size: 14px; color: var(--mid); line-height: 1.8; max-width: 600px; }
+  .ingr-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); margin-top: 48px; }
+  .ingr-card { background: var(--white); padding: 28px 24px; transition: background .15s; }
+  .ingr-card:hover { background: var(--light); }
+  .ingr-num { font-size: 11px; font-weight: 700; letter-spacing: .12em; color: var(--light-mid); margin-bottom: 10px; }
+  .ingr-name { font-size: 15px; font-weight: 800; color: var(--black); margin-bottom: 4px; letter-spacing: -.02em; }
+  .ingr-form { font-size: 11px; color: var(--light-mid); margin-bottom: 12px; letter-spacing: .04em; text-transform: uppercase; }
+  .ingr-text { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .ingr-highlight { display: inline-block; background: var(--black); color: #fff; font-size: 10px; font-weight: 700; padding: 3px 8px; border-radius: 2px; margin-top: 10px; letter-spacing: .06em; }
+
+  /* ── FOR WHOM ── */
+  .whom-section { padding: 72px 48px; background: var(--black); }
+  .whom-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  .whom-text .sec-eyebrow { color: #888; }
+  .whom-text .sec-title { color: #fff; }
+  .whom-text .sec-sub { color: #999; }
+  .whom-list { margin-top: 32px; display: flex; flex-direction: column; gap: 16px; }
+  .whom-li { display: flex; align-items: flex-start; gap: 14px; padding: 20px; border: 1px solid #2a2a2a; border-radius: 2px; }
+  .whom-li svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 1.5; flex-shrink: 0; margin-top: 1px; }
+  .whom-li h4 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .whom-li p { font-size: 12px; color: #888; line-height: 1.6; }
+  .whom-img { background: #111; border-radius: 2px; overflow: hidden; aspect-ratio: 3/4; display: flex; align-items: center; justify-content: center; }
+  .whom-img img { width: 80%; object-fit: contain; }
+
+  /* ── WHY BETTER ── */
+  .compare-section { padding: 72px 48px; background: var(--light); }
+  .compare-inner { max-width: 900px; margin: 0 auto; text-align: center; }
+  .compare-table { margin-top: 48px; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .compare-head { display: grid; grid-template-columns: 2fr 1fr 1fr; background: var(--black); }
+  .ch-cell { padding: 16px 20px; font-size: 12px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #fff; }
+  .ch-cell:not(:last-child) { border-right: 1px solid #333; }
+  .ch-cell.highlight { background: #1a1a1a; }
+  .compare-row { display: grid; grid-template-columns: 2fr 1fr 1fr; background: var(--white); border-top: 1px solid var(--border); }
+  .compare-row:nth-child(even) { background: var(--light); }
+  .cr-cell { padding: 14px 20px; font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .cr-cell:not(:first-child) { justify-content: center; border-left: 1px solid var(--border); font-weight: 700; }
+  .cr-yes { color: var(--green); }
+  .cr-no { color: #ccc; }
+  .cr-cell svg { width: 16px; height: 16px; stroke: currentColor; fill: none; stroke-width: 2.5; }
+
+  /* ── HOW TO ── */
+  .how-section { padding: 72px 48px; }
+  .how-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+  .how-steps { margin-top: 32px; display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .how-step { padding: 24px; border-bottom: 1px solid var(--border); display: flex; align-items: flex-start; gap: 18px; }
+  .how-step:last-child { border-bottom: none; }
+  .how-n { width: 32px; height: 32px; background: var(--black); color: #fff; font-size: 13px; font-weight: 800; display: flex; align-items: center; justify-content: center; flex-shrink: 0; border-radius: 2px; }
+  .how-body h4 { font-size: 14px; font-weight: 700; margin-bottom: 5px; }
+  .how-body p { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .how-img-area { background: var(--light); border: 1px solid var(--border); border-radius: 2px; overflow: hidden; padding: 40px; display: flex; align-items: center; justify-content: center; }
+  .how-img-area img { width: 100%; object-fit: contain; }
+  .how-tip { margin-top: 16px; background: var(--light); border-left: 3px solid var(--black); padding: 16px 18px; font-size: 13px; color: var(--dark); line-height: 1.7; }
+  .how-tip strong { color: var(--black); }
+
+  /* ── REVIEWS ── */
+  .review-section { padding: 72px 48px; background: var(--light); }
+  .review-inner { max-width: 1060px; margin: 0 auto; }
+  .review-top { display: flex; align-items: center; gap: 56px; margin-bottom: 48px; padding-bottom: 40px; border-bottom: 1px solid var(--border); }
+  .rv-big { font-size: 72px; font-weight: 900; color: var(--black); line-height: 1; letter-spacing: -.05em; }
+  .rv-stars { color: var(--star); font-size: 20px; letter-spacing: 3px; margin: 8px 0; }
+  .rv-count { font-size: 12px; color: var(--mid); letter-spacing: .04em; }
+  .rv-bars { flex: 1; }
+  .rv-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 8px; }
+  .rv-lbl { font-size: 12px; color: var(--mid); width: 30px; text-align: right; }
+  .rv-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .rv-fill { height: 100%; border-radius: 3px; background: var(--black); }
+  .rv-pct { font-size: 12px; color: var(--mid); width: 30px; }
+  .review-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .rc { background: var(--white); border: 1px solid var(--border); border-radius: 2px; padding: 24px; }
+  .rc-head { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .rc-stars { color: var(--star); font-size: 13px; }
+  .rc-date { font-size: 12px; color: var(--light-mid); }
+  .rc-name { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .rc-tag { font-size: 11px; color: var(--mid); background: var(--light); padding: 3px 8px; border-radius: 2px; display: inline-block; margin-bottom: 12px; }
+  .rc-text { font-size: 13px; color: var(--mid); line-height: 1.8; }
+  .rc-verified { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--green); font-weight: 600; margin-top: 14px; }
+  .rc-verified svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+
+  /* ── FAQ ── */
+  .faq-section { padding: 72px 48px; }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-q { width: 100%; background: none; border: none; padding: 20px 0; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; color: var(--dark); cursor: pointer; text-align: left; gap: 16px; letter-spacing: -.01em; }
+  .faq-q svg { width: 16px; height: 16px; stroke: var(--black); fill: none; stroke-width: 2; flex-shrink: 0; transition: transform .25s; }
+  .faq-item.open .faq-q svg { transform: rotate(45deg); }
+  .faq-a { font-size: 13px; color: var(--mid); line-height: 1.9; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; }
+  .faq-item.open .faq-a { max-height: 300px; padding-bottom: 20px; }
+
+  /* ── NUTRITION TABLE ── */
+  .nutr-section { padding: 72px 48px; background: var(--light); }
+  .nutr-inner { max-width: 900px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 56px; align-items: start; }
+  .nutr-table { border: 1px solid var(--border); border-radius: 2px; overflow: hidden; }
+  .nutr-head { display: grid; grid-template-columns: 2fr 1fr 1fr; background: var(--black); }
+  .nutr-hcell { padding: 12px 16px; font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: #fff; }
+  .nutr-row { display: grid; grid-template-columns: 2fr 1fr 1fr; border-top: 1px solid var(--border); background: var(--white); }
+  .nutr-row:nth-child(even) { background: var(--light); }
+  .nutr-row.sub { padding-left: 8px; }
+  .nutr-cell { padding: 11px 16px; font-size: 12px; color: var(--dark); }
+  .nutr-cell:not(:first-child) { color: var(--mid); border-left: 1px solid var(--border); }
+  .nutr-disclaimer { font-size: 11px; color: var(--light-mid); margin-top: 12px; line-height: 1.6; }
+  .nutr-img { display: flex; align-items: center; justify-content: center; }
+  .nutr-img img { border: 1px solid var(--border); border-radius: 2px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--black); padding: 56px 48px 28px; }
+  .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 48px; margin-bottom: 48px; }
+  .ft-logo img { height: 24px; filter: brightness(0) invert(1); opacity: .6; margin-bottom: 16px; }
+  .ft-logo p { font-size: 12px; color: #666; line-height: 1.8; max-width: 200px; }
+  .ft-col h4 { font-size: 10px; font-weight: 700; color: #fff; letter-spacing: .18em; text-transform: uppercase; margin-bottom: 18px; }
+  .ft-col a { display: block; font-size: 13px; color: #666; margin-bottom: 10px; transition: color .2s; }
+  .ft-col a:hover { color: #fff; }
+  .ft-bottom { border-top: 1px solid #222; padding-top: 24px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .ft-bottom p { font-size: 12px; color: #444; }
+  .ft-bottom .ft-pays { display: flex; gap: 6px; }
+  .ft-pay { background: #1a1a1a; border: 1px solid #333; border-radius: 2px; padding: 4px 8px; font-size: 10px; font-weight: 700; color: #666; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 960px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .breadcrumb { padding: 10px 20px; }
+    .product-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 20px 48px; }
+    .gallery { position: static; }
+    .gal-thumbs { grid-template-columns: repeat(4,1fr); }
+    .benefit-strip, .ingr-section, .whom-section, .compare-section, .how-section, .review-section, .faq-section, .nutr-section { padding: 48px 20px; }
+    .benefit-inner { grid-template-columns: repeat(2,1fr); }
+    .ingr-grid { grid-template-columns: 1fr; }
+    .whom-inner { grid-template-columns: 1fr; gap: 32px; }
+    .whom-img { display: none; }
+    .how-inner { grid-template-columns: 1fr; gap: 32px; }
+    .how-img-area { display: none; }
+    .review-top { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .review-grid { grid-template-columns: 1fr; }
+    .nutr-inner { grid-template-columns: 1fr; gap: 28px; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .ft-logo { grid-column: 1/-1; }
+  }
+  @media (max-width: 480px) {
+    .benefit-inner { grid-template-columns: 1fr; }
+    .trust-row { grid-template-columns: repeat(2,1fr); }
+    .footer-top { grid-template-columns: 1fr; }
+    .compare-table { font-size: 12px; }
+    .badge-row { gap: 6px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="bar">
+  <span>🚚 Kostenloser Versand ab 49 €</span>
+  <span>🔬 Laborgetestetest · Made in Germany</span>
+  <span>🔄 30 Tage Rückgabe</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#"><img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_Logo_1445x.png?v=1698658778" alt="SUPZ Nutrition" style="height:28px;"></a>
+  <div class="nav-links">
+    <a href="#">Shop</a>
+    <a href="#">Qualität</a>
+    <a href="#">Blog</a>
+    <a href="#">Über uns</a>
+  </div>
+  <div class="nav-icons">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <div class="cart-wrap">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-dot">0</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">SUPZ Nutrition</a><span>›</span>
+  <a href="#">Vitamine & Mineralstoffe</a><span>›</span>
+  Bone&Teeth Supreme
+</div>
+
+<!-- HERO PRODUCT -->
+<div class="product-wrap">
+
+  <!-- Gallery -->
+  <div class="gallery">
+    <div class="gal-main">
+      <div class="gal-badge">Neu</div>
+      <img id="mainImg"
+        src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeethSupreme_2x_180920f6-a234-4628-a68a-95a3ee4c48d6.jpg?crop=center&height=1000&v=1702941777&width=1000"
+        alt="Bone&Teeth Supreme">
+    </div>
+    <div class="gal-thumbs">
+      <div class="gal-thumb active" onclick="switchImg(this,'https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeethSupreme_2x_180920f6-a234-4628-a68a-95a3ee4c48d6.jpg?crop=center&height=1000&v=1702941777&width=1000')">
+        <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeethSupreme_2x_180920f6-a234-4628-a68a-95a3ee4c48d6.jpg?crop=center&height=400&v=1702941777&width=400" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeeth_Inhalt-1_2x_ce9473d4-515a-4c76-9bbc-44b641ebaf4c.jpg?crop=center&height=1000&v=1739639524&width=1000')">
+        <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeeth_Inhalt-1_2x_ce9473d4-515a-4c76-9bbc-44b641ebaf4c.jpg?crop=center&height=400&v=1739639524&width=400" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeeth_Tabelle-DE_2x_2520f853-1969-47f4-b2f9-7844884c9baf.png?v=1739639747&width=800')">
+        <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeeth_Tabelle-DE_2x_2520f853-1969-47f4-b2f9-7844884c9baf.png?v=1739639747&width=400" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=800&q=80')">
+        <img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="product-info">
+    <div class="product-eyebrow">SUPZ Nutrition · Knochen & Zähne</div>
+    <h1 class="product-title">Bone&Teeth<br>Supreme</h1>
+    <p class="product-sub">Vitamin D3+K2, aktive B-Vitamine, methylierte Folsäure und Spurenelemente – in einer einzigen Kapsel. Für starke Knochen und gesunde Zähne.</p>
+
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-n">4,9</span>
+      <a class="rating-c" href="#reviews">38 Bewertungen</a>
+    </div>
+
+    <!-- Badges -->
+    <div class="badge-row">
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        Vegan
+      </div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Kein Magnesiumstearat
+      </div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
+        NEM eV Mitglied
+      </div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg>
+        Made in Germany
+      </div>
+    </div>
+
+    <!-- Key ingredients -->
+    <div class="ingr-preview">
+      <div class="ingr-preview-title">Wirkstoffe</div>
+      <div class="ingr-chips">
+        <span class="ingr-chip">Vitamin D3 + K2</span>
+        <span class="ingr-chip">Methylcobalamin B12</span>
+        <span class="ingr-chip">Magnesiumbisglycinat</span>
+        <span class="ingr-chip">5-MTHF Folsäure</span>
+        <span class="ingr-chip">Zink</span>
+        <span class="ingr-chip">Bor</span>
+      </div>
+    </div>
+
+    <!-- Sub box -->
+    <div class="sub-box">
+      <div class="sub-option" id="optOnce" onclick="selectSub('once')">
+        <div class="sub-radio"><div class="sub-radio-dot"></div></div>
+        <div class="sub-info">
+          <div class="sub-title">Einmalig kaufen</div>
+          <div class="sub-desc">Kein Abo, keine Bindung</div>
+        </div>
+        <div class="sub-price-col">
+          <div class="sub-price">59,00 €</div>
+          <div style="font-size:11px;color:var(--light-mid);">120 Kapseln · 0,49 €/Stk</div>
+        </div>
+      </div>
+      <div class="sub-option active" id="optAbo" onclick="selectSub('abo')">
+        <div class="sub-radio"><div class="sub-radio-dot"></div></div>
+        <div class="sub-info">
+          <div class="sub-title">Im Abo kaufen <span class="sub-save">10% SPAREN</span></div>
+          <div class="sub-desc">Monatlich · Jederzeit kündbar</div>
+        </div>
+        <div class="sub-price-col">
+          <div class="sub-price">53,10 €</div>
+          <div style="font-size:11px;color:var(--light-mid);text-decoration:line-through;">59,00 €</div>
+        </div>
+      </div>
+      <div class="sub-abo-details visible" id="aboDetails">
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Monatliche Lieferung</div>
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Jederzeit kündbar</div>
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Kostenloser Versand</div>
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Nie wieder vergessen</div>
+      </div>
+    </div>
+
+    <!-- Qty + CTA -->
+    <div class="qty-row">
+      <div class="qty-box">
+        <button class="qty-btn" onclick="changeQty(-1)">−</button>
+        <div class="qty-val" id="qty">1</div>
+        <button class="qty-btn" onclick="changeQty(1)">+</button>
+      </div>
+      <button class="btn-buy" id="buyBtn">In den Einkaufswagen</button>
+    </div>
+    <button class="btn-wish">♡ &nbsp; Zur Wunschliste</button>
+
+    <!-- Trust -->
+    <div class="trust-row">
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Kostenloser<br>Versand</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Lab<br>Tested</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span>30 Tage<br>Rückgabe</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <span>Made in<br>Germany</span>
+      </div>
+    </div>
+
+    <div style="font-size:11px;color:var(--light-mid);line-height:1.6;">PZN: 20120551 · Nahrungsergänzungsmittel · 120 Kapseln / 78g<br>Hersteller: Bio Aesthetics GmbH, Tübingen</div>
+  </div>
+</div>
+
+<!-- BENEFIT STRIP -->
+<section class="benefit-strip">
+  <div class="benefit-inner">
+    <div class="ben-card">
+      <div class="ben-ic"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h3>Synergetische Formel</h3>
+      <p>D3 und K2 arbeiten zusammen – K2 sorgt dafür, dass Calcium tatsächlich in den Knochen landet, nicht in den Arterien</p>
+    </div>
+    <div class="ben-card">
+      <div class="ben-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg></div>
+      <h3>Aktive Vitaminformen</h3>
+      <p>Methylcobalamin (B12) und 5-MTHF Folsäure sind direkt bioverfügbar – kein Umweg über die Leber nötig</p>
+    </div>
+    <div class="ben-card">
+      <div class="ben-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <h3>Ohne Füllstoffe</h3>
+      <p>Kein Magnesiumstearat, kein Titandioxid, keine unnötigen Trennmittel – nur was reingehört</p>
+    </div>
+    <div class="ben-card">
+      <div class="ben-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>NEM eV zertifiziert</h3>
+      <p>Mitglied im Verband der deutschen Nahrungsergänzungsmittel-Industrie – höchste Qualitätsstandards</p>
+    </div>
+  </div>
+</section>
+
+<!-- INGREDIENTS EXPLAINER -->
+<section class="ingr-section">
+  <div class="ingr-inner">
+    <div class="sec-eyebrow">Was steckt drin</div>
+    <h2 class="sec-title">Jeder Wirkstoff erklärt</h2>
+    <p class="sec-sub">Bone&Teeth Supreme enthält keine Standardformel. Jede Verbindung wurde gezielt ausgewählt – in der Form, die dein Körper am besten aufnehmen kann.</p>
+    <div class="ingr-grid">
+      <div class="ingr-card">
+        <div class="ingr-num">01</div>
+        <div class="ingr-name">Vitamin D3</div>
+        <div class="ingr-form">Cholecalciferol</div>
+        <div class="ingr-text">Steuert die Calciumaufnahme aus dem Darm. Ohne ausreichend D3 kann dein Körper Calcium nicht verwerten – egal wie viel du zu dir nimmst.</div>
+        <span class="ingr-highlight">Knochen · Immunsystem</span>
+      </div>
+      <div class="ingr-card">
+        <div class="ingr-num">02</div>
+        <div class="ingr-name">Vitamin K2</div>
+        <div class="ingr-form">Menaquinon-7 (MK-7)</div>
+        <div class="ingr-text">Aktiviert Osteocalcin – das Protein, das Calcium in den Knochen einbaut statt in den Blutgefäßen. Essentiell als Partner von D3.</div>
+        <span class="ingr-highlight">Knochen · Gefäße</span>
+      </div>
+      <div class="ingr-card">
+        <div class="ingr-num">03</div>
+        <div class="ingr-name">Magnesium</div>
+        <div class="ingr-form">Magnesiumbisglycinat</div>
+        <div class="ingr-text">Bisglycinat ist die magenfreundlichste Magnesiumform mit höchster Bioverfügbarkeit. Über 300 Enzyme im Körper benötigen Magnesium.</div>
+        <span class="ingr-highlight">Muskeln · Nerven · Knochen</span>
+      </div>
+      <div class="ingr-card">
+        <div class="ingr-num">04</div>
+        <div class="ingr-name">Folsäure</div>
+        <div class="ingr-form">5-MTHF (methyliert)</div>
+        <div class="ingr-text">Methylierte Folsäure ist direkt aktiv – während synthetische Folsäure erst umgewandelt werden muss. Für Menschen mit MTHFR-Variante entscheidend.</div>
+        <span class="ingr-highlight">Zellteilung · DNA</span>
+      </div>
+      <div class="ingr-card">
+        <div class="ingr-num">05</div>
+        <div class="ingr-name">Vitamin B12</div>
+        <div class="ingr-form">Methylcobalamin</div>
+        <div class="ingr-text">Die aktivste B12-Form – direkt nutzbar ohne Leberumwandlung. Wichtig für Nervensystem, Blutbildung und Homocystein-Abbau.</div>
+        <span class="ingr-highlight">Nerven · Energie · Blut</span>
+      </div>
+      <div class="ingr-card">
+        <div class="ingr-num">06</div>
+        <div class="ingr-name">Bor + Zink + Mangan</div>
+        <div class="ingr-form">Spurenelemente</div>
+        <div class="ingr-text">Bor unterstützt D3-Wirkung und Knochenaufbau. Zink stärkt Zahnschmelz und Immunsystem. Mangan aktiviert knochenbildende Enzyme.</div>
+        <span class="ingr-highlight">Zähne · Immunsystem</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOR WHOM -->
+<section class="whom-section">
+  <div class="whom-inner">
+    <div class="whom-text">
+      <div class="sec-eyebrow">Für wen ist es geeignet?</div>
+      <h2 class="sec-title">Nicht für jeden.<br>Aber genau für dich?</h2>
+      <p class="sec-sub">Bone&Teeth Supreme ist kein Alltagsvitamin. Es ist ein gezieltes Präparat – konzipiert für Menschen mit spezifischen Bedürfnissen.</p>
+      <div class="whom-list">
+        <div class="whom-li">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          <div>
+            <h4>Menschen ab 40+</h4>
+            <p>Ab dem 40. Lebensjahr verliert der Knochen jährlich Dichte. Vitamin D3+K2+Magnesium ist die evidenzbasierte Kombination dagegen.</p>
+          </div>
+        </div>
+        <div class="whom-li">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg>
+          <div>
+            <h4>Menschen mit wenig Sonnenlicht</h4>
+            <p>Büroalltag und deutsche Winter führen zu Vitamin-D-Mangel bei über 60% der Bevölkerung. Messbar in fast jeder Routineuntersuchung.</p>
+          </div>
+        </div>
+        <div class="whom-li">
+          <svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 0 1 0 8h-1"/><path d="M2 8h16v9a4 4 0 0 1-4 4H6a4 4 0 0 1-4-4V8z"/><line x1="6" y1="1" x2="6" y2="4"/><line x1="10" y1="1" x2="10" y2="4"/><line x1="14" y1="1" x2="14" y2="4"/></svg>
+          <div>
+            <h4>Veganer & Vegetarier</h4>
+            <p>B12, Zink und D3 kommen fast ausschließlich aus tierischen Quellen. Pflanzliche Ernährung macht gezielte Supplementierung oft notwendig.</p>
+          </div>
+        </div>
+        <div class="whom-li">
+          <svg viewBox="0 0 24 24"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/></svg>
+          <div>
+            <h4>Aktive Sportler</h4>
+            <p>Intensives Training erhöht den Bedarf an Magnesium und B-Vitaminen erheblich. Schnellere Regeneration und stärkere Knochen unter Belastung.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="whom-img">
+      <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeethSupreme_2x_180920f6-a234-4628-a68a-95a3ee4c48d6.jpg?crop=center&height=1000&v=1702941777&width=1000" alt="Bone&Teeth Supreme">
+    </div>
+  </div>
+</section>
+
+<!-- COMPARISON TABLE -->
+<section class="compare-section">
+  <div class="compare-inner">
+    <div class="sec-eyebrow" style="text-align:center;">Warum SUPZ?</div>
+    <h2 class="sec-title" style="text-align:center;">Standard vs. Supreme</h2>
+    <p class="sec-sub" style="margin:0 auto;text-align:center;">Was Bone&Teeth Supreme von einem gewöhnlichen Kalziumpräparat aus dem Drogeriemarkt unterscheidet.</p>
+    <div class="compare-table">
+      <div class="compare-head">
+        <div class="ch-cell">Merkmal</div>
+        <div class="ch-cell highlight">Bone&Teeth Supreme</div>
+        <div class="ch-cell">Standard-Präparat</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Vitamin K2 als MK-7</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Nein</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Aktive B12-Form (Methylcobalamin)</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Cyanocobalamin</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Methylierte Folsäure (5-MTHF)</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Synthetische Folsäure</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Magnesiumbisglycinat (magenfreundlich)</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Magnesiumoxid</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Ohne Magnesiumstearat</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Nein</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Spurenelemente (Bor, Mangan)</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Nein</div>
+      </div>
+      <div class="compare-row">
+        <div class="cr-cell">Vegan · NEM eV geprüft</div>
+        <div class="cr-cell cr-yes"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Ja</div>
+        <div class="cr-cell cr-no"><svg viewBox="0 0 24 24"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>Meist nicht</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO USE -->
+<section class="how-section">
+  <div class="how-inner">
+    <div>
+      <div class="sec-eyebrow">Einnahme</div>
+      <h2 class="sec-title">Richtig anwenden</h2>
+      <p class="sec-sub">Für optimale Wirkung kommt es nicht nur darauf an, was du nimmst – sondern wann und wie.</p>
+      <div class="how-steps">
+        <div class="how-step">
+          <div class="how-n">1</div>
+          <div class="how-body">
+            <h4>2 Kapseln täglich</h4>
+            <p>Die Tagesdosis besteht aus 2 Kapseln. Nicht auf einmal, sondern idealerweise über den Tag verteilt einnehmen.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-n">2</div>
+          <div class="how-body">
+            <h4>Zu einer Mahlzeit</h4>
+            <p>Fettlösliche Vitamine (D3, K2) werden besser aufgenommen, wenn gleichzeitig Fett gegessen wird – z.B. zum Frühstück oder Mittagessen.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-n">3</div>
+          <div class="how-body">
+            <h4>Langfristig einnehmen</h4>
+            <p>Knochenstoffwechsel ist ein langsamer Prozess. Erste Effekte nach 4–8 Wochen, optimale Wirkung nach 3+ Monaten regelmäßiger Einnahme.</p>
+          </div>
+        </div>
+        <div class="how-step">
+          <div class="how-n">4</div>
+          <div class="how-body">
+            <h4>Blutspiegel kontrollieren</h4>
+            <p>Lass deinen D3-Spiegel beim nächsten Arztbesuch messen. Zielwert: 40–60 ng/ml (100–150 nmol/l).</p>
+          </div>
+        </div>
+      </div>
+      <div class="how-tip">⚠️ <strong>Hinweis bei Blutverdünnern:</strong> Vitamin K2 beeinflusst die Blutgerinnung. Bei Einnahme von Cumarinen (z.B. Marcumar) bitte Arzt konsultieren.</div>
+    </div>
+    <div class="how-img-area">
+      <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeeth_Inhalt-1_2x_ce9473d4-515a-4c76-9bbc-44b641ebaf4c.jpg?crop=center&height=1000&v=1739639524&width=1000" alt="Kapselinhalt">
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="review-section" id="reviews">
+  <div class="review-inner">
+    <div class="sec-eyebrow">Kundenstimmen</div>
+    <h2 class="sec-title" style="margin-bottom:0;">Was Kunden sagen</h2>
+    <div class="review-top">
+      <div class="review-score">
+        <div class="rv-big">4,9</div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-count">38 Bewertungen</div>
+      </div>
+      <div class="rv-bars">
+        <div class="rv-bar"><span class="rv-lbl">5 ★</span><div class="rv-track"><div class="rv-fill" style="width:89%"></div></div><span class="rv-pct">89%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">4 ★</span><div class="rv-track"><div class="rv-fill" style="width:8%;background:#ccc"></div></div><span class="rv-pct">8%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">3 ★</span><div class="rv-track"><div class="rv-fill" style="width:3%;background:#ddd"></div></div><span class="rv-pct">3%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">2 ★</span><div class="rv-track"></div><span class="rv-pct">0%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">1 ★</span><div class="rv-track"></div><span class="rv-pct">0%</span></div>
+      </div>
+    </div>
+    <div class="review-grid">
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">Mai 2025</span></div>
+        <div class="rc-name">Sabine K., 54</div>
+        <div class="rc-tag">Knochen & Zähne · Abo-Kundin</div>
+        <div class="rc-text">„Nach meiner Osteoporose-Diagnose habe ich viel recherchiert. Bone&Teeth Supreme ist das einzige Präparat, das D3 und K2 in der richtigen Dosierung kombiniert. Mein Arzt hat nach 4 Monaten eine messbare Verbesserung der Knochendichte festgestellt."</div>
+        <div class="rc-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf</div>
+      </div>
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">April 2025</span></div>
+        <div class="rc-name">Thomas W., 42</div>
+        <div class="rc-tag">Sportler · Veganer</div>
+        <div class="rc-text">„Als Veganer war mein B12-Spiegel chronisch niedrig. Seit ich Bone&Teeth nehme, sind alle Werte im Normalbereich. Das Methylcobalamin macht den Unterschied – hatte vorher Cyanocobalamin probiert, ohne Effekt."</div>
+        <div class="rc-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf</div>
+      </div>
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">März 2025</span></div>
+        <div class="rc-name">Maria L., 61</div>
+        <div class="rc-tag">Abo-Kundin seit 8 Monaten</div>
+        <div class="rc-text">„Das Abo ist sehr praktisch – läuft einfach, und ich spare die 10%. Was mir am meisten gefällt: keine Füllstoffe, kein Magnesiumstearat. Man merkt, dass hier wirklich Wert auf Qualität gelegt wird."</div>
+        <div class="rc-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="sec-eyebrow">FAQ</div>
+    <h2 class="sec-title" style="margin-bottom:36px;">Häufige Fragen</h2>
+
+    <div class="faq-item open">
+      <button class="faq-q" onclick="faqToggle(this)">Warum sind D3 und K2 zusammen wichtig? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Vitamin D3 erhöht die Calciumaufnahme aus dem Darm. Ohne K2 kann dieses Calcium aber in den Blutgefäßen abgelagert werden. K2 (Menaquinon-7) aktiviert das Protein Osteocalcin, das Calcium gezielt in den Knochen einbaut. Die Kombination ist daher deutlich wirkungsvoller als D3 allein.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Wie lange bis ich eine Wirkung spüre? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Knochenstoffwechsel ist langsam – neue Knochenmasse entsteht über Monate. Einen ersten messbaren Anstieg des D3-Blutspiegels siehst du nach 4–6 Wochen. Sichtbare Wirkung auf Knochendichte (messbar per DXA-Scan) zeigt sich nach 3–6 Monaten regelmäßiger Einnahme.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Ich nehme Blutverdünner – kann ich das Produkt einnehmen? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Vitamin K2 beeinflusst die Blutgerinnung. Bei Einnahme von Vitamin-K-Antagonisten (Cumarine wie Marcumar oder Warfarin) ist eine ärztliche Rücksprache unbedingt notwendig, bevor du dieses Produkt einnimmst. Dein INR-Wert sollte entsprechend kontrolliert werden.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Was ist der Unterschied zwischen methylierter und normaler Folsäure? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Synthetische Folsäure muss im Körper erst in die aktive Form 5-Methyltetrahydrofolat (5-MTHF) umgewandelt werden. Etwa 40% der Bevölkerung hat eine genetische Variante (MTHFR-Polymorphismus), die diese Umwandlung einschränkt. Methylierte Folsäure ist direkt biologisch aktiv – unabhängig von diesem Gen.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Kann ich das Abo jederzeit kündigen? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Ja – das Abo kann jederzeit ohne Angabe von Gründen pausiert oder gekündigt werden, direkt in deinem Kundenkonto. Keine Mindestlaufzeit, keine Kündigungsfristen. Du erhältst 5 Tage vor der nächsten Lieferung eine Erinnerungsmail.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Ist das Produkt für Schwangere geeignet? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">In der Schwangerschaft und Stillzeit sollte die Einnahme von Nahrungsergänzungsmitteln grundsätzlich mit einem Arzt abgesprochen werden. Besonders der Bedarf an Folsäure und D3 ist in der Schwangerschaft erhöht – die spezifische Dosierung sollte jedoch ärztlich begleitet werden.</div>
+    </div>
+  </div>
+</section>
+
+<!-- NUTRITION TABLE -->
+<section class="nutr-section">
+  <div class="nutr-inner">
+    <div>
+      <div class="sec-eyebrow">Nährwerte & Inhaltsstoffe</div>
+      <h2 class="sec-title">Was genau ist drin</h2>
+      <p style="font-size:13px;color:var(--mid);line-height:1.8;margin-bottom:24px;">Durchschnittliche Nährwerte pro Tagesdosis (2 Kapseln). Alle Werte basieren auf den angegebenen Tagesmengen der Europäischen Referenzwerte (NRV).</p>
+      <div class="nutr-table">
+        <div class="nutr-head">
+          <div class="nutr-hcell">Wirkstoff</div>
+          <div class="nutr-hcell">Menge</div>
+          <div class="nutr-hcell">% NRV</div>
+        </div>
+        <div class="nutr-row"><div class="nutr-cell">Vitamin D3</div><div class="nutr-cell">2000 IE (50µg)</div><div class="nutr-cell">1000%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Vitamin K2 (MK-7)</div><div class="nutr-cell">100µg</div><div class="nutr-cell">133%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Magnesium (Bisglycinat)</div><div class="nutr-cell">150mg</div><div class="nutr-cell">40%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Vitamin B6 (P-5-P)</div><div class="nutr-cell">2mg</div><div class="nutr-cell">143%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Folsäure (5-MTHF)</div><div class="nutr-cell">400µg</div><div class="nutr-cell">200%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Vitamin B12 (Methylcobalamin)</div><div class="nutr-cell">100µg</div><div class="nutr-cell">4000%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Biotin</div><div class="nutr-cell">100µg</div><div class="nutr-cell">200%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Zink (Gluconat)</div><div class="nutr-cell">10mg</div><div class="nutr-cell">100%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Mangan</div><div class="nutr-cell">2mg</div><div class="nutr-cell">100%</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Bor</div><div class="nutr-cell">3mg</div><div class="nutr-cell">–</div></div>
+        <div class="nutr-row"><div class="nutr-cell">Molybdän</div><div class="nutr-cell">50µg</div><div class="nutr-cell">100%</div></div>
+      </div>
+      <div class="nutr-disclaimer">* NRV = Nutrient Reference Value (EU-Tagesreferenzwert). Nahrungsergänzungsmittel sind kein Ersatz für eine ausgewogene und abwechslungsreiche Ernährung. Die angegebene empfohlene tägliche Verzehrmenge darf nicht überschritten werden.</div>
+    </div>
+    <div class="nutr-img">
+      <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_BoneTeeth_Tabelle-DE_2x_2520f853-1969-47f4-b2f9-7844884c9baf.png?v=1739639747&width=800" alt="Nährwerttabelle">
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="ft-logo">
+      <img src="https://www.supznutrition.com/cdn/shop/files/SUPZ_Logo_1445x.png?v=1698658778" alt="SUPZ Nutrition">
+      <p>Evidenzbasierte Nahrungsergänzung in pharmazeutischer Qualität. Hergestellt in Deutschland.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Shop</h4>
+      <a href="#">Alle Produkte</a>
+      <a href="#">Knochen & Zähne</a>
+      <a href="#">Vitamine</a>
+      <a href="#">Mineralstoffe</a>
+    </div>
+    <div class="ft-col">
+      <h4>Unternehmen</h4>
+      <a href="#">Qualität</a>
+      <a href="#">Über uns</a>
+      <a href="#">Blog</a>
+      <a href="#">Presse</a>
+    </div>
+    <div class="ft-col">
+      <h4>Service</h4>
+      <a href="#">Mein Abo</a>
+      <a href="#">Versand & Rückgabe</a>
+      <a href="#">Kontakt</a>
+      <a href="#">Datenschutz</a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2025 Bio Aesthetics GmbH, Tübingen · Alle Rechte vorbehalten</p>
+    <div class="ft-pays">
+      <span class="ft-pay">PayPal</span>
+      <span class="ft-pay">Klarna</span>
+      <span class="ft-pay">Visa</span>
+      <span class="ft-pay">MC</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Gallery
+  function switchImg(el, src) {
+    document.querySelectorAll('.gal-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('mainImg').src = src;
+  }
+
+  // Qty
+  let qty = 1;
+  function changeQty(d) {
+    qty = Math.max(1, qty + d);
+    document.getElementById('qty').textContent = qty;
+  }
+
+  // Subscription
+  function selectSub(type) {
+    const once = document.getElementById('optOnce');
+    const abo  = document.getElementById('optAbo');
+    const details = document.getElementById('aboDetails');
+    if (type === 'abo') {
+      abo.classList.add('active'); once.classList.remove('active');
+      details.classList.add('visible');
+    } else {
+      once.classList.add('active'); abo.classList.remove('active');
+      details.classList.remove('visible');
+    }
+  }
+
+  // FAQ
+  function faqToggle(btn) {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
