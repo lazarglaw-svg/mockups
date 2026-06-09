@@ -1,0 +1,954 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Natural Whey Isolat 330g – AMSPORT</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --blue: #00a1e4;
+    --blue-dark: #0082b8;
+    --blue-light: #e6f6fd;
+    --dark: #2d2f2e;
+    --mid: #6b6d6c;
+    --light: #f5f6f6;
+    --border: #e2e4e3;
+    --white: #ffffff;
+    --green: #2e9e5b;
+    --green-light: #eaf6f0;
+    --star: #f5b800;
+    --red: #e63a3a;
+    --ff: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --r: 6px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff); color: var(--dark); background: var(--white); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button { font-family: var(--ff); cursor: pointer; }
+
+  /* ── ANNOUNCE BAR ── */
+  .bar {
+    background: var(--dark); color: #fff;
+    padding: 9px 20px; display: flex; align-items: center;
+    justify-content: center; gap: 32px; flex-wrap: wrap; font-size: 12px;
+    letter-spacing: .03em;
+  }
+  .bar span { display: flex; align-items: center; gap: 6px; }
+  .bar b { color: var(--blue); }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--white); border-bottom: 1px solid var(--border);
+    padding: 0 40px; display: flex; align-items: center;
+    justify-content: space-between; height: 62px;
+    position: sticky; top: 0; z-index: 100;
+  }
+  .nav-logo img { height: 32px; }
+  .nav-links { display: flex; gap: 32px; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: var(--mid); transition: color .2s; }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-icons { display: flex; gap: 16px; align-items: center; }
+  .nav-icons svg { width: 21px; height: 21px; stroke: var(--dark); fill: none; stroke-width: 1.7; cursor: pointer; }
+  .nav-icons svg:hover { stroke: var(--blue); }
+  .cart-wrap { position: relative; }
+  .cart-dot { position: absolute; top: -5px; right: -6px; background: var(--blue); color: #fff; font-size: 9px; width: 15px; height: 15px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+  .breadcrumb { padding: 11px 40px; font-size: 12px; color: var(--mid); border-bottom: 1px solid var(--border); }
+  .breadcrumb a { color: var(--blue); }
+  .breadcrumb span { margin: 0 5px; }
+
+  /* ── HERO PRODUCT ── */
+  .product-wrap {
+    max-width: 1160px; margin: 0 auto;
+    padding: 36px 40px 64px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+  }
+
+  /* Gallery */
+  .gallery { position: sticky; top: 76px; }
+  .gal-main {
+    background: var(--light); border-radius: 10px;
+    aspect-ratio: 1; overflow: hidden; margin-bottom: 12px;
+    border: 1px solid var(--border); position: relative;
+  }
+  .gal-main img { width: 100%; height: 100%; object-fit: contain; transition: opacity .25s; }
+  .gal-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--green); color: #fff;
+    font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px;
+    letter-spacing: .05em;
+  }
+  .gal-thumbs { display: grid; grid-template-columns: repeat(3,1fr); gap: 10px; }
+  .gal-thumb {
+    background: var(--light); border-radius: 8px; aspect-ratio: 1;
+    border: 2px solid transparent; cursor: pointer; overflow: hidden;
+    transition: border-color .15s;
+  }
+  .gal-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .gal-thumb.active, .gal-thumb:hover { border-color: var(--blue); }
+
+  /* Info */
+  .product-tag {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: var(--green-light); color: var(--green);
+    font-size: 11px; font-weight: 700; letter-spacing: .1em;
+    text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 14px;
+  }
+  .product-title {
+    font-size: clamp(20px, 2.5vw, 28px); font-weight: 800;
+    line-height: 1.2; margin-bottom: 8px; color: var(--dark);
+    letter-spacing: -.02em;
+  }
+  .rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .stars { color: var(--star); font-size: 16px; letter-spacing: 1px; }
+  .rating-n { font-weight: 700; font-size: 13px; }
+  .rating-c { font-size: 13px; color: var(--blue); border-bottom: 1px solid var(--blue); cursor: pointer; }
+
+  /* Macro strip */
+  .macro-strip {
+    display: grid; grid-template-columns: repeat(3,1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 24px;
+  }
+  .macro-cell { background: var(--white); padding: 14px 12px; text-align: center; }
+  .macro-val { font-size: 22px; font-weight: 800; color: var(--blue); line-height: 1; }
+  .macro-val.protein { color: var(--dark); font-size: 28px; }
+  .macro-lbl { font-size: 11px; color: var(--mid); margin-top: 3px; text-transform: uppercase; letter-spacing: .08em; }
+  .macro-sub { font-size: 10px; color: #aaa; }
+
+  /* Flavor */
+  .var-label { font-size: 13px; font-weight: 600; margin-bottom: 10px; }
+  .var-label em { font-style: normal; font-weight: 400; color: var(--mid); }
+  .flavor-row { display: flex; gap: 10px; margin-bottom: 24px; }
+  .flavor-btn {
+    display: flex; align-items: center; gap: 8px;
+    padding: 10px 16px; border-radius: var(--r); border: 1.5px solid var(--border);
+    font-size: 13px; font-weight: 600; background: var(--white); cursor: pointer;
+    transition: border-color .15s, background .15s;
+  }
+  .flavor-dot { width: 14px; height: 14px; border-radius: 50%; }
+  .flavor-btn.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+  .flavor-btn:hover { border-color: var(--blue); }
+
+  /* ── SUBSCRIPTION TOGGLE ── */
+  .sub-box {
+    border: 1.5px solid var(--border); border-radius: 10px;
+    overflow: hidden; margin-bottom: 20px;
+  }
+  .sub-option {
+    display: flex; align-items: center; gap: 14px;
+    padding: 16px 18px; cursor: pointer;
+    transition: background .15s; position: relative;
+  }
+  .sub-option + .sub-option { border-top: 1.5px solid var(--border); }
+  .sub-option.active { background: var(--blue-light); border-color: var(--blue); }
+  .sub-option:first-child.active { border-bottom-color: var(--border); }
+  .sub-radio {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid var(--border); flex-shrink: 0;
+    display: flex; align-items: center; justify-content: center;
+    transition: border-color .15s;
+  }
+  .sub-option.active .sub-radio { border-color: var(--blue); }
+  .sub-radio-dot {
+    width: 10px; height: 10px; border-radius: 50%; background: var(--blue);
+    display: none;
+  }
+  .sub-option.active .sub-radio-dot { display: block; }
+  .sub-info { flex: 1; }
+  .sub-title { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 2px; }
+  .sub-desc { font-size: 12px; color: var(--mid); }
+  .sub-price-col { text-align: right; }
+  .sub-price { font-size: 18px; font-weight: 800; color: var(--dark); }
+  .sub-price.abo { color: var(--blue); }
+  .sub-save {
+    display: inline-block; background: var(--blue); color: #fff;
+    font-size: 10px; font-weight: 700; padding: 2px 7px; border-radius: 20px;
+    margin-top: 2px; letter-spacing: .05em;
+  }
+  .sub-abo-details {
+    padding: 12px 18px; background: var(--blue-light);
+    border-top: 1px solid #c5e8f8; display: none; font-size: 12px; color: var(--mid);
+  }
+  .sub-abo-details.visible { display: flex; gap: 20px; flex-wrap: wrap; }
+  .sub-detail { display: flex; align-items: center; gap: 5px; }
+  .sub-detail svg { width: 13px; height: 13px; stroke: var(--blue); fill: none; stroke-width: 2.5; }
+
+  /* CTA */
+  .btn-buy {
+    width: 100%; padding: 16px; background: var(--blue); color: #fff;
+    font-size: 15px; font-weight: 800; border: none; border-radius: var(--r);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: background .2s; margin-bottom: 10px; letter-spacing: .01em;
+  }
+  .btn-buy:hover { background: var(--blue-dark); }
+  .btn-buy svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+  .btn-wish {
+    width: 100%; padding: 13px; background: var(--white);
+    border: 1.5px solid var(--border); border-radius: var(--r);
+    font-size: 13px; font-weight: 600; color: var(--dark);
+    cursor: pointer; margin-bottom: 20px; transition: border-color .2s;
+  }
+  .btn-wish:hover { border-color: var(--blue); }
+
+  /* Trust row */
+  .trust-row {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    border-radius: 10px; overflow: hidden; margin-bottom: 18px;
+  }
+  .trust-cell {
+    background: var(--white); padding: 14px 8px; text-align: center;
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+  }
+  .trust-cell svg { width: 22px; height: 22px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+  .trust-cell span { font-size: 11px; color: var(--mid); line-height: 1.3; text-align: center; }
+  .pay-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .pay-lbl { font-size: 11px; color: var(--mid); }
+  .pay-tag { background: var(--light); border: 1px solid var(--border); border-radius: 4px; padding: 3px 8px; font-size: 10px; font-weight: 700; color: var(--mid); }
+
+  /* ── USP STRIP ── */
+  .usp-strip {
+    background: var(--dark); padding: 44px 40px;
+  }
+  .usp-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; }
+  .usp-card { text-align: center; }
+  .usp-ic { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.08); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+  .usp-ic svg { width: 26px; height: 26px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+  .usp-card h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+  .usp-card p { font-size: 12px; color: rgba(255,255,255,.6); line-height: 1.6; }
+
+  /* ── MACRO VISUAL ── */
+  .macro-section { padding: 64px 40px; background: var(--light); }
+  .macro-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .sec-eyebrow { font-size: 11px; letter-spacing: .2em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 10px; }
+  .sec-title { font-size: clamp(22px, 3vw, 32px); font-weight: 800; color: var(--dark); line-height: 1.2; margin-bottom: 12px; letter-spacing: -.02em; }
+  .sec-sub { font-size: 14px; color: var(--mid); line-height: 1.75; margin-bottom: 28px; }
+  .macro-bars { display: flex; flex-direction: column; gap: 16px; }
+  .m-bar-row { display: flex; flex-direction: column; gap: 6px; }
+  .m-bar-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .m-bar-name { font-size: 13px; font-weight: 700; }
+  .m-bar-val { font-size: 13px; font-weight: 700; }
+  .m-bar-track { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+  .m-bar-fill { height: 100%; border-radius: 5px; }
+  .fill-p { background: var(--blue); }
+  .fill-f { background: #9b59b6; }
+  .fill-c { background: #e07b2a; }
+  .fill-s { background: #f5b800; }
+  .m-bar-sub { font-size: 11px; color: var(--mid); }
+  .macro-big-num {
+    text-align: center; background: var(--white); border-radius: 14px;
+    padding: 40px 30px; border: 1px solid var(--border);
+    box-shadow: 0 4px 24px rgba(0,161,228,.08);
+  }
+  .macro-hero-val { font-size: 96px; font-weight: 900; color: var(--blue); line-height: 1; letter-spacing: -.04em; }
+  .macro-hero-unit { font-size: 28px; font-weight: 700; color: var(--blue); }
+  .macro-hero-lbl { font-size: 14px; font-weight: 600; color: var(--mid); margin-top: 4px; text-transform: uppercase; letter-spacing: .1em; }
+  .macro-hero-sub { font-size: 13px; color: #aaa; margin-top: 8px; }
+  .macro-badges { display: flex; gap: 8px; margin-top: 24px; flex-wrap: wrap; justify-content: center; }
+  .mbadge { background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px; }
+
+  /* ── HOW TO USE ── */
+  .how-section { padding: 64px 40px; }
+  .how-inner { max-width: 1060px; margin: 0 auto; text-align: center; }
+  .how-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 32px; margin-top: 48px; }
+  .how-step { position: relative; }
+  .how-num {
+    width: 52px; height: 52px; border-radius: 50%; background: var(--blue);
+    color: #fff; font-size: 20px; font-weight: 800;
+    display: flex; align-items: center; justify-content: center; margin: 0 auto 18px;
+  }
+  .how-step h4 { font-size: 16px; font-weight: 700; margin-bottom: 8px; }
+  .how-step p { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .how-connector {
+    position: absolute; top: 26px; left: calc(50% + 30px); right: calc(-50% + 30px);
+    height: 2px; background: var(--border);
+  }
+  .how-tip {
+    margin-top: 40px; background: var(--blue-light); border-radius: 10px;
+    padding: 20px 28px; display: flex; align-items: center; gap: 14px;
+    max-width: 600px; margin-left: auto; margin-right: auto;
+  }
+  .how-tip svg { width: 24px; height: 24px; stroke: var(--blue); fill: none; stroke-width: 2; flex-shrink: 0; }
+  .how-tip p { font-size: 13px; color: var(--dark); line-height: 1.6; }
+  .how-tip strong { color: var(--blue); }
+
+  /* ── QUALITY SECTION ── */
+  .qual-section { padding: 64px 40px; background: var(--dark); }
+  .qual-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .qual-badges { display: grid; grid-template-columns: repeat(2,1fr); gap: 14px; }
+  .qual-badge {
+    background: rgba(255,255,255,.06); border: 1px solid rgba(255,255,255,.1);
+    border-radius: 10px; padding: 20px; text-align: center;
+  }
+  .qual-badge svg { width: 30px; height: 30px; stroke: var(--blue); fill: none; stroke-width: 1.7; margin: 0 auto 10px; }
+  .qual-badge h4 { font-size: 13px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .qual-badge p { font-size: 11px; color: rgba(255,255,255,.55); line-height: 1.5; }
+  .qual-text .sec-eyebrow { color: var(--blue); }
+  .qual-text .sec-title { color: #fff; }
+  .qual-text .sec-sub { color: rgba(255,255,255,.65); }
+  .qual-list { display: flex; flex-direction: column; gap: 12px; }
+  .qual-li { display: flex; align-items: flex-start; gap: 10px; font-size: 13px; color: rgba(255,255,255,.8); line-height: 1.6; }
+  .qual-li svg { width: 16px; height: 16px; stroke: var(--blue); fill: none; stroke-width: 2.5; flex-shrink: 0; margin-top: 2px; }
+
+  /* ── STACK SECTION ── */
+  .stack-section { padding: 64px 40px; background: var(--light); }
+  .stack-inner { max-width: 1060px; margin: 0 auto; }
+  .stack-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; margin-top: 40px; }
+  .stack-card {
+    background: var(--white); border-radius: 12px; overflow: hidden;
+    border: 1.5px solid var(--border); transition: box-shadow .2s;
+    cursor: pointer;
+  }
+  .stack-card:hover { box-shadow: 0 6px 24px rgba(0,161,228,.12); border-color: var(--blue); }
+  .stack-img { aspect-ratio: 1; background: var(--light); overflow: hidden; }
+  .stack-img img { width: 100%; height: 100%; object-fit: contain; }
+  .stack-body { padding: 18px; }
+  .stack-tag { font-size: 10px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 6px; }
+  .stack-name { font-size: 14px; font-weight: 700; color: var(--dark); margin-bottom: 6px; line-height: 1.3; }
+  .stack-why { font-size: 12px; color: var(--mid); margin-bottom: 12px; line-height: 1.5; }
+  .stack-price { font-size: 16px; font-weight: 800; color: var(--blue); }
+  .stack-add { float: right; background: var(--blue); color: #fff; border: none; padding: 7px 14px; border-radius: 5px; font-size: 12px; font-weight: 700; cursor: pointer; }
+
+  /* ── REVIEWS ── */
+  .review-section { padding: 64px 40px; }
+  .review-inner { max-width: 1060px; margin: 0 auto; }
+  .review-top { display: flex; align-items: center; gap: 48px; margin-bottom: 40px; }
+  .review-score { text-align: center; }
+  .rv-big { font-size: 64px; font-weight: 900; color: var(--dark); line-height: 1; letter-spacing: -.04em; }
+  .rv-stars { color: var(--star); font-size: 22px; letter-spacing: 3px; margin: 6px 0; }
+  .rv-count { font-size: 13px; color: var(--mid); }
+  .rv-bars { flex: 1; }
+  .rv-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .rv-lbl { font-size: 12px; color: var(--mid); width: 34px; text-align: right; }
+  .rv-track { flex: 1; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .rv-fill { height: 100%; border-radius: 4px; background: var(--star); }
+  .rv-pct { font-size: 12px; color: var(--mid); width: 32px; }
+  .review-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 20px; }
+  .rc {
+    background: var(--light); border-radius: 12px; padding: 24px;
+    border: 1px solid var(--border);
+  }
+  .rc-head { display: flex; justify-content: space-between; margin-bottom: 8px; }
+  .rc-stars { color: var(--star); font-size: 14px; }
+  .rc-date { font-size: 12px; color: var(--mid); }
+  .rc-name { font-size: 14px; font-weight: 700; margin-bottom: 10px; }
+  .rc-text { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .rc-tag { display: inline-flex; align-items: center; gap: 4px; font-size: 11px; color: var(--green); font-weight: 700; margin-top: 12px; }
+  .rc-tag svg { width: 12px; height: 12px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+
+  /* ── FAQ ── */
+  .faq-section { padding: 64px 40px; background: var(--light); }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-item { background: var(--white); border-radius: var(--r); margin-bottom: 8px; border: 1px solid var(--border); overflow: hidden; }
+  .faq-q {
+    width: 100%; background: none; border: none; padding: 18px 20px;
+    display: flex; justify-content: space-between; align-items: center;
+    font-size: 14px; font-weight: 700; color: var(--dark); cursor: pointer; text-align: left; gap: 12px;
+  }
+  .faq-q svg { width: 18px; height: 18px; stroke: var(--blue); fill: none; stroke-width: 2; flex-shrink: 0; transition: transform .25s; }
+  .faq-item.open .faq-q svg { transform: rotate(45deg); }
+  .faq-a { font-size: 13px; color: var(--mid); line-height: 1.8; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; padding: 0 20px; }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 20px 18px; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--dark); padding: 48px 40px 24px; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .ft-logo img { height: 28px; filter: brightness(0) invert(1); opacity: .7; margin-bottom: 14px; }
+  .ft-logo p { font-size: 12px; color: #666; line-height: 1.7; max-width: 220px; }
+  .ft-col h4 { font-size: 12px; font-weight: 700; color: #fff; letter-spacing: .12em; text-transform: uppercase; margin-bottom: 16px; }
+  .ft-col a { display: block; font-size: 13px; color: #777; margin-bottom: 9px; transition: color .2s; }
+  .ft-col a:hover { color: #fff; }
+  .ft-bottom { border-top: 1px solid #333; padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .ft-bottom p { font-size: 12px; color: #555; }
+  .ft-pays { display: flex; gap: 7px; }
+  .ft-pay { background: #2a2a2a; border: 1px solid #444; border-radius: 4px; padding: 4px 9px; font-size: 10px; font-weight: 700; color: #888; }
+
+  /* ── MOBILE ── */
+  @media (max-width: 900px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .breadcrumb { padding: 10px 20px; }
+    .product-wrap { grid-template-columns: 1fr; gap: 28px; padding: 20px 20px 48px; }
+    .gallery { position: static; }
+    .usp-strip { padding: 36px 20px; }
+    .usp-inner { grid-template-columns: repeat(2,1fr); }
+    .macro-section, .how-section, .qual-section, .stack-section, .review-section, .faq-section { padding: 48px 20px; }
+    .macro-inner { grid-template-columns: 1fr; gap: 36px; }
+    .qual-inner { grid-template-columns: 1fr; gap: 36px; }
+    .how-steps { grid-template-columns: 1fr; gap: 24px; }
+    .how-connector { display: none; }
+    .stack-grid { grid-template-columns: 1fr; }
+    .review-top { flex-direction: column; align-items: flex-start; gap: 24px; }
+    .review-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .ft-logo { grid-column: 1/-1; }
+  }
+  @media (max-width: 480px) {
+    .usp-inner { grid-template-columns: 1fr; }
+    .how-steps { grid-template-columns: 1fr; }
+    .trust-row { grid-template-columns: repeat(2,1fr); }
+    .gal-thumbs { grid-template-columns: repeat(3,1fr); }
+    .footer-top { grid-template-columns: 1fr; }
+    .macro-big-num { padding: 28px 20px; }
+    .macro-hero-val { font-size: 72px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="bar">
+  <span>🚀 Ab <b>50 €</b> kostenloser Versand</span>
+  <span>🔬 <b>Ohne</b> künstliche Süßstoffe</span>
+  <span>⚡ Abo: <b>15% sparen</b> + jederzeit kündbar</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#"><img src="https://amsport-shop.de/cdn/shop/files/amsport_logo.svg?height=36&v=1764591761" alt="AMSPORT" class="nav-logo" style="height:32px;"></a>
+  <div class="nav-links">
+    <a href="#">Alle Produkte</a>
+    <a href="#">Protein & Muskel</a>
+    <a href="#">Energie & Fokus</a>
+    <a href="#">Aktiv 50+</a>
+    <a href="#">Über uns</a>
+  </div>
+  <div class="nav-icons">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <div class="cart-wrap">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-dot">0</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">AMSPORT</a><span>›</span>
+  <a href="#">Protein</a><span>›</span>
+  Natural Whey Isolat 330g
+</div>
+
+<!-- HERO -->
+<div class="product-wrap">
+
+  <!-- Gallery -->
+  <div class="gallery">
+    <div class="gal-main">
+      <div class="gal-badge">✓ Ohne Süßstoffe</div>
+      <img id="mainImg"
+        src="https://amsport-shop.de/cdn/shop/files/NATURAL_WHEY_VANILLA_FRONT.jpg?v=1766334394"
+        alt="Natural Whey Isolat Vanilla">
+    </div>
+    <div class="gal-thumbs">
+      <div class="gal-thumb active" onclick="switchImg(this,'https://amsport-shop.de/cdn/shop/files/NATURAL_WHEY_VANILLA_FRONT.jpg?v=1766334394')">
+        <img src="https://amsport-shop.de/cdn/shop/files/NATURAL_WHEY_VANILLA_FRONT.jpg?v=1766334394" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://amsport-shop.de/cdn/shop/files/WHEYNATURAL_BEIDE_da19aa48-ec81-4edc-829a-6e161b90b6a0.jpg?v=1766334353')">
+        <img src="https://amsport-shop.de/cdn/shop/files/WHEYNATURAL_BEIDE_da19aa48-ec81-4edc-829a-6e161b90b6a0.jpg?v=1766334353" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600&q=80')">
+        <img src="https://images.unsplash.com/photo-1593095948071-474c5cc2989d?w=600&q=80" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="product-info">
+    <div class="product-tag">
+      <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      Clean Label · Made in Germany
+    </div>
+    <h1 class="product-title">Natural Whey Isolat – 330g<br><span style="color:var(--blue)">87g Protein</span> pro 100g</h1>
+
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-n">4,8</span>
+      <a class="rating-c" href="#reviews">47 Bewertungen</a>
+    </div>
+
+    <!-- Macro Strip -->
+    <div class="macro-strip">
+      <div class="macro-cell">
+        <div class="macro-val protein">87g</div>
+        <div class="macro-lbl">Protein</div>
+        <div class="macro-sub">pro 100g</div>
+      </div>
+      <div class="macro-cell">
+        <div class="macro-val">2,2g</div>
+        <div class="macro-lbl">Kohlenhydrate</div>
+        <div class="macro-sub">pro 100g</div>
+      </div>
+      <div class="macro-cell">
+        <div class="macro-val">0,7g</div>
+        <div class="macro-lbl">Fett</div>
+        <div class="macro-sub">pro 100g</div>
+      </div>
+    </div>
+
+    <!-- Flavor -->
+    <div class="var-label">Geschmack: <em id="flavorName">Vanille</em></div>
+    <div class="flavor-row">
+      <button class="flavor-btn active" onclick="setFlavor(this,'Vanille','https://amsport-shop.de/cdn/shop/files/NATURAL_WHEY_VANILLA_FRONT.jpg?v=1766334394')">
+        <span class="flavor-dot" style="background:#f5e6b0;border:1px solid #ddd;"></span>
+        Vanille
+      </button>
+      <button class="flavor-btn" onclick="setFlavor(this,'Schokolade','https://amsport-shop.de/cdn/shop/files/WHEYNATURAL_BEIDE_da19aa48-ec81-4edc-829a-6e161b90b6a0.jpg?v=1766334353')">
+        <span class="flavor-dot" style="background:#5c3317;"></span>
+        Schokolade
+      </button>
+    </div>
+
+    <!-- SUBSCRIPTION BOX -->
+    <div class="sub-box">
+      <!-- Once -->
+      <div class="sub-option" id="optOnce" onclick="selectSub('once')">
+        <div class="sub-radio"><div class="sub-radio-dot"></div></div>
+        <div class="sub-info">
+          <div class="sub-title">Einmalig kaufen</div>
+          <div class="sub-desc">Kein Abo, keine Bindung</div>
+        </div>
+        <div class="sub-price-col">
+          <div class="sub-price" id="priceOnce">27,90 €</div>
+          <div style="font-size:11px;color:var(--mid);">84,55 €/kg</div>
+        </div>
+      </div>
+      <!-- Abo -->
+      <div class="sub-option active" id="optAbo" onclick="selectSub('abo')">
+        <div class="sub-radio"><div class="sub-radio-dot"></div></div>
+        <div class="sub-info">
+          <div class="sub-title">Im Abo kaufen <span class="sub-save">15% SPAREN</span></div>
+          <div class="sub-desc">Monatlich · Jederzeit pausierbar</div>
+        </div>
+        <div class="sub-price-col">
+          <div class="sub-price abo" id="priceAbo">23,72 €</div>
+          <div style="font-size:11px;color:var(--mid);text-decoration:line-through;">27,90 €</div>
+        </div>
+      </div>
+      <!-- Abo Details -->
+      <div class="sub-abo-details visible" id="aboDetails">
+        <div class="sub-detail">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Monatliche Lieferung
+        </div>
+        <div class="sub-detail">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Jederzeit kündbar
+        </div>
+        <div class="sub-detail">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Immer frisch
+        </div>
+        <div class="sub-detail">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Kostenloser Versand
+        </div>
+      </div>
+    </div>
+
+    <button class="btn-buy" id="buyBtn">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span id="buyLabel">Abo starten – 23,72 €/Monat</span>
+    </button>
+    <button class="btn-wish">♡ &nbsp; Zur Wunschliste</button>
+
+    <!-- Trust -->
+    <div class="trust-row">
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Schnelle<br>Lieferung</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+        <span>Lab<br>Tested</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Sichere<br>Zahlung</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span>30 Tage<br>Rückgabe</span>
+      </div>
+    </div>
+
+    <div class="pay-row">
+      <span class="pay-lbl">Zahlung:</span>
+      <span class="pay-tag">PayPal</span>
+      <span class="pay-tag">Klarna</span>
+      <span class="pay-tag">Visa</span>
+      <span class="pay-tag">Mastercard</span>
+      <span class="pay-tag">Amazon Pay</span>
+    </div>
+  </div>
+</div>
+
+<!-- USP STRIP -->
+<section class="usp-strip">
+  <div class="usp-inner">
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>100% Whey Isolat</h3>
+      <p>Reinste Form – schnell verfügbar, höchste Bioverfügbarkeit für deine Muskeln</p>
+    </div>
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+      <h3>Ohne Süßstoffe</h3>
+      <p>Nur natürliches Aroma – kein Aspartam, kein Sucralose, kein Stevia</p>
+    </div>
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg></div>
+      <h3>Lab Tested</h3>
+      <p>Unabhängig geprüft – garantierte Makro-Werte, keine Verunreinigungen</p>
+    </div>
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></div>
+      <h3>Made in Germany</h3>
+      <p>Hergestellt und abgefüllt in Deutschland – höchste Qualitätsstandards</p>
+    </div>
+  </div>
+</section>
+
+<!-- MACRO VISUAL -->
+<section class="macro-section">
+  <div class="macro-inner">
+    <div>
+      <div class="sec-eyebrow">Nährwerte auf einen Blick</div>
+      <h2 class="sec-title">87g Protein.<br>Minimal alles andere.</h2>
+      <p class="sec-sub">Pro 100g liefert AMSPORT Natural Whey Isolat die höchste Proteindichte – bei minimalem Fett und Kohlenhydraten. Eine Portion (30g) gibt dir bereits <strong>26g reines Eiweiß</strong>.</p>
+      <div class="macro-bars">
+        <div class="m-bar-row">
+          <div class="m-bar-head">
+            <span class="m-bar-name" style="color:var(--blue)">Protein</span>
+            <span class="m-bar-val" style="color:var(--blue)">87,1g</span>
+          </div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-p" style="width:87%"></div></div>
+          <div class="m-bar-sub">174% des Tagesbedarfs</div>
+        </div>
+        <div class="m-bar-row">
+          <div class="m-bar-head">
+            <span class="m-bar-name">Kohlenhydrate</span>
+            <span class="m-bar-val">2,2g</span>
+          </div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-c" style="width:2.2%"></div></div>
+          <div class="m-bar-sub">Extrem niedrig – ideal bei Low Carb</div>
+        </div>
+        <div class="m-bar-row">
+          <div class="m-bar-head">
+            <span class="m-bar-name">davon Zucker</span>
+            <span class="m-bar-val">1,3g</span>
+          </div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-s" style="width:1.3%"></div></div>
+          <div class="m-bar-sub">Natürlicher Milchzucker</div>
+        </div>
+        <div class="m-bar-row">
+          <div class="m-bar-head">
+            <span class="m-bar-name">Fett</span>
+            <span class="m-bar-val">0,7g</span>
+          </div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-f" style="width:0.7%"></div></div>
+          <div class="m-bar-sub">Nahezu fettfrei</div>
+        </div>
+      </div>
+    </div>
+    <div class="macro-big-num">
+      <div style="font-size:13px;font-weight:600;color:var(--mid);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Pro Portion (30g)</div>
+      <div class="macro-hero-val">26</div>
+      <div class="macro-hero-unit">g Protein</div>
+      <div class="macro-hero-lbl">pro Shake</div>
+      <div class="macro-hero-sub">mit 200ml Wasser oder Milch</div>
+      <div class="macro-badges">
+        <span class="mbadge">🥛 Laktosearm</span>
+        <span class="mbadge">🌿 Glutenfrei</span>
+        <span class="mbadge">✓ Ohne Süßstoff</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO USE -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="sec-eyebrow" style="text-align:center;">Anwendung</div>
+    <h2 class="sec-title">So einfach geht's</h2>
+    <p style="font-size:14px;color:var(--mid);max-width:500px;margin:0 auto;">Whey Isolat ist schnell verdaulich – optimal direkt nach dem Training oder als Proteinquelle zwischendurch.</p>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-connector"></div>
+        <div class="how-num">1</div>
+        <h4>30g abmessen</h4>
+        <p>Einen gehäuften Messlöffel (30g) in deinen Shaker geben. Das entspricht ca. 26g Protein.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-connector"></div>
+        <div class="how-num">2</div>
+        <h4>200ml Flüssigkeit</h4>
+        <p>Wasser, Milch oder pflanzliche Alternative dazugeben. Fettarme Milch erhöht den Proteingehalt zusätzlich.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-num">3</div>
+        <h4>Schütteln & trinken</h4>
+        <p>10 Sekunden kräftig schütteln. Durch Sunflower-Lecithin löst sich das Pulver vollständig auf.</p>
+      </div>
+    </div>
+    <div class="how-tip">
+      <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+      <p><strong>Optimaler Zeitpunkt:</strong> Innerhalb von 30–60 Minuten nach dem Training für maximale Muskelproteinsynthese. Auch als Frühstücks-Supplement oder gesunder Snack ideal.</p>
+    </div>
+  </div>
+</section>
+
+<!-- QUALITY SECTION -->
+<section class="qual-section">
+  <div class="qual-inner">
+    <div class="qual-text">
+      <div class="sec-eyebrow">Qualität & Transparenz</div>
+      <h2 class="sec-title">Keine Kompromisse.<br>Kein Verstecken.</h2>
+      <p class="sec-sub" style="margin-bottom:28px;">AMSPORT steht für maximale Transparenz – jede Charge wird unabhängig auf Reinheit und Wirkstoffgehalt geprüft. Keine Proprietary Blends, keine unnötigen Zusätze.</p>
+      <div class="qual-list">
+        <div class="qual-li"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Molkenprotein aus europäischer Landwirtschaft</div>
+        <div class="qual-li"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Nur 3 Zutaten: Whey Isolat, Sonnenblumenlecithin, natürliches Aroma</div>
+        <div class="qual-li"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Frei von Aspartam, Sucralose, Acesulfam-K</div>
+        <div class="qual-li"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Chargenprüfung durch unabhängiges Labor</div>
+        <div class="qual-li"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Hergestellt und abgefüllt in Deutschland</div>
+      </div>
+    </div>
+    <div class="qual-badges">
+      <div class="qual-badge">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <h4>Lab Tested</h4>
+        <p>Unabhängige Chargenkontrolle</p>
+      </div>
+      <div class="qual-badge">
+        <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <h4>Made in Germany</h4>
+        <p>Herstellung & Abfüllung in DE</p>
+      </div>
+      <div class="qual-badge">
+        <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+        <h4>Ohne Süßstoffe</h4>
+        <p>Nur natürliches Aroma</p>
+      </div>
+      <div class="qual-badge">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        <h4>Clean Label</h4>
+        <p>Volle Inhaltsstoff-Transparenz</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK SECTION -->
+<section class="stack-section">
+  <div class="stack-inner">
+    <div class="sec-eyebrow">Ergänze deinen Stack</div>
+    <h2 class="sec-title">Wird oft zusammen gekauft</h2>
+    <p class="sec-sub">Kombiniere Natural Whey Isolat mit diesen Produkten für optimale Ergebnisse.</p>
+    <div class="stack-grid">
+      <div class="stack-card">
+        <div class="stack-img">
+          <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Creatin">
+        </div>
+        <div class="stack-body">
+          <div class="stack-tag">⚡ Für mehr Kraft</div>
+          <div class="stack-name">AMSPORT Creatin Monohydrat 500g</div>
+          <div class="stack-why">Erhöht Kraftleistung & Muskelvolumen. Perfekte Ergänzung zum Whey Isolat.</div>
+          <span class="stack-price">19,90 €</span>
+          <button class="stack-add">+ Hinzufügen</button>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-img">
+          <img src="https://images.unsplash.com/photo-1584863231364-2edc166de576?w=400&q=80" alt="Vitamins">
+        </div>
+        <div class="stack-body">
+          <div class="stack-tag">🌿 Für Regeneration</div>
+          <div class="stack-name">AMSPORT Magnesium + Zink Kapseln</div>
+          <div class="stack-why">Unterstützt Muskelregeneration und Schlafqualität. Ideal nach intensivem Training.</div>
+          <span class="stack-price">14,90 €</span>
+          <button class="stack-add">+ Hinzufügen</button>
+        </div>
+      </div>
+      <div class="stack-card">
+        <div class="stack-img">
+          <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" alt="BCAA">
+        </div>
+        <div class="stack-body">
+          <div class="stack-tag">💪 Für Muskelaufbau</div>
+          <div class="stack-name">AMSPORT BCAA Pulver 2:1:1 300g</div>
+          <div class="stack-why">Essentielle Aminosäuren für Muskelschutz & schnellere Erholung nach dem Training.</div>
+          <span class="stack-price">22,90 €</span>
+          <button class="stack-add">+ Hinzufügen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="review-section" id="reviews">
+  <div class="review-inner">
+    <div class="sec-eyebrow">Kundenstimmen</div>
+    <h2 class="sec-title" style="margin-bottom:32px;">Was unsere Kunden sagen</h2>
+    <div class="review-top">
+      <div class="review-score">
+        <div class="rv-big">4,8</div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-count">47 Bewertungen</div>
+      </div>
+      <div class="rv-bars">
+        <div class="rv-bar"><span class="rv-lbl">5 ★</span><div class="rv-track"><div class="rv-fill" style="width:85%"></div></div><span class="rv-pct">85%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">4 ★</span><div class="rv-track"><div class="rv-fill" style="width:10%;background:#ccc"></div></div><span class="rv-pct">10%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">3 ★</span><div class="rv-track"><div class="rv-fill" style="width:5%;background:#ddd"></div></div><span class="rv-pct">5%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">2 ★</span><div class="rv-track"></div><span class="rv-pct">0%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">1 ★</span><div class="rv-track"></div><span class="rv-pct">0%</span></div>
+      </div>
+    </div>
+    <div class="review-grid">
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">April 2025</span></div>
+        <div class="rc-name">Markus T.</div>
+        <div class="rc-text">„Endlich ein Whey ohne diesen künstlichen Nachgeschmack. Löst sich perfekt auf, kein Klumpen. Die Vanille-Variante schmeckt angenehm mild – nicht zu süß."</div>
+        <div class="rc-tag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf · Abo-Kunde</div>
+      </div>
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">März 2025</span></div>
+        <div class="rc-name">Laura K.</div>
+        <div class="rc-text">„Ich habe Laktoseintoleranz und dieses Isolat vertrage ich problemlos. 87g Protein pro 100g ist beeindruckend – und keine versteckten Süßstoffe. Klare Empfehlung!"</div>
+        <div class="rc-tag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf</div>
+      </div>
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">Februar 2025</span></div>
+        <div class="rc-name">Jonas W.</div>
+        <div class="rc-text">„Das Abo-Modell ist super praktisch. Läuft automatisch, Versand ist zuverlässig und jederzeit kündbar. Preis-Leistung mit 15% Rabatt kaum zu toppen."</div>
+        <div class="rc-tag"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf · Abo-Kunde</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="sec-eyebrow" style="text-align:center;">FAQ</div>
+    <h2 class="sec-title" style="text-align:center;margin-bottom:32px;">Häufige Fragen</h2>
+
+    <div class="faq-item open">
+      <button class="faq-q" onclick="faqToggle(this)">Wie unterscheidet sich Whey Isolat von Whey Konzentrat? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Whey Isolat ist eine reinere Form – es enthält mehr Protein (87g vs. ~70g pro 100g), weniger Fett und weniger Laktose. Es ist teurer in der Herstellung, aber deutlich besser für laktosesensible Personen und alle, die maximale Proteindichte wollen.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Ist das Produkt laktosefrei? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Natural Whey Isolat enthält durch den Filtrationsprozess nur noch Spuren von Laktose (unter 1g/100g). Die meisten Menschen mit Laktoseintoleranz vertragen es problemlos. Bei starker Unverträglichkeit empfehlen wir einen Test mit kleiner Menge.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Wann ist der beste Zeitpunkt zur Einnahme? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Optimal sind 30–60 Minuten nach dem Training. Du kannst es aber auch morgens als Frühstücksergänzung oder tagsüber nehmen, wenn du Protein-Bedarf hast. Whey Isolat ist schnell verdaulich und passt zu jeder Tageszeit.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Kann ich das Abo jederzeit kündigen? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Ja, absolut. Das Abo kann jederzeit ohne Angabe von Gründen pausiert oder gekündigt werden – direkt in deinem Kundenkonto. Keine Mindestlaufzeit, keine Kündigungsfristen. Du bekommst außerdem 5 Tage vor der nächsten Lieferung eine Erinnerungsmail.</div>
+    </div>
+
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Ist das Produkt für Veganer geeignet? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Nein – Whey Isolat wird aus Molke gewonnen und ist damit ein tierisches Produkt. Für Veganer empfehlen wir unser AMSPORT Veganes Protein auf Erbsenbasis, das eine ähnliche Aminosäuren-Zusammensetzung bietet.</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="ft-logo">
+      <img src="https://amsport-shop.de/cdn/shop/files/amsport_logo.svg?height=36&v=1764591761" alt="AMSPORT">
+      <p>Leidenschaft trifft Wissenschaft – hochwertige Supplemente für bewusste Sportler. Made in Germany.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Produkte</h4>
+      <a href="#">Protein & Muskel</a>
+      <a href="#">Energie & Fokus</a>
+      <a href="#">Gelenke & Mobilität</a>
+      <a href="#">Aktiv 50+</a>
+    </div>
+    <div class="ft-col">
+      <h4>Service</h4>
+      <a href="#">Mein Abo verwalten</a>
+      <a href="#">Versand & Rückgabe</a>
+      <a href="#">FAQ</a>
+      <a href="#">Kontakt</a>
+    </div>
+    <div class="ft-col">
+      <h4>Rechtliches</h4>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">AGB</a>
+      <a href="#">Widerrufsrecht</a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2025 AMSPORT GmbH · Alle Rechte vorbehalten</p>
+    <div class="ft-pays">
+      <span class="ft-pay">PayPal</span>
+      <span class="ft-pay">Klarna</span>
+      <span class="ft-pay">Visa</span>
+      <span class="ft-pay">MC</span>
+      <span class="ft-pay">Amazon</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Gallery
+  function switchImg(el, src) {
+    document.querySelectorAll('.gal-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('mainImg').src = src;
+  }
+
+  // Flavor
+  function setFlavor(btn, name, img) {
+    document.querySelectorAll('.flavor-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('flavorName').textContent = name;
+    document.getElementById('mainImg').src = img;
+  }
+
+  // Subscription toggle
+  function selectSub(type) {
+    const once = document.getElementById('optOnce');
+    const abo  = document.getElementById('optAbo');
+    const details = document.getElementById('aboDetails');
+    const buyLabel = document.getElementById('buyLabel');
+    const box = document.querySelector('.sub-box');
+
+    if (type === 'abo') {
+      abo.classList.add('active');
+      once.classList.remove('active');
+      details.classList.add('visible');
+      buyLabel.textContent = 'Abo starten – 23,72 €/Monat';
+      box.style.borderColor = 'var(--blue)';
+    } else {
+      once.classList.add('active');
+      abo.classList.remove('active');
+      details.classList.remove('visible');
+      buyLabel.textContent = 'In den Warenkorb – 27,90 €';
+      box.style.borderColor = 'var(--border)';
+    }
+  }
+
+  // FAQ
+  function faqToggle(btn) {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+</script>
+</body>
+</html>
