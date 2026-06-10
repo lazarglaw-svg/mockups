@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Snack & Weg Kokos Sticks – WilliWiggle</title>
+<style>
+  :root {
+    --cream: #EFEFEC;
+    --dark: #1a1a1a;
+    --green: #2b8f6a;
+    --green-light: #e8f5f0;
+    --green-dark: #1d6b4f;
+    --teal: #3aafa9;
+    --text: #2c2c2c;
+    --mid: #6b6b6b;
+    --border: #d8d8d4;
+    --white: #ffffff;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--white); color: var(--text); }
+
+  /* ANNOUNCE BAR */
+  .bar {
+    background: var(--dark);
+    color: var(--white);
+    text-align: center;
+    font-size: 11.5px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    padding: 8px 16px;
+    position: relative;
+    overflow: hidden;
+    min-height: 34px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 32px;
+  }
+  .bar span { white-space: nowrap; }
+  .bar-dot { color: rgba(255,255,255,0.3); }
+  @media (max-width: 640px) {
+    .bar span { position: absolute; opacity: 0; transition: opacity .4s ease; }
+    .bar span.bar-active { opacity: 1; position: static; }
+    .bar-dot { display: none; }
+  }
+
+  /* NAV */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 68px;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+  .nav-logo img { max-height: 40px; max-width: 150px; object-fit: contain; display: block; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--text); font-size: 13.5px; font-weight: 500; letter-spacing: 0.01em; }
+  .nav-links a:hover { color: var(--green); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-cart {
+    background: var(--dark);
+    color: var(--white);
+    border: none;
+    padding: 10px 20px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    letter-spacing: 0.01em;
+  }
+  .nav-cart svg { width: 16px; height: 16px; }
+  @media (max-width: 768px) {
+    nav { padding: 0 20px; height: 60px; }
+    .nav-links { display: none; }
+  }
+
+  /* BREADCRUMB */
+  .breadcrumb { padding: 10px 24px; font-size: 12px; color: var(--mid); }
+  .breadcrumb a { color: var(--mid); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--green); }
+
+  /* HERO */
+  .hero {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 32px 40px 56px;
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 56px;
+    align-items: start;
+  }
+  @media (max-width: 1024px) {
+    .hero { padding: 24px 24px 40px; gap: 36px; }
+  }
+  @media (max-width: 768px) {
+    .hero { grid-template-columns: 1fr; gap: 20px; padding: 16px 20px 32px; }
+  }
+
+  /* GALLERY */
+  .gallery { display: flex; flex-direction: column; gap: 10px; }
+  .gallery-main {
+    border-radius: 14px;
+    overflow: hidden;
+    background: var(--cream);
+    aspect-ratio: 1 / 1;
+    position: relative;
+  }
+  .gallery-main img { width: 100%; height: 100%; object-fit: contain; padding: 20px; }
+  .gallery-badge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: var(--green);
+    color: white;
+    font-size: 10px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 4px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .gallery-thumbs { display: flex; gap: 8px; }
+  .gallery-thumbs img {
+    width: 64px;
+    height: 64px;
+    object-fit: contain;
+    border-radius: 8px;
+    background: var(--cream);
+    padding: 6px;
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color .2s;
+  }
+  .gallery-thumbs img.active, .gallery-thumbs img:hover { border-color: var(--green); }
+  @media (max-width: 768px) {
+    .gallery-main { aspect-ratio: 4/3; }
+  }
+
+  /* PRODUCT INFO */
+  .product-info { display: flex; flex-direction: column; gap: 18px; }
+  .brand-tag { font-size: 11px; font-weight: 700; color: var(--green); letter-spacing: 0.1em; text-transform: uppercase; }
+  .product-title { font-size: 26px; font-weight: 800; line-height: 1.25; color: var(--dark); }
+  .product-subtitle { font-size: 14px; color: var(--mid); margin-top: -10px; line-height: 1.5; }
+  @media (max-width: 768px) { .product-title { font-size: 20px; } }
+
+  /* BADGES ROW */
+  .badges { display: flex; flex-wrap: wrap; gap: 7px; }
+  .badge {
+    background: var(--green-light);
+    color: var(--green-dark);
+    font-size: 11.5px;
+    font-weight: 600;
+    padding: 5px 12px;
+    border-radius: 4px;
+    border: 1px solid #b8dfd4;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    letter-spacing: 0.01em;
+  }
+  .badge-dot {
+    width: 6px; height: 6px;
+    background: var(--green);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* ZECKEN CALLOUT */
+  .zecken-callout {
+    background: var(--green);
+    color: white;
+    border-radius: 10px;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .zecken-icon { flex-shrink: 0; width: 32px; height: 32px; }
+  .zecken-text strong { font-size: 13.5px; display: block; font-weight: 700; }
+  .zecken-text span { font-size: 12.5px; opacity: 0.88; }
+
+  /* SIZE SELECT */
+  .size-label { font-size: 13px; font-weight: 700; color: var(--dark); }
+  .size-options { display: flex; gap: 10px; margin-top: 8px; }
+  .size-btn {
+    border: 2px solid var(--border);
+    background: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 600;
+    transition: all .2s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+  }
+  .size-btn .size-price { font-size: 12px; color: var(--mid); font-weight: 500; }
+  .size-btn .size-per { font-size: 11px; color: var(--green); font-weight: 700; }
+  .size-btn.active { border-color: var(--green); background: var(--green-light); }
+
+  /* PURCHASE OPTIONS */
+  .purchase-options { display: flex; flex-direction: column; gap: 10px; }
+  .purchase-label { font-size: 12px; font-weight: 700; color: var(--dark); letter-spacing: 0.05em; text-transform: uppercase; margin-bottom: 2px; }
+  .pur-opt {
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    padding: 14px 16px;
+    cursor: pointer;
+    background: white;
+    transition: border-color .15s, background .15s;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    position: relative;
+  }
+  .pur-opt:hover { border-color: #a5d4c3; }
+  .pur-opt.active {
+    border-color: var(--green);
+    background: var(--green-light);
+  }
+  /* radio circle */
+  .pur-radio {
+    width: 18px; height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 50%;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color .15s;
+  }
+  .pur-opt.active .pur-radio {
+    border-color: var(--green);
+  }
+  .pur-radio-dot {
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--green);
+    opacity: 0;
+    transition: opacity .15s;
+  }
+  .pur-opt.active .pur-radio-dot { opacity: 1; }
+  .pur-content { flex: 1; min-width: 0; }
+  .pur-title { font-size: 13.5px; font-weight: 700; color: var(--dark); display: flex; align-items: center; gap: 8px; }
+  .pur-opt.active .pur-title { color: var(--green-dark); }
+  .pur-sub { font-size: 12px; color: var(--mid); margin-top: 2px; }
+  .pur-price { font-size: 18px; font-weight: 800; color: var(--dark); white-space: nowrap; }
+  .pur-opt.active .pur-price { color: var(--green-dark); }
+  .pur-badge-inline {
+    background: var(--green);
+    color: white;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 2px 7px;
+    border-radius: 3px;
+    letter-spacing: 0.02em;
+  }
+  .pur-oldprice {
+    font-size: 12px;
+    color: var(--mid);
+    text-decoration: line-through;
+    margin-top: 2px;
+    text-align: right;
+  }
+  .price-row { display: flex; align-items: baseline; gap: 10px; }
+  .price-main { font-size: 30px; font-weight: 800; color: var(--dark); }
+  .price-old { font-size: 16px; color: var(--mid); text-decoration: line-through; }
+  .price-save { background: var(--green); color: white; font-size: 12px; font-weight: 700; padding: 3px 8px; border-radius: 4px; }
+  .price-per { font-size: 12px; color: var(--mid); margin-top: 4px; }
+  .abo-note { font-size: 12px; color: var(--mid); margin-top: 8px; display: flex; align-items: center; gap: 6px; }
+
+  /* CTA */
+  .btn-cart {
+    background: var(--green);
+    color: white;
+    border: none;
+    width: 100%;
+    padding: 16px;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: background .2s;
+    letter-spacing: 0.01em;
+  }
+  .btn-cart:hover { background: var(--green-dark); }
+  .btn-wishlist {
+    background: white;
+    color: var(--dark);
+    border: 2px solid var(--border);
+    width: 100%;
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: border-color .2s;
+  }
+  .btn-wishlist:hover { border-color: var(--green); color: var(--green); }
+
+  /* TRUST ROW */
+  .trust-row {
+    display: flex;
+    gap: 14px;
+    font-size: 12px;
+    color: var(--mid);
+    flex-wrap: wrap;
+    align-items: center;
+    padding-top: 4px;
+    border-top: 1px solid var(--border);
+  }
+  .trust-item { display: flex; align-items: center; gap: 6px; }
+  .trust-icon { width: 14px; height: 14px; color: var(--green); flex-shrink: 0; }
+
+  /* SECTION WRAPPER */
+  .section { max-width: 1200px; margin: 0 auto; padding: 48px 24px; }
+  @media (max-width: 768px) { .section { padding: 32px 16px; } }
+  .section-title { font-size: 26px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+  .section-sub { font-size: 15px; color: var(--mid); margin-bottom: 32px; }
+  @media (max-width: 768px) { .section-title { font-size: 22px; } }
+
+  /* LAURINSÄURE SECTION */
+  .laurin-section {
+    background: var(--dark);
+    color: white;
+    padding: 56px 24px;
+  }
+  .laurin-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 48px;
+    align-items: center;
+  }
+  @media (max-width: 768px) { .laurin-inner { grid-template-columns: 1fr; gap: 28px; } }
+  .laurin-label { font-size: 11px; font-weight: 700; color: var(--teal); letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 10px; }
+  .laurin-title { font-size: 30px; font-weight: 800; line-height: 1.2; margin-bottom: 16px; }
+  @media (max-width: 768px) { .laurin-title { font-size: 24px; } }
+  .laurin-text { font-size: 15px; line-height: 1.7; color: rgba(255,255,255,0.8); }
+  .laurin-cards { display: flex; flex-direction: column; gap: 14px; }
+  .laurin-card {
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 12px;
+    padding: 18px 20px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+  }
+  .laurin-card-icon { width: 22px; height: 22px; flex-shrink: 0; color: var(--teal); }
+  .laurin-card-title { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .laurin-card-text { font-size: 13px; color: rgba(255,255,255,0.7); line-height: 1.5; }
+
+  /* FUER WEN */
+  .fuer-wen-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  @media (max-width: 600px) { .fuer-wen-grid { grid-template-columns: 1fr; } }
+  .fuer-wen-card {
+    background: var(--cream);
+    border-radius: 16px;
+    padding: 28px;
+  }
+  .fuer-wen-icon { width: 40px; height: 40px; color: var(--green); margin-bottom: 14px; }
+  .fuer-wen-title { font-size: 18px; font-weight: 800; color: var(--dark); margin-bottom: 8px; }
+  .fuer-wen-text { font-size: 14px; color: var(--mid); line-height: 1.6; }
+  .fuer-wen-list { list-style: none; margin-top: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .fuer-wen-list li { font-size: 13px; color: var(--text); display: flex; gap: 8px; align-items: flex-start; }
+  .fuer-wen-list li::before { content: "✓"; color: var(--green); font-weight: 700; flex-shrink: 0; }
+
+  /* BENEFIT STRIP */
+  .benefit-strip {
+    background: var(--green-light);
+    padding: 32px 24px;
+    border-top: 1px solid #b8dfd4;
+    border-bottom: 1px solid #b8dfd4;
+  }
+  .benefit-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    text-align: center;
+  }
+  @media (max-width: 768px) { .benefit-inner { grid-template-columns: repeat(2, 1fr); } }
+  .benefit-item .b-icon { width: 32px; height: 32px; margin: 0 auto 10px; color: var(--green); }
+  .benefit-item .b-title { font-size: 13px; font-weight: 700; color: var(--dark); }
+  .benefit-item .b-text { font-size: 12px; color: var(--mid); margin-top: 3px; }
+
+  /* CROSS-SELL */
+  .cross-sell-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+  @media (max-width: 600px) { .cross-sell-grid { grid-template-columns: repeat(2, 1fr); } }
+  .cross-sell-card {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    transition: box-shadow .2s;
+    cursor: pointer;
+  }
+  .cross-sell-card:hover { box-shadow: 0 4px 20px rgba(0,0,0,0.1); }
+  .cross-sell-img {
+    background: var(--cream);
+    aspect-ratio: 4/3;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .cross-sell-img img { width: 100%; height: 100%; object-fit: contain; padding: 12px; }
+  .cross-sell-body { padding: 14px; }
+  .cross-sell-name { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .cross-sell-sub { font-size: 12px; color: var(--mid); margin-top: 2px; }
+  .cross-sell-price { font-size: 15px; font-weight: 800; color: var(--green); margin-top: 8px; }
+
+  /* ANWENDUNG */
+  .anwendung-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    text-align: center;
+  }
+  @media (max-width: 600px) { .anwendung-grid { grid-template-columns: 1fr; max-width: 320px; margin: 0 auto; } }
+  .anwendung-step {
+    background: var(--cream);
+    border-radius: 14px;
+    padding: 28px 20px;
+    position: relative;
+  }
+  .step-num {
+    width: 36px; height: 36px;
+    background: var(--green);
+    color: white;
+    border-radius: 50%;
+    font-size: 16px;
+    font-weight: 800;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 14px;
+  }
+  .step-icon { font-size: 30px; margin-bottom: 10px; }
+  .step-title { font-size: 14px; font-weight: 700; color: var(--dark); }
+  .step-text { font-size: 13px; color: var(--mid); margin-top: 6px; line-height: 1.5; }
+
+  /* FAQ */
+  .faq-list { display: flex; flex-direction: column; gap: 0; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q {
+    padding: 18px 20px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--dark);
+    cursor: pointer;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    user-select: none;
+  }
+  .faq-q:hover { background: var(--cream); }
+  .faq-arrow { font-size: 18px; color: var(--green); flex-shrink: 0; transition: transform .2s; }
+  .faq-item.open .faq-arrow { transform: rotate(180deg); }
+  .faq-a { display: none; padding: 0 20px 18px; font-size: 14px; color: var(--mid); line-height: 1.7; }
+  .faq-item.open .faq-a { display: block; }
+
+  /* FOOTER */
+  footer {
+    background: var(--dark);
+    color: rgba(255,255,255,0.6);
+    padding: 48px 24px 32px;
+    margin-top: 64px;
+  }
+  .footer-inner { max-width: 1200px; margin: 0 auto; }
+  .footer-top {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 40px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(255,255,255,0.1);
+  }
+  @media (max-width: 768px) { .footer-top { grid-template-columns: 1fr; gap: 24px; } }
+  .footer-brand-text { font-size: 13px; line-height: 1.7; margin-top: 12px; }
+  .footer-col-title { font-size: 13px; font-weight: 700; color: white; margin-bottom: 14px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+  .footer-col ul a { color: rgba(255,255,255,0.6); text-decoration: none; font-size: 13px; }
+  .footer-col ul a:hover { color: white; }
+  .footer-logo img { max-height: 36px; max-width: 140px; object-fit: contain; filter: brightness(0) invert(1); }
+  .footer-bottom { padding-top: 24px; font-size: 12px; text-align: center; }
+
+  /* DIVIDER */
+  hr.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="bar">
+  <span>Kostenloser Versand ab €35</span>
+  <span class="bar-dot">·</span>
+  <span>100% Natürliche Zutaten</span>
+  <span class="bar-dot">·</span>
+  <span>Auch für Pferde geeignet</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">
+    <img src="https://williwiggle.com/wp-content/uploads/2024/05/willi_logo_centered.svg" alt="WilliWiggle" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:20px;font-weight:800;color:#1a1a1a\'>WilliWiggle</span>'">
+  </div>
+  <ul class="nav-links">
+    <li><a href="#">Snacks</a></li>
+    <li><a href="#">Pflege</a></li>
+    <li><a href="#">Zubehör</a></li>
+    <li><a href="#">Über uns</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-cart">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/></svg>
+      Warenkorb (0)
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Startseite</a> / <a href="#">Snacks</a> / Kokos Sticks
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gallery-main" id="mainImg">
+      <div class="gallery-badge">NEU</div>
+      <img id="heroImg" src="willi-imgs/Snack-Weg-Hundeleckerlies-Willi-Wiggle-IMG_1489-Kokos-600x450.png" alt="Kokos Sticks mit Packung">
+    </div>
+    <div class="gallery-thumbs">
+      <img class="active" src="willi-imgs/Snack-Weg-Hundeleckerlies-Willi-Wiggle-IMG_1489-Kokos-600x450.png" alt="Produktbild 1" onclick="switchImg(this, 'willi-imgs/Snack-Weg-Hundeleckerlies-Willi-Wiggle-IMG_1489-Kokos-600x450.png')">
+      <img src="willi-imgs/Snack-Weg-Hundeleckerlies-Willi-Wiggle-IMG_1489-Kokos-1-e1746693875187-600x450.png" alt="Produktbild 2" onclick="switchImg(this, 'willi-imgs/Snack-Weg-Hundeleckerlies-Willi-Wiggle-IMG_1489-Kokos-1-e1746693875187-600x450.png')">
+    </div>
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div class="product-info">
+    <div class="brand-tag">Snack & Weg</div>
+    <h1 class="product-title">Kokos Sticks – Natürlicher Schutz von innen</h1>
+    <p class="product-subtitle">100% kaltgepresstes Kokosmark · vegan · getreidefrei</p>
+
+    <div class="badges">
+      <span class="badge"><span class="badge-dot"></span>Vegan</span>
+      <span class="badge"><span class="badge-dot"></span>Getreidefrei</span>
+      <span class="badge"><span class="badge-dot"></span>Glutenfrei</span>
+      <span class="badge"><span class="badge-dot"></span>Kaltgepresst</span>
+      <span class="badge"><span class="badge-dot"></span>Auch für Pferde</span>
+    </div>
+
+    <!-- ZECKEN CALLOUT -->
+    <div class="zecken-callout">
+      <svg class="zecken-icon" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="zecken-text">
+        <strong>Natürlicher Schutz gegen Zecken & Flöhe</strong>
+        <span>Laurinsäure im Kokosmark wirkt von innen – ganz ohne Chemie</span>
+      </div>
+    </div>
+
+    <!-- SIZE SELECTOR -->
+    <div>
+      <div class="size-label">Menge wählen:</div>
+      <div class="size-options">
+        <button class="size-btn active" onclick="selectSize(this, '7,90')">
+          150g
+          <span class="size-price">€7,90</span>
+          <span class="size-per">€52,67/kg</span>
+        </button>
+        <button class="size-btn" onclick="selectSize(this, '13,90')">
+          2× 150g
+          <span class="size-price">€13,90</span>
+          <span class="size-per">€46,33/kg · Spare 12%</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- PURCHASE OPTIONS -->
+    <div class="purchase-options">
+      <div class="purchase-label">Kaufoption wählen</div>
+
+      <div class="pur-opt" id="einmalig" onclick="toggleAbo('einmalig')">
+        <div class="pur-radio"><div class="pur-radio-dot"></div></div>
+        <div class="pur-content">
+          <div class="pur-title">Einmalig kaufen</div>
+          <div class="pur-sub">Keine Bindung · jederzeit</div>
+        </div>
+        <div>
+          <div class="pur-price" id="priceEinmalig">€7,90</div>
+        </div>
+      </div>
+
+      <div class="pur-opt active" id="abo" onclick="toggleAbo('abo')">
+        <div class="pur-radio"><div class="pur-radio-dot"></div></div>
+        <div class="pur-content">
+          <div class="pur-title">
+            Abo & Spare
+            <span class="pur-badge-inline">–15%</span>
+          </div>
+          <div class="pur-sub" id="aboIntervalNote">Alle 4–8 Wochen · jederzeit kündbar</div>
+        </div>
+        <div style="text-align:right">
+          <div class="pur-price" id="priceAbo">€6,72</div>
+          <div class="pur-oldprice" id="priceAboOld">statt €7,90</div>
+        </div>
+      </div>
+    </div>
+
+    <div style="padding: 4px 0;">
+      <div class="price-row">
+        <span class="price-main" id="priceMain">€6,72</span>
+        <span class="price-old" id="priceOld">€7,90</span>
+        <span class="price-save" id="priceSave">–15%</span>
+      </div>
+      <div class="price-per" id="pricePer">inkl. MwSt. + Versand</div>
+    </div>
+
+    <button class="btn-cart">In den Warenkorb – €6,72</button>
+    <button class="btn-wishlist">Auf die Wunschliste</button>
+
+    <!-- TRUST ROW -->
+    <div class="trust-row">
+      <span class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Sofort versandfertig
+      </span>
+      <span class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        Versand in 1–2 Werktagen
+      </span>
+      <span class="trust-item">
+        <svg class="trust-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+        30 Tage Rückgabe
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- BENEFIT STRIP -->
+<div class="benefit-strip">
+  <div class="benefit-inner">
+    <div class="benefit-item">
+      <svg class="b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M8 12h8M12 8v8"/></svg>
+      <div class="b-title">100% Kokosmark</div>
+      <div class="b-text">Keine Füllstoffe, nur reines Kokosfleisch</div>
+    </div>
+    <div class="benefit-item">
+      <svg class="b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 0 1 0 20A10 10 0 0 1 12 2z"/><path d="M12 6c-2.5 2-4 5-4 7 0 3.5 2 6 4 7 2-1 4-3.5 4-7 0-2-1.5-5-4-7z"/></svg>
+      <div class="b-title">Vegan & Natürlich</div>
+      <div class="b-text">Getreidefrei, glutenfrei, ohne Zusätze</div>
+    </div>
+    <div class="benefit-item">
+      <svg class="b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div class="b-title">Zecken-Schutz</div>
+      <div class="b-text">Laurinsäure wirkt natürlich von innen</div>
+    </div>
+    <div class="benefit-item">
+      <svg class="b-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <div class="b-title">Hunde & Pferde</div>
+      <div class="b-text">Für alle Tiergrößen geeignet</div>
+    </div>
+  </div>
+</div>
+
+<!-- LAURINSÄURE SECTION -->
+<div class="laurin-section">
+  <div class="laurin-inner">
+    <div>
+      <div class="laurin-label">Wirkstoff erklärt</div>
+      <h2 class="laurin-title">Was macht Laurinsäure so besonders?</h2>
+      <p class="laurin-text">
+        Kokosöl enthält einen außergewöhnlich hohen Anteil an Laurinsäure – einer mittelkettigen Fettsäure, die im Körper zu Monolaurin umgewandelt wird. Monolaurin ist bekannt für seine antiparasitären und antiviralen Eigenschaften und kann dabei helfen, Zecken und Flöhe auf natürliche Weise abzuwehren.<br><br>
+        Kein Spray, kein Halsband, keine Chemie – einfach ein täglicher Snack.
+      </p>
+    </div>
+    <div class="laurin-cards">
+      <div class="laurin-card">
+        <svg class="laurin-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <div>
+          <div class="laurin-card-title">Wirkt von innen</div>
+          <div class="laurin-card-text">Laurinsäure wird über das Fell ausgeschieden und macht Hund & Pferd für Parasiten unattraktiv</div>
+        </div>
+      </div>
+      <div class="laurin-card">
+        <svg class="laurin-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        <div>
+          <div class="laurin-card-title">100% chemiefreie Alternative</div>
+          <div class="laurin-card-text">Ergänzt andere Schutzmaßnahmen auf natürliche Weise – sanft auch für empfindliche Tiere</div>
+        </div>
+      </div>
+      <div class="laurin-card">
+        <svg class="laurin-card-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        <div>
+          <div class="laurin-card-title">Zusätzliche Vorteile</div>
+          <div class="laurin-card-text">Fördert glänzendes Fell, unterstützt die Verdauung und gibt Energie für aktive Tiere</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FÜR WEN -->
+<div class="section">
+  <h2 class="section-title">Für wen sind die Kokos Sticks?</h2>
+  <p class="section-sub">Ein Snack – zwei Tierarten. Das macht die Kokos Sticks einzigartig.</p>
+  <div class="fuer-wen-grid">
+    <div class="fuer-wen-card">
+      <svg class="fuer-wen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M10 5.172C10 3.782 8.423 2.679 6.5 3c-2 .336-3.5 2-3.5 4 0 .828.224 1.602.618 2.264m0 0C4 10.4 5 12 7 13c1.5.73 3 1.073 5 1l2 .5 2-.5c2-.073 3.5-.27 5-1 2-1 3-2.6 3.382-3.736M3.618 9.264C2.604 10.637 2 12.25 2 14c0 3.866 3.582 7 8 7s8-3.134 8-7c0-1.75-.604-3.363-1.618-4.736M7 13c-.5 1.5 0 3 1 4"/></svg>
+      <div class="fuer-wen-title">Für Hunde</div>
+      <p class="fuer-wen-text">Geeignet für alle Rassen und Größen – von Chihuahua bis Schäferhund.</p>
+      <ul class="fuer-wen-list">
+        <li>Ideal als täglicher Snack oder Belohnung</li>
+        <li>Sanft für den Magen, auch bei empfindlichen Hunden</li>
+        <li>Unterstützt natürlichen Zeckenschutz in der Zeckensaison</li>
+        <li>Fördert ein glänzendes, gesundes Fell</li>
+      </ul>
+    </div>
+    <div class="fuer-wen-card">
+      <svg class="fuer-wen-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-1a2 2 0 0 1 4 0z"/><path d="M3 19a2 2 0 0 0 2 2 2 2 0 0 0 2-2v-1a2 2 0 0 0-4 0z"/></svg>
+      <div class="fuer-wen-title">Auch für Pferde</div>
+      <p class="fuer-wen-text">WilliWiggle denkt weiter – unsere Kokos Sticks sind auch für Pferde geeignet.</p>
+      <ul class="fuer-wen-list">
+        <li>Natürlicher Ausgleich im Fütterungsplan</li>
+        <li>Kein Getreide, kein Zucker – verdauungsfreundlich</li>
+        <li>Besonders praktisch für Pferde auf der Weide (Zeckensaison!)</li>
+        <li>Als Leckerli zur Belohnung oder zum Verfüttern</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ANWENDUNG -->
+<div class="section">
+  <h2 class="section-title">So einfach geht's</h2>
+  <p class="section-sub">Einfach täglich füttern – der Rest passiert von selbst.</p>
+  <div class="anwendung-grid">
+    <div class="anwendung-step">
+      <div class="step-num">1</div>
+      <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;margin:0 auto 10px;color:var(--green)"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      <div class="step-title">Täglich füttern</div>
+      <div class="step-text">Hunde: 1–2 Sticks täglich je nach Größe. Pferde: 3–5 Sticks täglich.</div>
+    </div>
+    <div class="anwendung-step">
+      <div class="step-num">2</div>
+      <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;margin:0 auto 10px;color:var(--green)"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+      <div class="step-title">2–3 Wochen warten</div>
+      <div class="step-text">Die Laurinsäure baut sich im Körper auf – beste Wirkung nach 2–3 Wochen regelmäßiger Fütterung.</div>
+    </div>
+    <div class="anwendung-step">
+      <div class="step-num">3</div>
+      <svg class="step-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" style="width:32px;height:32px;margin:0 auto 10px;color:var(--green)"><polyline points="20 6 9 17 4 12"/></svg>
+      <div class="step-title">Ergebnis genießen</div>
+      <div class="step-text">Natürlicher Schutz, glänzendes Fell und ein glückliches Tier – ganz ohne Chemie.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- ANDERE SORTEN -->
+<div class="section">
+  <h2 class="section-title">Andere Snack & Weg Sorten</h2>
+  <p class="section-sub">Abwechslung für deinen Vierbeiner – alle Sorten sind vegan, getreidefrei und natürlich.</p>
+  <div class="cross-sell-grid">
+    <div class="cross-sell-card">
+      <div class="cross-sell-img">
+        <img src="willi-imgs/Hirsch-Tuete-1-600x450.png" alt="Hirsch Sticks">
+      </div>
+      <div class="cross-sell-body">
+        <div class="cross-sell-name">Hirsch Sticks</div>
+        <div class="cross-sell-sub">Reich an Proteinen · gelenksfreundlich</div>
+        <div class="cross-sell-price">ab €7,90</div>
+      </div>
+    </div>
+    <div class="cross-sell-card">
+      <div class="cross-sell-img">
+        <img src="willi-imgs/Huhn-mit-Dose-2-600x450.png" alt="Huhn Sticks">
+      </div>
+      <div class="cross-sell-body">
+        <div class="cross-sell-name">Huhn Sticks</div>
+        <div class="cross-sell-sub">Mageres Protein · besonders zart</div>
+        <div class="cross-sell-price">ab €7,90</div>
+      </div>
+    </div>
+    <div class="cross-sell-card">
+      <div class="cross-sell-img">
+        <img src="willi-imgs/Ring-mit-Dose-600x450.png" alt="Rind Sticks">
+      </div>
+      <div class="cross-sell-body">
+        <div class="cross-sell-name">Rind Sticks</div>
+        <div class="cross-sell-sub">Kraftvolles Fleisch · voller Geschmack</div>
+        <div class="cross-sell-price">ab €7,90</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<hr class="divider">
+
+<!-- FAQ -->
+<div class="section">
+  <h2 class="section-title">Häufige Fragen</h2>
+  <p class="section-sub">Alles was du über die Kokos Sticks wissen musst.</p>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Helfen Kokos Sticks wirklich gegen Zecken?
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        Kokosfleisch enthält Laurinsäure, die im Körper zu Monolaurin umgewandelt wird. Monolaurin hat nachgewiesene antiparasitäre Eigenschaften. Viele Tierhalter berichten von deutlich weniger Zecken und Flöhen bei regelmäßiger Fütterung. Als alleinige Maßnahme ist Kokos kein Ersatz für einen vollständigen Zeckenschutz, aber eine wertvolle und chemiefreie Ergänzung.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Wie viele Sticks soll ich täglich füttern?
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        Für Hunde: Kleine Rassen (bis 10kg) 1 Stick täglich, mittlere Rassen (10–25kg) 1–2 Sticks, große Rassen (über 25kg) 2–3 Sticks. Für Pferde empfehlen wir 3–5 Sticks täglich. Die besten Ergebnisse zeigen sich nach 2–3 Wochen regelmäßiger Fütterung.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Sind die Sticks auch für Welpen geeignet?
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        Ja, die Kokos Sticks sind sanft genug für Welpen ab einem Alter von ca. 8 Wochen. Bitte starte mit kleineren Mengen und beobachte die Reaktion deines Welpen. Bei Unsicherheiten frage deinen Tierarzt.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Wann merke ich einen Unterschied?
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        Der Aufbau der Laurinsäure im Körper dauert in der Regel 2–3 Wochen bei täglicher Fütterung. Viele Tierhalter bemerken erste Veränderungen (glänzenderes Fell, weniger Zecken) bereits nach 2–4 Wochen. Für optimale Ergebnisse empfehlen wir besonders in der Zeckensaison (April–Oktober) täglich zu füttern.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Worin unterscheiden sich die Verpackungsgrößen?
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        Die 150g Tüte ist ideal zum Ausprobieren oder für kleinere Hunde. Das 2× 150g Paket bietet eine Ersparnis von 12% und ist für alle gedacht, die gleich einen Vorrat anlegen möchten – ideal mit unserem Abo kombinierbar.
+      </div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="toggleFaq(this)">
+        Kann ich das Abo jederzeit kündigen?
+        <span class="faq-arrow">▾</span>
+      </div>
+      <div class="faq-a">
+        Ja, unser Abo ist komplett flexibel. Du kannst es jederzeit pausieren, das Lieferintervall anpassen oder kündigen – direkt in deinem Kundenkonto, ohne Fristen oder Mindestlaufzeit.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div class="footer-col">
+        <div class="footer-logo">
+          <img src="https://williwiggle.com/wp-content/uploads/2024/05/willi_logo_centered.svg" alt="WilliWiggle" onerror="this.style.display='none';this.parentElement.innerHTML='<span style=\'font-size:18px;font-weight:800;color:white\'>WilliWiggle</span>'">
+        </div>
+        <p class="footer-brand-text">Natürliche Produkte für Hunde & Pferde. Made with ❤️ – ohne Kompromisse bei Qualität und Ehrlichkeit.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Produkte</div>
+        <ul>
+          <li><a href="#">Snacks</a></li>
+          <li><a href="#">Pflege</a></li>
+          <li><a href="#">Zubehör</a></li>
+          <li><a href="#">Abo-Shop</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Service</div>
+        <ul>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Versand & Retouren</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">Impressum</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      © 2025 WilliWiggle · Alle Rechte vorbehalten
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Gallery switch
+  function switchImg(thumb, src) {
+    document.getElementById('heroImg').src = src;
+    document.querySelectorAll('.gallery-thumbs img').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+
+  // Size select
+  function selectSize(btn, price) {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const isAbo = document.getElementById('abo').classList.contains('active');
+    const basePrice = parseFloat(price.replace(',', '.'));
+    updatePrice(isAbo, basePrice);
+  }
+
+  // Abo toggle
+  function toggleAbo(which) {
+    const einmaligEl = document.getElementById('einmalig');
+    const aboEl = document.getElementById('abo');
+    const isAbo = which === 'abo';
+    einmaligEl.classList.toggle('active', !isAbo);
+    aboEl.classList.toggle('active', isAbo);
+    const activeSize = document.querySelector('.size-btn.active');
+    const priceText = activeSize ? activeSize.querySelector('.size-price').textContent : '€7,90';
+    const basePrice = parseFloat(priceText.replace('€', '').replace(',', '.'));
+    updatePrice(isAbo, basePrice);
+  }
+
+  function updatePrice(isAbo, basePrice) {
+    const mainEl = document.getElementById('priceMain');
+    const oldEl = document.getElementById('priceOld');
+    const saveEl = document.getElementById('priceSave');
+    const perEl = document.getElementById('pricePer');
+    const aboOldEl = document.getElementById('priceAboOld');
+    const einmaligPriceEl = document.getElementById('priceEinmalig');
+    const aboPriceEl = document.getElementById('priceAbo');
+    const old = basePrice.toFixed(2).replace('.', ',');
+    const disc = (basePrice * 0.85).toFixed(2).replace('.', ',');
+
+    if (einmaligPriceEl) einmaligPriceEl.textContent = '€' + old;
+    if (aboPriceEl) aboPriceEl.textContent = '€' + disc;
+    if (aboOldEl) aboOldEl.textContent = 'statt €' + old;
+
+    if (isAbo) {
+      mainEl.textContent = '€' + disc;
+      oldEl.textContent = '€' + old;
+      oldEl.style.display = 'inline';
+      saveEl.style.display = 'inline';
+      saveEl.textContent = '–15%';
+      perEl.textContent = 'inkl. MwSt. + Versand';
+    } else {
+      mainEl.textContent = '€' + old;
+      oldEl.style.display = 'none';
+      saveEl.style.display = 'none';
+      perEl.textContent = 'inkl. MwSt. + Versand';
+    }
+    document.querySelector('.btn-cart').textContent = `In den Warenkorb – ${mainEl.textContent}`;
+  }
+
+  // FAQ
+  function toggleFaq(el) {
+    const item = el.parentElement;
+    const wasOpen = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!wasOpen) item.classList.add('open');
+  }
+
+  // Announce bar mobile rotation
+  (function() {
+    const msgs = Array.from(document.querySelectorAll('.bar span')).filter(s => !s.classList.contains('bar-dot'));
+    let cur = 0;
+    function rotate() {
+      if (window.innerWidth > 640) return;
+      msgs.forEach(m => m.classList.remove('bar-active'));
+      msgs[cur].classList.add('bar-active');
+      cur = (cur + 1) % msgs.length;
+    }
+    rotate();
+    setInterval(rotate, 3000);
+    window.addEventListener('resize', rotate);
+  })();
+</script>
+</body>
+</html>
