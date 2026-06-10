@@ -1,0 +1,921 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GEN Whey Protein Komplex 1000g – Protein-Outlet</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --navy: #141d46;
+    --navy-mid: #1e2a5e;
+    --blue: #04a6fb;
+    --blue-dark: #0388d1;
+    --blue-light: #e6f5fe;
+    --dark: #1a1a2e;
+    --mid: #5a6478;
+    --border: #e4e7ef;
+    --light: #f5f7fc;
+    --white: #ffffff;
+    --green: #16a34a;
+    --green-light: #dcfce7;
+    --red: #e90000;
+    --star: #f5b800;
+    --ff: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+    --r: 6px;
+  }
+  html { scroll-behavior: smooth; }
+  body { font-family: var(--ff); color: var(--dark); background: var(--white); }
+  a { color: inherit; text-decoration: none; }
+  img { max-width: 100%; display: block; }
+  button { font-family: var(--ff); cursor: pointer; }
+
+  /* ── ANNOUNCE BAR ── */
+  .bar {
+    background: var(--navy); color: #fff;
+    padding: 9px 20px; display: flex; align-items: center;
+    justify-content: center; gap: 32px; font-size: 12px;
+    letter-spacing: .03em; overflow: hidden; position: relative; height: 36px;
+  }
+  .bar span { display: flex; align-items: center; gap: 7px; white-space: nowrap; }
+  .bar b { color: var(--blue); }
+
+  /* Desktop: alle sichtbar */
+  @media (min-width: 641px) {
+    .bar { height: auto; padding: 9px 20px; flex-wrap: wrap; }
+    .bar span { opacity: 1 !important; position: static !important; transform: none !important; transition: none !important; }
+  }
+  /* Mobil: nur eine Message, Rest ausgeblendet */
+  @media (max-width: 640px) {
+    .bar span {
+      position: absolute; opacity: 0;
+      transition: opacity .4s ease;
+    }
+    .bar span.bar-active { opacity: 1; position: static; }
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--navy); padding: 0 40px; display: flex; align-items: center;
+    justify-content: space-between; height: 64px;
+    position: sticky; top: 0; z-index: 100;
+    box-shadow: 0 2px 12px rgba(0,0,0,.25);
+  }
+  .nav-logo img { height: 36px; }
+  .nav-links { display: flex; gap: 30px; }
+  .nav-links a { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.75); transition: color .2s; letter-spacing: .04em; text-transform: uppercase; }
+  .nav-links a:hover { color: var(--blue); }
+  .nav-icons { display: flex; gap: 16px; align-items: center; }
+  .nav-icons svg { width: 21px; height: 21px; stroke: rgba(255,255,255,.8); fill: none; stroke-width: 1.7; cursor: pointer; }
+  .nav-icons svg:hover { stroke: var(--blue); }
+  .cart-wrap { position: relative; }
+  .cart-dot { position: absolute; top: -5px; right: -6px; background: var(--red); color: #fff; font-size: 9px; width: 15px; height: 15px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-weight: 700; }
+
+  .breadcrumb { padding: 11px 40px; font-size: 12px; color: var(--mid); border-bottom: 1px solid var(--border); background: var(--white); }
+  .breadcrumb a { color: var(--blue); }
+  .breadcrumb span { margin: 0 5px; }
+
+  /* ── HERO PRODUCT ── */
+  .product-wrap {
+    max-width: 1180px; margin: 0 auto;
+    padding: 36px 40px 72px;
+    display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: start;
+  }
+
+  /* Gallery */
+  .gallery { position: sticky; top: 76px; }
+  .gal-main {
+    background: var(--light); border-radius: var(--r);
+    aspect-ratio: 1; overflow: hidden; margin-bottom: 12px;
+    border: 1px solid var(--border); position: relative;
+  }
+  .gal-main img { width: 100%; height: 100%; object-fit: contain; transition: opacity .25s; }
+  .gal-badge {
+    position: absolute; top: 14px; left: 14px;
+    background: var(--red); color: #fff;
+    font-size: 10px; font-weight: 800; padding: 5px 11px; border-radius: 3px;
+    letter-spacing: .08em; text-transform: uppercase;
+  }
+  .gal-badge2 {
+    position: absolute; top: 14px; right: 14px;
+    background: var(--navy); color: #fff;
+    font-size: 10px; font-weight: 700; padding: 5px 11px; border-radius: 3px;
+    letter-spacing: .06em;
+  }
+  .gal-thumbs { display: grid; grid-template-columns: repeat(5,1fr); gap: 8px; }
+  .gal-thumb {
+    background: var(--light); border-radius: var(--r); aspect-ratio: 1;
+    border: 2px solid transparent; cursor: pointer; overflow: hidden; transition: border-color .15s;
+  }
+  .gal-thumb img { width: 100%; height: 100%; object-fit: contain; }
+  .gal-thumb.active, .gal-thumb:hover { border-color: var(--blue); }
+
+  /* Info */
+  .product-tag { display: inline-flex; align-items: center; gap: 6px; background: var(--blue-light); color: var(--blue); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 5px 12px; border-radius: 20px; margin-bottom: 12px; }
+  .product-title { font-size: clamp(20px, 2.6vw, 30px); font-weight: 900; line-height: 1.15; margin-bottom: 6px; color: var(--navy); letter-spacing: -.02em; }
+  .product-sub { font-size: 14px; color: var(--mid); margin-bottom: 14px; line-height: 1.65; }
+
+  .rating-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; }
+  .stars { color: var(--star); font-size: 16px; letter-spacing: 1px; }
+  .rating-n { font-weight: 700; font-size: 13px; }
+  .rating-c { font-size: 13px; color: var(--blue); border-bottom: 1px solid var(--blue); cursor: pointer; }
+
+  /* Macro strip */
+  .macro-strip {
+    display: grid; grid-template-columns: repeat(4,1fr);
+    gap: 1px; background: var(--border); border: 1px solid var(--border);
+    border-radius: var(--r); overflow: hidden; margin-bottom: 22px;
+  }
+  .macro-cell { background: var(--white); padding: 12px 10px; text-align: center; }
+  .macro-val { font-size: 20px; font-weight: 900; color: var(--blue); line-height: 1; }
+  .macro-val.protein { color: var(--navy); font-size: 26px; }
+  .macro-lbl { font-size: 10px; color: var(--mid); margin-top: 3px; text-transform: uppercase; letter-spacing: .07em; }
+  .macro-sub { font-size: 9px; color: #bbb; }
+
+  /* Size toggle */
+  .size-label { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .size-label em { font-style: normal; font-weight: 400; color: var(--mid); }
+  .size-row { display: flex; gap: 8px; margin-bottom: 20px; }
+  .size-btn { padding: 9px 18px; border-radius: var(--r); border: 1.5px solid var(--border); font-size: 13px; font-weight: 700; background: var(--white); cursor: pointer; transition: all .15s; color: var(--dark); }
+  .size-btn.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+  .size-btn:hover { border-color: var(--blue); }
+
+  /* Flavor selector */
+  .flavor-label { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 10px; }
+  .flavor-label em { font-style: normal; font-weight: 400; color: var(--mid); }
+  .flavor-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 7px; margin-bottom: 22px; }
+  .fl-btn {
+    display: flex; flex-direction: column; align-items: center; gap: 5px;
+    padding: 8px 4px; border-radius: var(--r); border: 1.5px solid var(--border);
+    font-size: 10px; font-weight: 600; background: var(--white); cursor: pointer;
+    transition: all .15s; text-align: center; color: var(--mid); line-height: 1.2;
+  }
+  .fl-dot { width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid rgba(0,0,0,.1); }
+  .fl-btn.active { border-color: var(--blue); background: var(--blue-light); color: var(--blue); }
+  .fl-btn:hover { border-color: var(--blue); }
+
+  /* Sub box */
+  .sub-box { border: 1.5px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 18px; }
+  .sub-option { display: flex; align-items: center; gap: 12px; padding: 15px 16px; cursor: pointer; transition: background .15s; }
+  .sub-option + .sub-option { border-top: 1.5px solid var(--border); }
+  .sub-option.active { background: var(--blue-light); }
+  .sub-radio { width: 18px; height: 18px; border-radius: 50%; border: 2px solid var(--border); flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: border-color .15s; }
+  .sub-option.active .sub-radio { border-color: var(--blue); }
+  .sub-radio-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--blue); display: none; }
+  .sub-option.active .sub-radio-dot { display: block; }
+  .sub-info { flex: 1; }
+  .sub-title { font-size: 13px; font-weight: 700; margin-bottom: 2px; }
+  .sub-desc { font-size: 11px; color: var(--mid); }
+  .sub-price { font-size: 18px; font-weight: 900; color: var(--navy); }
+  .sub-price.abo { color: var(--blue); }
+  .sub-save { display: inline-block; background: var(--blue); color: #fff; font-size: 10px; font-weight: 800; padding: 2px 7px; border-radius: 20px; margin-left: 6px; }
+  .sub-old { font-size: 11px; color: var(--mid); text-decoration: line-through; }
+  .sub-abo-details { padding: 10px 16px; background: var(--blue-light); border-top: 1px solid #c5e8f8; display: none; font-size: 12px; color: var(--mid); }
+  .sub-abo-details.visible { display: flex; gap: 18px; flex-wrap: wrap; }
+  .sub-detail { display: flex; align-items: center; gap: 5px; }
+  .sub-detail svg { width: 12px; height: 12px; stroke: var(--blue); fill: none; stroke-width: 2.5; }
+
+  /* CTA */
+  .btn-buy {
+    width: 100%; padding: 16px; background: var(--blue); color: #fff;
+    font-size: 15px; font-weight: 800; border: none; border-radius: var(--r);
+    cursor: pointer; display: flex; align-items: center; justify-content: center; gap: 10px;
+    transition: background .2s; margin-bottom: 10px; letter-spacing: .02em;
+    text-transform: uppercase;
+  }
+  .btn-buy:hover { background: var(--blue-dark); }
+  .btn-buy svg { width: 20px; height: 20px; stroke: #fff; fill: none; stroke-width: 2; }
+  .btn-wish { width: 100%; padding: 13px; background: var(--white); border: 1.5px solid var(--border); border-radius: var(--r); font-size: 13px; font-weight: 600; color: var(--dark); cursor: pointer; margin-bottom: 18px; transition: border-color .2s; }
+  .btn-wish:hover { border-color: var(--blue); }
+
+  /* Trust */
+  .trust-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: var(--r); overflow: hidden; margin-bottom: 16px; }
+  .trust-cell { background: var(--white); padding: 13px 8px; text-align: center; display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .trust-cell svg { width: 20px; height: 20px; stroke: var(--blue); fill: none; stroke-width: 1.7; }
+  .trust-cell span { font-size: 10px; color: var(--mid); line-height: 1.3; text-align: center; }
+  .pay-row { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+  .pay-lbl { font-size: 11px; color: var(--mid); }
+  .pay-tag { background: var(--light); border: 1px solid var(--border); border-radius: 3px; padding: 3px 8px; font-size: 10px; font-weight: 700; color: var(--mid); }
+
+  /* ── USP STRIP ── */
+  .usp-strip { background: var(--navy); padding: 48px 40px; }
+  .usp-inner { max-width: 1160px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); gap: 28px; }
+  .usp-card { text-align: center; }
+  .usp-ic { width: 52px; height: 52px; border-radius: 50%; background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.1); display: flex; align-items: center; justify-content: center; margin: 0 auto 12px; }
+  .usp-ic svg { width: 24px; height: 24px; stroke: var(--blue); fill: none; stroke-width: 1.8; }
+  .usp-card h3 { font-size: 14px; font-weight: 700; color: #fff; margin-bottom: 5px; }
+  .usp-card p { font-size: 12px; color: rgba(255,255,255,.55); line-height: 1.65; }
+
+  /* ── MACRO SECTION ── */
+  .macro-section { padding: 64px 40px; background: var(--light); }
+  .macro-inner { max-width: 1060px; margin: 0 auto; display: grid; grid-template-columns: 1fr 1fr; gap: 64px; align-items: center; }
+  .sec-eyebrow { font-size: 11px; letter-spacing: .18em; text-transform: uppercase; color: var(--blue); font-weight: 700; margin-bottom: 8px; }
+  .sec-title { font-size: clamp(20px, 2.8vw, 30px); font-weight: 900; color: var(--navy); line-height: 1.18; margin-bottom: 10px; letter-spacing: -.02em; }
+  .sec-sub { font-size: 14px; color: var(--mid); line-height: 1.8; margin-bottom: 28px; }
+  .macro-bars { display: flex; flex-direction: column; gap: 16px; }
+  .m-bar-row { display: flex; flex-direction: column; gap: 5px; }
+  .m-bar-head { display: flex; justify-content: space-between; align-items: baseline; }
+  .m-bar-name { font-size: 13px; font-weight: 700; }
+  .m-bar-val { font-size: 13px; font-weight: 700; }
+  .m-bar-track { height: 10px; background: var(--border); border-radius: 5px; overflow: hidden; }
+  .m-bar-fill { height: 100%; border-radius: 5px; }
+  .fill-p { background: var(--blue); }
+  .fill-f { background: #9b59b6; }
+  .fill-c { background: #e07b2a; }
+  .m-bar-sub { font-size: 11px; color: var(--mid); }
+  .macro-visual { background: var(--navy); border-radius: 12px; padding: 40px 32px; text-align: center; }
+  .macro-big { font-size: 88px; font-weight: 900; color: var(--blue); line-height: 1; letter-spacing: -.04em; }
+  .macro-big-unit { font-size: 26px; font-weight: 700; color: var(--blue); }
+  .macro-big-lbl { font-size: 13px; font-weight: 600; color: rgba(255,255,255,.6); text-transform: uppercase; letter-spacing: .1em; margin-top: 4px; }
+  .macro-big-sub { font-size: 12px; color: rgba(255,255,255,.4); margin-top: 6px; }
+  .macro-badges { display: flex; gap: 8px; margin-top: 22px; flex-wrap: wrap; justify-content: center; }
+  .mbadge { background: rgba(4,166,251,.15); color: var(--blue); font-size: 11px; font-weight: 700; padding: 5px 12px; border-radius: 20px; border: 1px solid rgba(4,166,251,.3); }
+
+  /* ── FLAVORS SECTION ── */
+  .flavor-section { padding: 64px 40px; }
+  .flavor-inner { max-width: 1060px; margin: 0 auto; }
+  .flavor-showcase { display: grid; grid-template-columns: repeat(4,1fr); gap: 14px; margin-top: 40px; }
+  .fc { border: 1.5px solid var(--border); border-radius: var(--r); overflow: hidden; cursor: pointer; transition: all .2s; }
+  .fc:hover { border-color: var(--blue); box-shadow: 0 4px 16px rgba(4,166,251,.15); }
+  .fc-img { aspect-ratio: 1; background: var(--light); overflow: hidden; }
+  .fc-img img { width: 100%; height: 100%; object-fit: contain; }
+  .fc-body { padding: 12px; }
+  .fc-name { font-size: 12px; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+  .fc-dot-row { display: flex; align-items: center; gap: 5px; }
+  .fc-dot { width: 10px; height: 10px; border-radius: 50%; }
+  .fc-tag { font-size: 10px; color: var(--mid); }
+
+  /* ── HOW TO ── */
+  .how-section { padding: 64px 40px; background: var(--light); }
+  .how-inner { max-width: 1060px; margin: 0 auto; text-align: center; }
+  .how-steps { display: grid; grid-template-columns: repeat(3,1fr); gap: 28px; margin-top: 48px; }
+  .how-step { background: var(--white); border: 1px solid var(--border); border-radius: 10px; padding: 28px 22px; text-align: left; position: relative; }
+  .how-n { width: 38px; height: 38px; background: var(--navy); color: #fff; font-size: 16px; font-weight: 800; display: flex; align-items: center; justify-content: center; border-radius: var(--r); margin-bottom: 14px; }
+  .how-step h4 { font-size: 15px; font-weight: 800; margin-bottom: 8px; color: var(--navy); }
+  .how-step p { font-size: 13px; color: var(--mid); line-height: 1.7; }
+  .how-tip { margin-top: 32px; background: var(--blue-light); border-left: 3px solid var(--blue); padding: 16px 20px; border-radius: 0 var(--r) var(--r) 0; font-size: 13px; color: var(--dark); line-height: 1.7; text-align: left; max-width: 700px; margin-left: auto; margin-right: auto; }
+  .how-tip strong { color: var(--blue); }
+
+  /* ── REVIEWS ── */
+  .review-section { padding: 64px 40px; }
+  .review-inner { max-width: 1060px; margin: 0 auto; }
+  .review-top { display: flex; align-items: center; gap: 48px; margin-bottom: 40px; }
+  .rv-big { font-size: 68px; font-weight: 900; color: var(--navy); line-height: 1; letter-spacing: -.04em; }
+  .rv-stars { color: var(--star); font-size: 20px; letter-spacing: 2px; margin: 6px 0; }
+  .rv-count { font-size: 13px; color: var(--mid); }
+  .rv-bars { flex: 1; }
+  .rv-bar { display: flex; align-items: center; gap: 10px; margin-bottom: 7px; }
+  .rv-lbl { font-size: 12px; color: var(--mid); width: 32px; text-align: right; }
+  .rv-track { flex: 1; height: 7px; background: var(--border); border-radius: 4px; overflow: hidden; }
+  .rv-fill { height: 100%; border-radius: 4px; background: var(--navy); }
+  .rv-pct { font-size: 12px; color: var(--mid); width: 30px; }
+  .review-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  .rc { background: var(--light); border-radius: 10px; padding: 22px; border: 1px solid var(--border); }
+  .rc-head { display: flex; justify-content: space-between; margin-bottom: 6px; }
+  .rc-stars { color: var(--star); font-size: 13px; }
+  .rc-date { font-size: 11px; color: var(--mid); }
+  .rc-name { font-size: 14px; font-weight: 700; margin-bottom: 4px; }
+  .rc-flavor { display: inline-block; background: var(--white); border: 1px solid var(--border); font-size: 10px; padding: 2px 8px; border-radius: 20px; color: var(--mid); margin-bottom: 10px; }
+  .rc-text { font-size: 13px; color: var(--mid); line-height: 1.75; }
+  .rc-verified { display: flex; align-items: center; gap: 4px; font-size: 11px; color: var(--green); font-weight: 600; margin-top: 12px; }
+  .rc-verified svg { width: 11px; height: 11px; stroke: var(--green); fill: none; stroke-width: 2.5; }
+
+  /* ── FAQ ── */
+  .faq-section { padding: 64px 40px; background: var(--light); }
+  .faq-inner { max-width: 760px; margin: 0 auto; }
+  .faq-item { background: var(--white); border-radius: var(--r); margin-bottom: 8px; border: 1px solid var(--border); overflow: hidden; }
+  .faq-q { width: 100%; background: none; border: none; padding: 18px 20px; display: flex; justify-content: space-between; align-items: center; font-size: 14px; font-weight: 700; color: var(--navy); cursor: pointer; text-align: left; gap: 12px; }
+  .faq-q svg { width: 17px; height: 17px; stroke: var(--blue); fill: none; stroke-width: 2; flex-shrink: 0; transition: transform .25s; }
+  .faq-item.open .faq-q svg { transform: rotate(45deg); }
+  .faq-a { font-size: 13px; color: var(--mid); line-height: 1.85; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .3s; padding: 0 20px; }
+  .faq-item.open .faq-a { max-height: 200px; padding: 0 20px 18px; }
+
+  /* ── STACK ── */
+  .stack-section { padding: 64px 40px; }
+  .stack-inner { max-width: 1060px; margin: 0 auto; }
+  .stack-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; margin-top: 40px; }
+  .sc { background: var(--light); border-radius: 10px; overflow: hidden; border: 1.5px solid var(--border); transition: box-shadow .2s, border-color .2s; cursor: pointer; }
+  .sc:hover { box-shadow: 0 6px 24px rgba(4,166,251,.12); border-color: var(--blue); }
+  .sc-img { aspect-ratio: 1; background: var(--white); overflow: hidden; }
+  .sc-img img { width: 100%; height: 100%; object-fit: contain; }
+  .sc-body { padding: 16px; }
+  .sc-tag { font-size: 10px; font-weight: 700; color: var(--blue); text-transform: uppercase; letter-spacing: .1em; margin-bottom: 5px; }
+  .sc-name { font-size: 13px; font-weight: 700; color: var(--navy); margin-bottom: 5px; line-height: 1.35; }
+  .sc-why { font-size: 12px; color: var(--mid); margin-bottom: 10px; line-height: 1.5; }
+  .sc-foot { display: flex; justify-content: space-between; align-items: center; }
+  .sc-price { font-size: 16px; font-weight: 800; color: var(--navy); }
+  .sc-add { background: var(--navy); color: #fff; border: none; padding: 7px 14px; border-radius: 4px; font-size: 11px; font-weight: 700; cursor: pointer; }
+
+  /* ── FOOTER ── */
+  .footer { background: var(--navy); padding: 52px 40px 24px; }
+  .footer-top { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
+  .ft-logo img { height: 30px; margin-bottom: 14px; }
+  .ft-logo p { font-size: 12px; color: rgba(255,255,255,.4); line-height: 1.8; max-width: 200px; }
+  .ft-col h4 { font-size: 10px; font-weight: 700; color: var(--blue); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 16px; }
+  .ft-col a { display: block; font-size: 13px; color: rgba(255,255,255,.5); margin-bottom: 9px; transition: color .2s; }
+  .ft-col a:hover { color: #fff; }
+  .ft-bottom { border-top: 1px solid rgba(255,255,255,.1); padding-top: 20px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 12px; }
+  .ft-bottom p { font-size: 12px; color: rgba(255,255,255,.35); }
+  .ft-pays { display: flex; gap: 6px; }
+  .ft-pay { background: rgba(255,255,255,.07); border: 1px solid rgba(255,255,255,.12); border-radius: 3px; padding: 4px 9px; font-size: 10px; font-weight: 700; color: rgba(255,255,255,.5); }
+
+  /* ── MOBILE ── */
+  @media (max-width: 960px) {
+    .nav { padding: 0 20px; }
+    .nav-links { display: none; }
+    .breadcrumb { padding: 10px 20px; }
+    .product-wrap { grid-template-columns: 1fr; gap: 24px; padding: 20px 20px 48px; }
+    .gallery { position: static; }
+    .gal-thumbs { grid-template-columns: repeat(5,1fr); }
+    .usp-strip, .macro-section, .flavor-section, .how-section, .review-section, .faq-section, .stack-section { padding: 48px 20px; }
+    .usp-inner { grid-template-columns: repeat(2,1fr); }
+    .macro-inner { grid-template-columns: 1fr; gap: 36px; }
+    .how-steps { grid-template-columns: 1fr; }
+    .review-top { flex-direction: column; align-items: flex-start; gap: 20px; }
+    .review-grid { grid-template-columns: 1fr; }
+    .flavor-showcase { grid-template-columns: repeat(2,1fr); }
+    .stack-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; }
+    .ft-logo { grid-column: 1/-1; }
+  }
+  @media (max-width: 520px) {
+    .usp-inner { grid-template-columns: 1fr; }
+    .trust-row { grid-template-columns: repeat(2,1fr); }
+    .flavor-grid { grid-template-columns: repeat(4,1fr); }
+    .footer-top { grid-template-columns: 1fr; }
+    .macro-strip { grid-template-columns: repeat(2,1fr); }
+    .flavor-showcase { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="bar">
+  <span>🚀 <b>Kostenloser Versand</b> ab 49 €</span>
+  <span>⚡ <b>14 Geschmäcker</b> – jetzt entdecken</span>
+  <span>🔄 Abo: <b>15% sparen</b> + jederzeit kündbar</span>
+</div>
+
+<!-- NAV -->
+<nav class="nav">
+  <a href="#"><img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/Homepage_logo_weiss_optimal_51999b9e-2e10-4b09-a099-6f40ba94763d_410x.png?v=1646682416" alt="Protein-Outlet" style="height:34px;"></a>
+  <div class="nav-links">
+    <a href="#">Protein</a>
+    <a href="#">Creatin</a>
+    <a href="#">Pre-Workout</a>
+    <a href="#">Vitamine</a>
+    <a href="#">Angebote</a>
+  </div>
+  <div class="nav-icons">
+    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    <div class="cart-wrap">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-dot">0</span>
+    </div>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Protein-Outlet</a><span>›</span>
+  <a href="#">Eiweißpulver</a><span>›</span>
+  GEN Whey Protein Komplex 1000g
+</div>
+
+<!-- HERO PRODUCT -->
+<div class="product-wrap">
+  <!-- Gallery -->
+  <div class="gallery">
+    <div class="gal-main">
+      <div class="gal-badge">Top Seller</div>
+      <div class="gal-badge2">1000g</div>
+      <img id="mainImg"
+        src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex.webp?v=1694560243"
+        alt="GEN Whey Protein Komplex">
+    </div>
+    <div class="gal-thumbs">
+      <div class="gal-thumb active" onclick="switchImg(this,'https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex.webp?v=1694560243')">
+        <img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex.webp?v=1694560243" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81RlJOQFOlL._AC_SL1500.jpg?v=1694560243')">
+        <img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81RlJOQFOlL._AC_SL1500.jpg?v=1694560243" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81KcEnrZg_L._AC_SL1500.jpg?v=1694560243')">
+        <img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81KcEnrZg_L._AC_SL1500.jpg?v=1694560243" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_6.webp?v=1770295200')">
+        <img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_6.webp?v=1770295200" alt="">
+      </div>
+      <div class="gal-thumb" onclick="switchImg(this,'https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_3.webp?v=1770295629')">
+        <img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_3.webp?v=1770295629" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- Info -->
+  <div class="product-info">
+    <div class="product-tag">
+      <svg viewBox="0 0 24 24" width="11" height="11" stroke="currentColor" fill="none" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+      WPC + WPI Komplex · Low Carb
+    </div>
+    <h1 class="product-title">GEN Whey Protein<br>Komplex 1000g</h1>
+    <p class="product-sub">Die beste Kombination aus Whey Konzentrat (WPC) und Whey Isolat (WPI) – hohe Bioverfügbarkeit, schnelle Aufnahme, 14 Geschmäcker.</p>
+
+    <div class="rating-row">
+      <span class="stars">★★★★★</span>
+      <span class="rating-n">4,8</span>
+      <a class="rating-c" href="#reviews">312 Bewertungen</a>
+    </div>
+
+    <!-- Macro Strip -->
+    <div class="macro-strip">
+      <div class="macro-cell">
+        <div class="macro-val protein">75g</div>
+        <div class="macro-lbl">Protein</div>
+        <div class="macro-sub">pro 100g</div>
+      </div>
+      <div class="macro-cell">
+        <div class="macro-val">6g</div>
+        <div class="macro-lbl">Kohlenhydrate</div>
+        <div class="macro-sub">pro 100g</div>
+      </div>
+      <div class="macro-cell">
+        <div class="macro-val">5g</div>
+        <div class="macro-lbl">Fett</div>
+        <div class="macro-sub">pro 100g</div>
+      </div>
+      <div class="macro-cell">
+        <div class="macro-val">~33</div>
+        <div class="macro-lbl">Portionen</div>
+        <div class="macro-sub">á 30g</div>
+      </div>
+    </div>
+
+    <!-- Size -->
+    <div class="size-label">Größe: <em id="sizeName">1000g</em></div>
+    <div class="size-row">
+      <button class="size-btn" onclick="setSize(this,'500g','€17,90')">500g<br><small style="font-size:10px;font-weight:400;">€17,90</small></button>
+      <button class="size-btn active" onclick="setSize(this,'1000g','€30,90')">1000g<br><small style="font-size:10px;font-weight:400;">€30,90</small></button>
+      <button class="size-btn" onclick="setSize(this,'2000g','€54,90')">2000g<br><small style="font-size:10px;font-weight:400;">€54,90</small></button>
+    </div>
+
+    <!-- Flavor Selector -->
+    <div class="flavor-label">Geschmack: <em id="flavorName">Choco</em></div>
+    <div class="flavor-grid">
+      <button class="fl-btn active" onclick="setFlavor(this,'Choco','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex.webp?v=1694560243')">
+        <span class="fl-dot" style="background:#5c2d00;"></span>Choco
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Vanilla Ice Cream','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81RlJOQFOlL._AC_SL1500.jpg?v=1694560243')">
+        <span class="fl-dot" style="background:#f5e6b0;border-color:#ddd;"></span>Vanilla
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Cookies & Cream','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/WheyCookie.png?v=1703871024')">
+        <span class="fl-dot" style="background:#444;"></span>Cookie
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Strawberry Banana','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81KcEnrZg_L._AC_SL1500.jpg?v=1694560243')">
+        <span class="fl-dot" style="background:#ff6b8a;"></span>Erdbeer
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Grießbrei Kirsch','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/Wheygriessbreikirsch.jpg?v=1703871024')">
+        <span class="fl-dot" style="background:#cc2255;"></span>Grießbrei
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Apfel Strudel','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/Wheyapfel.jpg?v=1703871024')">
+        <span class="fl-dot" style="background:#8bc34a;"></span>Apfel
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Peanut Butter','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/81vAeKN0GtL._AC_SL1500.jpg?v=1694560243')">
+        <span class="fl-dot" style="background:#c8922a;"></span>Peanut
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Salted Caramel','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/919cDS6yEsL._AC_SL1500.jpg?v=1694560244')">
+        <span class="fl-dot" style="background:#e6a020;"></span>Caramel
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Choc & Caramel','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_1000g_choc_caramel.webp?v=1759773281')">
+        <span class="fl-dot" style="background:#4a1800;"></span>Choc+Car
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Weiße Schokolade','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_10.webp?v=1770295753')">
+        <span class="fl-dot" style="background:#fff0d0;border-color:#ddd;"></span>Weiß Choc
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Erdbeermilch','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_8.webp?v=1770295872')">
+        <span class="fl-dot" style="background:#ff9eb5;"></span>Erdb.milch
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Pistazie+Choc','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_3.webp?v=1770295629')">
+        <span class="fl-dot" style="background:#93c47d;"></span>Pistazie
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'White Choc+Pistachio','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_6.webp?v=1770295200')">
+        <span class="fl-dot" style="background:#d4edda;border-color:#ddd;"></span>WC+Pist.
+      </button>
+      <button class="fl-btn" onclick="setFlavor(this,'Neutral','https://cdn.shopify.com/s/files/1/0510/9825/5545/files/Whey.jpg?v=1703871024')">
+        <span class="fl-dot" style="background:#e0e0e0;"></span>Neutral
+      </button>
+    </div>
+
+    <!-- SUB BOX -->
+    <div class="sub-box">
+      <div class="sub-option" id="optOnce" onclick="selectSub('once')">
+        <div class="sub-radio"><div class="sub-radio-dot"></div></div>
+        <div class="sub-info">
+          <div class="sub-title">Einmalig kaufen</div>
+          <div class="sub-desc">Kein Abo, keine Bindung</div>
+        </div>
+        <div>
+          <div class="sub-price" id="priceOnce">30,90 €</div>
+          <div style="font-size:11px;color:var(--mid);">0,93 €/100g</div>
+        </div>
+      </div>
+      <div class="sub-option active" id="optAbo" onclick="selectSub('abo')">
+        <div class="sub-radio"><div class="sub-radio-dot"></div></div>
+        <div class="sub-info">
+          <div class="sub-title">Im Abo kaufen <span class="sub-save">15% SPAREN</span></div>
+          <div class="sub-desc">Monatlich · Jederzeit kündbar</div>
+        </div>
+        <div>
+          <div class="sub-price abo" id="priceAbo">26,27 €</div>
+          <div class="sub-old">30,90 €</div>
+        </div>
+      </div>
+      <div class="sub-abo-details visible" id="aboDetails">
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Monatliche Lieferung</div>
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Jederzeit kündbar</div>
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Immer frisch</div>
+        <div class="sub-detail"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Kostenloser Versand</div>
+      </div>
+    </div>
+
+    <button class="btn-buy" id="buyBtn">
+      <svg viewBox="0 0 24 24"><path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span id="buyLabel">Abo starten – 26,27 €/Monat</span>
+    </button>
+    <button class="btn-wish">♡ &nbsp; Zur Wunschliste</button>
+
+    <div class="trust-row">
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 5v3h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        <span>Schnelle<br>Lieferung</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+        <span>Geprüfte<br>Qualität</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"/></svg>
+        <span>30 Tage<br>Rückgabe</span>
+      </div>
+      <div class="trust-cell">
+        <svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <span>Sichere<br>Zahlung</span>
+      </div>
+    </div>
+
+    <div class="pay-row">
+      <span class="pay-lbl">Zahlung:</span>
+      <span class="pay-tag">PayPal</span>
+      <span class="pay-tag">Klarna</span>
+      <span class="pay-tag">Visa</span>
+      <span class="pay-tag">Mastercard</span>
+    </div>
+  </div>
+</div>
+
+<!-- USP STRIP -->
+<section class="usp-strip">
+  <div class="usp-inner">
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div>
+      <h3>WPC + WPI Komplex</h3>
+      <p>Zwei Proteinquellen vereint: Konzentrat für anhaltende Versorgung, Isolat für blitzschnelle Aufnahme direkt nach dem Training</p>
+    </div>
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg></div>
+      <h3>14 Geschmäcker</h3>
+      <p>Von Choco bis Pistazie+Schokolade – die größte Geschmacksvielfalt damit das Whey nie langweilig wird</p>
+    </div>
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg></div>
+      <h3>Top Preis-Leistung</h3>
+      <p>1000g für 30,90 € – und im Abo sogar 26,27 €. Beste Makros zu einem der günstigsten Preise am Markt</p>
+    </div>
+    <div class="usp-card">
+      <div class="usp-ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+      <h3>Low Carb · Leicht verdaulich</h3>
+      <p>Nur 6g Kohlenhydrate und 5g Fett pro 100g – optimal für Diät, Muskelaufbau und aktiven Lebensstil</p>
+    </div>
+  </div>
+</section>
+
+<!-- MACRO SECTION -->
+<section class="macro-section">
+  <div class="macro-inner">
+    <div>
+      <div class="sec-eyebrow">Nährwerte pro 100g</div>
+      <h2 class="sec-title">75g Protein.<br>Low Carb. Schnell.</h2>
+      <p class="sec-sub">Der GEN Whey Komplex liefert pro 30g Portion bereits <strong>22,5g Protein</strong> – bei nur wenig Kohlenhydraten und Fett. Ideal direkt nach dem Training oder als Proteinsnack.</p>
+      <div class="macro-bars">
+        <div class="m-bar-row">
+          <div class="m-bar-head"><span class="m-bar-name" style="color:var(--blue)">Protein</span><span class="m-bar-val" style="color:var(--blue)">75g</span></div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-p" style="width:75%"></div></div>
+          <div class="m-bar-sub">WPC + WPI Blend · Vollständiges Aminosäurenprofil</div>
+        </div>
+        <div class="m-bar-row">
+          <div class="m-bar-head"><span class="m-bar-name">Kohlenhydrate</span><span class="m-bar-val">6g</span></div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-c" style="width:6%"></div></div>
+          <div class="m-bar-sub">Niedrig – ideal bei Low Carb & Diät</div>
+        </div>
+        <div class="m-bar-row">
+          <div class="m-bar-head"><span class="m-bar-name">Fett</span><span class="m-bar-val">5g</span></div>
+          <div class="m-bar-track"><div class="m-bar-fill fill-f" style="width:5%"></div></div>
+          <div class="m-bar-sub">Gering – saubere Kalorien für deinen Stack</div>
+        </div>
+      </div>
+    </div>
+    <div class="macro-visual">
+      <div style="font-size:12px;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.12em;margin-bottom:8px;">Pro Portion (30g)</div>
+      <div class="macro-big">22,5</div>
+      <div class="macro-big-unit">g Protein</div>
+      <div class="macro-big-lbl">pro Shake</div>
+      <div class="macro-big-sub">mit 200–300ml Wasser oder Milch</div>
+      <div class="macro-badges">
+        <span class="mbadge">⚡ Schnell verfügbar</span>
+        <span class="mbadge">🥛 High Bioavailability</span>
+        <span class="mbadge">✓ EAA + BCAA</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FLAVORS SHOWCASE -->
+<section class="flavor-section">
+  <div class="flavor-inner">
+    <div class="sec-eyebrow">Geschmacksvielfalt</div>
+    <h2 class="sec-title">14 Sorten – für jeden Geschmack</h2>
+    <p class="sec-sub" style="max-width:580px;">Nie wieder langweiliger Protein-Shake. GEN bietet die größte Geschmacksauswahl – von klassischem Choco bis hin zu außergewöhnlichem Grießbrei Kirsch.</p>
+    <div class="flavor-showcase">
+      <div class="fc">
+        <div class="fc-img"><img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex.webp?v=1694560243" alt="Choco"></div>
+        <div class="fc-body"><div class="fc-name">Choco</div><div class="fc-dot-row"><span class="fc-dot" style="background:#5c2d00;"></span><span class="fc-tag">Bestseller</span></div></div>
+      </div>
+      <div class="fc">
+        <div class="fc-img"><img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/Wheygriessbreikirsch.jpg?v=1703871024" alt="Grießbrei Kirsch"></div>
+        <div class="fc-body"><div class="fc-name">Grießbrei Kirsch</div><div class="fc-dot-row"><span class="fc-dot" style="background:#cc2255;"></span><span class="fc-tag">Einzigartig</span></div></div>
+      </div>
+      <div class="fc">
+        <div class="fc-img"><img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_3.webp?v=1770295629" alt="Pistazie + Schokolade"></div>
+        <div class="fc-body"><div class="fc-name">Pistazie + Schokolade</div><div class="fc-dot-row"><span class="fc-dot" style="background:#93c47d;"></span><span class="fc-tag">Neu</span></div></div>
+      </div>
+      <div class="fc">
+        <div class="fc-img"><img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/gen_whey_komplex_6.webp?v=1770295200" alt="White Choc + Pistachio"></div>
+        <div class="fc-body"><div class="fc-name">White Choc + Pistachio</div><div class="fc-dot-row"><span class="fc-dot" style="background:#d4edda;border:1px solid #ddd;"></span><span class="fc-tag">Neu</span></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- HOW TO -->
+<section class="how-section">
+  <div class="how-inner">
+    <div class="sec-eyebrow" style="text-align:center;">Anwendung</div>
+    <h2 class="sec-title" style="text-align:center;">So verwendest du Whey Protein</h2>
+    <div class="how-steps">
+      <div class="how-step">
+        <div class="how-n">1</div>
+        <h4>30g abmessen</h4>
+        <p>Einen gehäuften Messlöffel (ca. 30g) in einen Shaker geben. Das entspricht einer Portion mit ~22,5g Protein.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-n">2</div>
+        <h4>200–300ml Flüssigkeit</h4>
+        <p>Mit Wasser für weniger Kalorien, oder mit Milch für mehr Protein und cremigeren Geschmack. Kurz schütteln.</p>
+      </div>
+      <div class="how-step">
+        <div class="how-n">3</div>
+        <h4>Nach dem Training trinken</h4>
+        <p>Idealerweise 30 Min. nach dem Training für optimale Muskelproteinsynthese. Auch morgens oder als Snack ideal.</p>
+      </div>
+    </div>
+    <div class="how-tip">
+      💡 <strong>Tipp:</strong> Für maximale Ergebnisse täglich 1,6–2,2g Protein pro kg Körpergewicht anstreben. Bei 80kg Körpergewicht = 128–176g Protein täglich. Whey Protein macht das ganz einfach.
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="review-section" id="reviews">
+  <div class="review-inner">
+    <div class="sec-eyebrow">Kundenbewertungen</div>
+    <h2 class="sec-title" style="margin-bottom:32px;">Was Kunden sagen</h2>
+    <div class="review-top">
+      <div>
+        <div class="rv-big">4,8</div>
+        <div class="rv-stars">★★★★★</div>
+        <div class="rv-count">312 verifizierte Bewertungen</div>
+      </div>
+      <div class="rv-bars">
+        <div class="rv-bar"><span class="rv-lbl">5 ★</span><div class="rv-track"><div class="rv-fill" style="width:82%"></div></div><span class="rv-pct">82%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">4 ★</span><div class="rv-track"><div class="rv-fill" style="width:12%;background:#aab8d0"></div></div><span class="rv-pct">12%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">3 ★</span><div class="rv-track"><div class="rv-fill" style="width:4%;background:#c8d0df"></div></div><span class="rv-pct">4%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">2 ★</span><div class="rv-track"><div class="rv-fill" style="width:1%;background:#dde2ea"></div></div><span class="rv-pct">1%</span></div>
+        <div class="rv-bar"><span class="rv-lbl">1 ★</span><div class="rv-track"></div><span class="rv-pct">1%</span></div>
+      </div>
+    </div>
+    <div class="review-grid">
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">Mai 2025</span></div>
+        <div class="rc-name">Kevin H., 24</div>
+        <div class="rc-flavor">Cookies & Cream</div>
+        <div class="rc-text">„Absolut der beste Geschmack den ich je probiert habe. Löst sich super auf, kein Klumpen. Und das Preis-Leistungs-Verhältnis ist unschlagbar – bin schon seit 6 Monaten Abo-Kunde."</div>
+        <div class="rc-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf · Abo-Kunde</div>
+      </div>
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">April 2025</span></div>
+        <div class="rc-name">Lisa M., 28</div>
+        <div class="rc-flavor">Vanilla Ice Cream</div>
+        <div class="rc-text">„Ich habe schon viele Wheys getestet – GEN Vanilla Ice Cream ist mein absoluter Favorit. Schmeckt wie ein Dessert, ohne Reuegefühl. Und 75g Protein auf 100g ist wirklich stark."</div>
+        <div class="rc-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf</div>
+      </div>
+      <div class="rc">
+        <div class="rc-head"><span class="rc-stars">★★★★★</span><span class="rc-date">März 2025</span></div>
+        <div class="rc-name">Tobias F., 32</div>
+        <div class="rc-flavor">Grießbrei Kirsch</div>
+        <div class="rc-text">„Grießbrei Kirsch klingt erstmal komisch – aber ich bin total begeistert! Sehr originell, schmeckt tatsächlich wie Grießbrei. GEN macht wirklich einzigartige Sorten die man sonst nirgends findet."</div>
+        <div class="rc-verified"><svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>Verifizierter Kauf</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section">
+  <div class="faq-inner">
+    <div class="sec-eyebrow">FAQ</div>
+    <h2 class="sec-title" style="margin-bottom:28px;">Häufige Fragen</h2>
+
+    <div class="faq-item open">
+      <button class="faq-q" onclick="faqToggle(this)">Was ist der Unterschied zwischen WPC und WPI? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Whey Protein Konzentrat (WPC) enthält ca. 70–80% Protein und wird schnell, aber nicht so blitzartig aufgenommen wie Isolat. Whey Isolat (WPI) ist aufgereinigter (90%+) und wird innerhalb von 30–45 Minuten vollständig absorbiert. Der GEN Whey Komplex kombiniert beide für sofortige und anhaltende Proteinversorgung.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Wie viele Portionen hat die 1000g-Packung? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Bei einer Portionsgröße von 30g enthält die 1000g-Packung ca. 33 Portionen. Das entspricht ca. einem Monatsvorrat bei täglicher Einnahme. Mit dem Abo sparst du 15% und bekommst ihn monatlich automatisch geliefert.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Wann sollte ich Whey Protein am besten nehmen? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Der optimale Zeitpunkt ist innerhalb von 30–60 Minuten nach dem Training – in der sogenannten "anabolen Fenster"-Phase. Whey Protein eignet sich aber auch hervorragend morgens zum Frühstück, als Proteinsnack oder überall dort, wo du deinen Proteinbedarf decken möchtest.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Ist Whey Protein für Anfänger geeignet? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Absolut! Whey Protein ist kein "Advanced"-Supplement – es ist einfach eine hochwertige Proteinquelle. Ob Anfänger oder Profi: Wenn du nicht genug Protein über die normale Ernährung aufnimmst, hilft Whey Protein deinen Muskeln zu wachsen und sich zu erholen.</div>
+    </div>
+    <div class="faq-item">
+      <button class="faq-q" onclick="faqToggle(this)">Kann ich das Abo jederzeit kündigen? <svg viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></button>
+      <div class="faq-a">Ja, das Abo ist vollständig flexibel. Du kannst es jederzeit in deinem Kundenkonto pausieren oder kündigen – ohne Angabe von Gründen, ohne Fristen. Du erhältst 5 Tage vor jeder Lieferung eine Erinnerungsmail.</div>
+    </div>
+  </div>
+</section>
+
+<!-- STACK -->
+<section class="stack-section">
+  <div class="stack-inner">
+    <div class="sec-eyebrow">Perfekt kombinieren</div>
+    <h2 class="sec-title">Wird oft zusammen gekauft</h2>
+    <p class="sec-sub" style="max-width:520px;">Kombiniere Whey Protein mit diesen Produkten für maximale Trainingsresultate.</p>
+    <div class="stack-grid">
+      <div class="sc">
+        <div class="sc-img"><img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?w=400&q=80" alt="Creatin"></div>
+        <div class="sc-body">
+          <div class="sc-tag">⚡ Mehr Kraft</div>
+          <div class="sc-name">Creatin Monohydrat 500g</div>
+          <div class="sc-why">Erhöht Kraftleistung & Muskelvolumen – der #1 Supplement-Klassiker für Gym-Gains.</div>
+          <div class="sc-foot"><span class="sc-price">€14,90</span><button class="sc-add">+ Hinzufügen</button></div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="sc-img"><img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=400&q=80" alt="BCAA"></div>
+        <div class="sc-body">
+          <div class="sc-tag">💪 Regeneration</div>
+          <div class="sc-name">BCAA 2:1:1 Pulver 400g</div>
+          <div class="sc-why">Essentielle Aminosäuren für Muskelschutz während des Trainings und schnellere Erholung.</div>
+          <div class="sc-foot"><span class="sc-price">€19,90</span><button class="sc-add">+ Hinzufügen</button></div>
+        </div>
+      </div>
+      <div class="sc">
+        <div class="sc-img"><img src="https://images.unsplash.com/photo-1584308666744-24d5c474f2ae?w=400&q=80" alt="Pre Workout"></div>
+        <div class="sc-body">
+          <div class="sc-tag">🔥 Mehr Energie</div>
+          <div class="sc-name">Pre-Workout Booster 300g</div>
+          <div class="sc-why">Maximale Energie und Fokus für dein Training. Mit Koffein, Beta-Alanin und Citrullin.</div>
+          <div class="sc-foot"><span class="sc-price">€24,90</span><button class="sc-add">+ Hinzufügen</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-top">
+    <div class="ft-logo">
+      <img src="https://cdn.shopify.com/s/files/1/0510/9825/5545/files/Homepage_logo_weiss_optimal_51999b9e-2e10-4b09-a099-6f40ba94763d_410x.png?v=1646682416" alt="Protein-Outlet">
+      <p>Dein Online-Shop für Premium Sportnahrung – günstig, schnell, zuverlässig.</p>
+    </div>
+    <div class="ft-col">
+      <h4>Produkte</h4>
+      <a href="#">Eiweißpulver</a>
+      <a href="#">Creatin</a>
+      <a href="#">Pre-Workout</a>
+      <a href="#">Vitamine</a>
+    </div>
+    <div class="ft-col">
+      <h4>Service</h4>
+      <a href="#">Mein Abo</a>
+      <a href="#">Versand & Rückgabe</a>
+      <a href="#">FAQ</a>
+      <a href="#">Kontakt</a>
+    </div>
+    <div class="ft-col">
+      <h4>Rechtliches</h4>
+      <a href="#">Impressum</a>
+      <a href="#">Datenschutz</a>
+      <a href="#">AGB</a>
+      <a href="#">Widerrufsrecht</a>
+    </div>
+  </div>
+  <div class="ft-bottom">
+    <p>© 2025 Protein-Outlet · Alle Rechte vorbehalten</p>
+    <div class="ft-pays">
+      <span class="ft-pay">PayPal</span>
+      <span class="ft-pay">Klarna</span>
+      <span class="ft-pay">Visa</span>
+      <span class="ft-pay">MC</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchImg(el, src) {
+    document.querySelectorAll('.gal-thumb').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('mainImg').src = src;
+  }
+
+  function setSize(btn, name, price) {
+    document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('sizeName').textContent = name;
+    const once = parseFloat(price.replace('€','').replace(',','.'));
+    const abo = (once * 0.85).toFixed(2).replace('.',',');
+    document.getElementById('priceOnce').textContent = price;
+    document.getElementById('priceAbo').textContent = abo + ' €';
+    updateBuyLabel();
+  }
+
+  function setFlavor(btn, name, img) {
+    document.querySelectorAll('.fl-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('flavorName').textContent = name;
+    if(img) document.getElementById('mainImg').src = img;
+  }
+
+  function selectSub(type) {
+    const once = document.getElementById('optOnce');
+    const abo  = document.getElementById('optAbo');
+    const details = document.getElementById('aboDetails');
+    if (type === 'abo') {
+      abo.classList.add('active'); once.classList.remove('active');
+      details.classList.add('visible');
+    } else {
+      once.classList.add('active'); abo.classList.remove('active');
+      details.classList.remove('visible');
+    }
+    updateBuyLabel();
+  }
+
+  function updateBuyLabel() {
+    const isAbo = document.getElementById('optAbo').classList.contains('active');
+    const aboPrice = document.getElementById('priceAbo').textContent;
+    const oncePrice = document.getElementById('priceOnce').textContent;
+    document.getElementById('buyLabel').textContent = isAbo
+      ? `Abo starten – ${aboPrice}/Monat`
+      : `In den Warenkorb – ${oncePrice}`;
+  }
+
+  function faqToggle(btn) {
+    const item = btn.closest('.faq-item');
+    const open = item.classList.contains('open');
+    document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
+    if (!open) item.classList.add('open');
+  }
+
+  // Announce bar: mobil nur eine Message rotieren
+  (function() {
+    const msgs = document.querySelectorAll('.bar span');
+    let cur = 0;
+    function rotate() {
+      if (window.innerWidth > 640) return;
+      msgs.forEach(m => m.classList.remove('bar-active'));
+      msgs[cur].classList.add('bar-active');
+      cur = (cur + 1) % msgs.length;
+    }
+    rotate();
+    setInterval(rotate, 3000);
+    window.addEventListener('resize', rotate);
+  })();
+</script>
+</body>
+</html>
