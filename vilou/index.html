@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Buchstaben Kette Tahiti – ViLou Schmuck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --white: #ffffff;
+    --warm: #faf9f7;
+    --cream: #f5f0ea;
+    --blush: #f8f0ec;
+    --gold: #c8a45a;
+    --gold-dark: #a8843a;
+    --gold-light: #fdf6e8;
+    --dark: #1a1512;
+    --charcoal: #2e2824;
+    --mid: #7a6e68;
+    --muted: #a39890;
+    --border: #e6ddd6;
+    --rose: #e8d5cd;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--dark); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+
+  /* ── ANNOUNCE BAR ── */
+  .bar {
+    background: var(--dark);
+    color: rgba(255,255,255,0.82);
+    text-align: center;
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    min-height: 36px;
+  }
+  .bar-dot { color: var(--gold); opacity: 0.6; }
+  @media (max-width: 640px) {
+    .bar { font-size: 9.5px; gap: 10px; }
+    .bar-dot { display: none; }
+    .bar-hide-mobile { display: none; }
+  }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0 52px;
+    height: 68px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+  }
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--dark);
+    text-decoration: none;
+  }
+  .nav-links { display: flex; gap: 28px; list-style: none; }
+  .nav-links a { text-decoration: none; color: var(--mid); font-size: 12px; font-weight: 500; letter-spacing: 0.06em; transition: color .15s; }
+  .nav-links a:hover { color: var(--dark); }
+  .nav-right { display: flex; align-items: center; gap: 16px; }
+  .nav-icon { background: none; border: none; cursor: pointer; color: var(--mid); display: flex; align-items: center; transition: color .15s; position: relative; }
+  .nav-icon:hover { color: var(--dark); }
+  .nav-icon svg { width: 19px; height: 19px; }
+  .cart-badge { position: absolute; top: -6px; right: -7px; background: var(--gold); color: white; border-radius: 50%; width: 16px; height: 16px; font-size: 9px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  @media (max-width: 900px) { nav { padding: 0 20px; } .nav-links { display: none; } }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { padding: 10px 52px; font-size: 11.5px; color: var(--muted); display: flex; gap: 6px; align-items: center; border-bottom: 1px solid var(--border); }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--dark); }
+  @media (max-width: 768px) { .breadcrumb { padding: 10px 16px; } }
+
+  /* ── PRODUCT SECTION ── */
+  .product-wrap { max-width: 1180px; margin: 0 auto; padding: 36px 52px 64px; display: grid; grid-template-columns: 1.1fr 1fr; gap: 68px; align-items: start; }
+  @media (max-width: 960px) { .product-wrap { grid-template-columns: 1fr; gap: 28px; padding: 20px 16px 48px; } }
+
+  /* Gallery */
+  .gallery { position: sticky; top: 80px; }
+  .gallery-main { border-radius: 16px; overflow: hidden; aspect-ratio: 1/1; background: var(--cream); margin-bottom: 10px; position: relative; }
+  .gallery-main img { width: 100%; height: 100%; object-fit: cover; transition: opacity .2s; }
+  .gallery-thumbs { display: grid; grid-template-columns: repeat(4,1fr); gap: 8px; }
+  .g-thumb { border-radius: 10px; overflow: hidden; aspect-ratio: 1/1; background: var(--cream); cursor: pointer; border: 2px solid transparent; transition: border-color .15s; }
+  .g-thumb.active { border-color: var(--gold); }
+  .g-thumb img { width: 100%; height: 100%; object-fit: cover; }
+  .gallery-tag { position: absolute; top: 14px; right: 14px; background: rgba(255,255,255,0.9); backdrop-filter: blur(8px); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 10.5px; font-weight: 600; color: var(--dark); letter-spacing: 0.06em; display: flex; align-items: center; gap: 6px; }
+  .gallery-tag::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #d4a853; display: inline-block; }
+
+  /* Product Info */
+  .prod-brand { font-size: 10.5px; font-weight: 700; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .prod-title { font-family: 'Cormorant Garamond', serif; font-size: 30px; font-weight: 600; line-height: 1.18; color: var(--dark); margin-bottom: 10px; }
+  .prod-stars-row { display: flex; align-items: center; gap: 8px; margin-bottom: 16px; cursor: pointer; }
+  .stars { color: #d4a853; font-size: 13px; letter-spacing: 1.5px; }
+  .review-link { font-size: 12px; color: var(--mid); text-decoration: underline; text-underline-offset: 3px; }
+  .price-row { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .price-now { font-family: 'Cormorant Garamond', serif; font-size: 28px; font-weight: 600; color: var(--dark); }
+  .price-old { font-size: 15px; color: var(--muted); text-decoration: line-through; }
+  .price-badge { background: #fce8e8; color: #c0392b; font-size: 10.5px; font-weight: 700; padding: 3px 9px; border-radius: 20px; letter-spacing: 0.04em; }
+
+  /* Gift Toggle */
+  .toggle-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 10px; }
+  .gift-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+  .gt-opt { border: 1.5px solid var(--border); border-radius: 10px; padding: 11px 14px; cursor: pointer; transition: all .15s; display: flex; align-items: center; gap: 10px; }
+  .gt-opt.active { border-color: var(--gold); background: var(--gold-light); }
+  .gt-radio { width: 16px; height: 16px; border: 2px solid var(--border); border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: border-color .15s; }
+  .gt-opt.active .gt-radio { border-color: var(--gold); }
+  .gt-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gold); opacity: 0; transition: opacity .15s; }
+  .gt-opt.active .gt-dot { opacity: 1; }
+  .gt-text { font-size: 13px; font-weight: 500; color: var(--dark); }
+  .gt-sub { font-size: 11px; color: var(--mid); margin-top: 1px; }
+  .gt-gift-note { background: var(--gold-light); border: 1px solid #e8d5a0; border-radius: 10px; padding: 12px 14px; font-size: 12.5px; color: var(--charcoal); display: flex; align-items: center; gap: 10px; margin-bottom: 18px; display: none; }
+  .gt-gift-note.visible { display: flex; }
+  .gt-gift-note svg { width: 16px; height: 16px; color: var(--gold); flex-shrink: 0; }
+
+  /* Letter Grid */
+  .letter-grid-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .selected-letter-badge { font-size: 12px; font-weight: 700; color: var(--gold); background: var(--gold-light); padding: 3px 10px; border-radius: 20px; }
+  .letter-grid { display: grid; grid-template-columns: repeat(8, 1fr); gap: 6px; margin-bottom: 22px; }
+  @media (max-width: 480px) { .letter-grid { grid-template-columns: repeat(6, 1fr); } }
+  .letter-tile {
+    aspect-ratio: 1/1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 1.5px solid var(--border);
+    border-radius: 8px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px;
+    font-weight: 600;
+    color: var(--charcoal);
+    cursor: pointer;
+    transition: all .12s;
+    background: var(--white);
+    user-select: none;
+  }
+  .letter-tile:hover { border-color: var(--gold); color: var(--gold); background: var(--gold-light); }
+  .letter-tile.active { border-color: var(--gold); background: var(--gold); color: white; }
+
+  /* Shipping progress */
+  .ship-progress-wrap { background: var(--cream); border-radius: 10px; padding: 12px 16px; margin-bottom: 18px; }
+  .ship-progress-text { font-size: 12px; color: var(--dark); margin-bottom: 8px; }
+  .ship-progress-text strong { color: var(--gold-dark); }
+  .ship-bar-track { height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .ship-bar-fill { height: 100%; background: linear-gradient(90deg, var(--gold), #e8c870); border-radius: 3px; width: 71%; transition: width .5s; }
+
+  /* CTA */
+  .btn-atc {
+    width: 100%;
+    background: var(--dark);
+    color: white;
+    border: none;
+    padding: 15px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    cursor: pointer;
+    transition: background .15s;
+    margin-bottom: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+  }
+  .btn-atc:hover { background: var(--charcoal); }
+  .btn-atc svg { width: 17px; height: 17px; }
+  .btn-wishlist {
+    width: 100%;
+    background: none;
+    border: 1.5px solid var(--border);
+    color: var(--dark);
+    padding: 13px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all .15s;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+  }
+  .btn-wishlist:hover { border-color: var(--gold); color: var(--gold); }
+  .btn-wishlist svg { width: 15px; height: 15px; }
+
+  /* Benefit Badges */
+  .benefit-badges { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 18px; }
+  .bb { display: flex; align-items: center; gap: 8px; font-size: 11.5px; color: var(--mid); font-weight: 500; }
+  .bb svg { width: 14px; height: 14px; color: var(--gold); flex-shrink: 0; }
+
+  /* Chain length preview */
+  .chain-info { border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; display: flex; align-items: center; gap: 14px; }
+  .chain-svg-wrap { flex-shrink: 0; }
+  .chain-info-text { font-size: 12px; color: var(--mid); line-height: 1.6; }
+  .chain-info-text strong { color: var(--dark); font-weight: 600; }
+
+  /* ── USP BAR ── */
+  .usp-bar { background: var(--cream); border-top: 1px solid var(--border); border-bottom: 1px solid var(--border); }
+  .usp-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+  .usp-item { display: flex; align-items: center; gap: 12px; padding: 18px 24px; border-right: 1px solid var(--border); }
+  .usp-item:last-child { border-right: none; }
+  .usp-item svg { width: 19px; height: 19px; color: var(--gold); flex-shrink: 0; }
+  .usp-title { font-size: 12px; font-weight: 700; color: var(--dark); }
+  .usp-sub { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  @media (max-width: 860px) { .usp-inner { grid-template-columns: repeat(2,1fr); } .usp-item:nth-child(2) { border-right: none; } }
+  @media (max-width: 480px) { .usp-item { padding: 14px 14px; gap: 8px; } .usp-sub { display: none; } }
+
+  /* ── SHARED ── */
+  .section { max-width: 1180px; margin: 0 auto; padding: 72px 52px; }
+  @media (max-width: 768px) { .section { padding: 52px 16px; } }
+  .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .section-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; line-height: 1.18; color: var(--dark); }
+  .section-sub { font-size: 14px; color: var(--mid); margin-top: 10px; line-height: 1.72; font-weight: 300; }
+  @media (max-width: 768px) { .section-title { font-size: 28px; } }
+
+  /* ── MATERIAL SECTION ── */
+  .material-wrap { background: var(--blush); }
+  .material-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  @media (max-width: 768px) { .material-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .material-img { border-radius: 20px; overflow: hidden; aspect-ratio: 4/5; background: white; }
+  .material-img img { width: 100%; height: 100%; object-fit: cover; }
+  .material-specs { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 28px 0; }
+  .spec-card { background: white; border-radius: 12px; padding: 18px; border: 1px solid var(--rose); }
+  .spec-icon { font-size: 22px; margin-bottom: 8px; }
+  .spec-title { font-size: 12.5px; font-weight: 700; color: var(--dark); margin-bottom: 3px; }
+  .spec-text { font-size: 11.5px; color: var(--mid); line-height: 1.5; }
+
+  /* ── LAYERING SECTION ── */
+  .layering-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 72px; align-items: center; }
+  @media (max-width: 768px) { .layering-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .layering-img { border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; background: var(--cream); }
+  .layering-img img { width: 100%; height: 100%; object-fit: cover; }
+  .layering-products { display: flex; flex-direction: column; gap: 12px; margin-top: 28px; }
+  .layering-prod { display: flex; align-items: center; gap: 14px; background: var(--cream); border-radius: 12px; padding: 12px 14px; border: 1px solid var(--border); cursor: pointer; transition: border-color .15s; }
+  .layering-prod:hover { border-color: var(--gold); }
+  .layering-prod-img { width: 48px; height: 48px; border-radius: 8px; background: white; overflow: hidden; flex-shrink: 0; }
+  .layering-prod-img img { width: 100%; height: 100%; object-fit: cover; }
+  .layering-prod-name { font-size: 13px; font-weight: 600; color: var(--dark); }
+  .layering-prod-price { font-size: 12px; color: var(--mid); margin-top: 2px; }
+  .layering-badge { margin-left: auto; font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--gold-light); padding: 3px 9px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+
+  /* ── GIFT SECTION ── */
+  .gift-wrap { background: var(--dark); color: white; }
+  .gift-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  @media (max-width: 768px) { .gift-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .gift-img { border-radius: 20px; overflow: hidden; aspect-ratio: 3/4; background: #2e2824; }
+  .gift-img img { width: 100%; height: 100%; object-fit: cover; opacity: 0.85; }
+  .gift-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.24em; text-transform: uppercase; color: var(--gold); margin-bottom: 10px; }
+  .gift-title { font-family: 'Cormorant Garamond', serif; font-size: 36px; font-weight: 600; line-height: 1.18; margin-bottom: 16px; }
+  @media (max-width: 768px) { .gift-title { font-size: 28px; } }
+  .gift-text { font-size: 14px; line-height: 1.75; color: rgba(255,255,255,0.68); font-weight: 300; margin-bottom: 8px; }
+  .gift-occasions { display: flex; flex-wrap: wrap; gap: 8px; margin: 22px 0; }
+  .gift-tag { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: rgba(255,255,255,0.8); border-radius: 20px; padding: 6px 14px; font-size: 12px; font-weight: 500; }
+  .gift-box-badge { display: flex; align-items: center; gap: 12px; background: rgba(200,164,90,0.15); border: 1px solid rgba(200,164,90,0.35); border-radius: 12px; padding: 14px 18px; margin-top: 24px; }
+  .gift-box-badge svg { width: 22px; height: 22px; color: var(--gold); flex-shrink: 0; }
+  .gift-box-title { font-size: 13.5px; font-weight: 700; color: white; }
+  .gift-box-sub { font-size: 11.5px; color: rgba(255,255,255,0.55); margin-top: 2px; }
+  .btn-gift { display: inline-block; margin-top: 24px; background: var(--gold); color: white; border: none; border-radius: 10px; padding: 14px 30px; font-size: 13px; font-weight: 700; cursor: pointer; transition: background .15s; }
+  .btn-gift:hover { background: var(--gold-dark); }
+
+  /* ── CHAIN LENGTH GUIDE ── */
+  .length-wrap { background: var(--cream); }
+  .length-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  @media (max-width: 768px) { .length-grid { grid-template-columns: 1fr; gap: 32px; } }
+  .length-svg-container { display: flex; justify-content: center; align-items: center; background: white; border-radius: 20px; padding: 40px; border: 1px solid var(--border); }
+  .length-options { display: flex; flex-direction: column; gap: 16px; margin-top: 28px; }
+  .length-opt { display: flex; align-items: center; gap: 16px; padding: 16px 18px; border-radius: 12px; border: 1.5px solid var(--border); cursor: pointer; transition: all .15s; background: white; }
+  .length-opt.active { border-color: var(--gold); background: var(--gold-light); }
+  .length-opt-num { font-family: 'Cormorant Garamond', serif; font-size: 22px; font-weight: 600; color: var(--dark); min-width: 44px; }
+  .length-opt-name { font-size: 13.5px; font-weight: 600; color: var(--dark); }
+  .length-opt-desc { font-size: 11.5px; color: var(--mid); margin-top: 2px; }
+  .length-opt-img { width: 44px; height: 44px; background: var(--cream); border-radius: 8px; margin-left: auto; display: flex; align-items: center; justify-content: center; font-size: 20px; }
+  .length-note { font-size: 12px; color: var(--muted); margin-top: 16px; font-style: italic; }
+
+  /* ── REVIEWS ── */
+  .reviews-summary { display: flex; gap: 32px; align-items: center; padding: 28px 32px; background: var(--cream); border-radius: 16px; margin-bottom: 36px; flex-wrap: wrap; }
+  .reviews-score { font-family: 'Cormorant Garamond', serif; font-size: 60px; font-weight: 600; color: var(--dark); line-height: 1; }
+  .reviews-score-right { }
+  .reviews-stars { color: #d4a853; font-size: 20px; letter-spacing: 3px; }
+  .reviews-count { font-size: 13px; color: var(--mid); margin-top: 5px; }
+  .reviews-bars { flex: 1; min-width: 160px; display: flex; flex-direction: column; gap: 7px; }
+  .rb-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--mid); }
+  .rb-track { flex: 1; height: 5px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .rb-fill { height: 100%; background: #d4a853; border-radius: 3px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; max-width: 480px; } }
+  .review-card { background: var(--warm); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .rc-stars { color: #d4a853; font-size: 12px; letter-spacing: 2px; margin-bottom: 10px; }
+  .rc-text { font-family: 'Cormorant Garamond', serif; font-size: 16px; font-style: italic; line-height: 1.65; color: var(--charcoal); margin-bottom: 16px; }
+  .rc-author { font-size: 12.5px; font-weight: 700; color: var(--dark); }
+  .rc-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .rc-letter { display: inline-flex; align-items: center; justify-content: center; width: 28px; height: 28px; background: var(--gold); color: white; border-radius: 50%; font-family: 'Cormorant Garamond', serif; font-size: 15px; font-weight: 600; margin-left: auto; flex-shrink: 0; }
+  .rc-top { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+  .reviews-cta { text-align: center; margin-top: 28px; }
+  .btn-outline { display: inline-block; border: 1.5px solid var(--dark); color: var(--dark); background: none; padding: 12px 28px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; letter-spacing: 0.04em; transition: all .15s; }
+  .btn-outline:hover { background: var(--dark); color: white; }
+
+  /* ── UGC INSTAGRAM ── */
+  .ugc-wrap { background: var(--cream); }
+  .ugc-grid { display: grid; grid-template-columns: repeat(5,1fr); gap: 6px; margin-top: 36px; }
+  @media (max-width: 768px) { .ugc-grid { grid-template-columns: repeat(3,1fr); } }
+  @media (max-width: 480px) { .ugc-grid { grid-template-columns: repeat(2,1fr); } }
+  .ugc-item { aspect-ratio: 1/1; border-radius: 10px; overflow: hidden; background: white; position: relative; cursor: pointer; }
+  .ugc-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .3s; }
+  .ugc-item:hover img { transform: scale(1.06); }
+  .ugc-overlay { position: absolute; inset: 0; background: rgba(0,0,0,0); transition: background .2s; display: flex; align-items: center; justify-content: center; }
+  .ugc-item:hover .ugc-overlay { background: rgba(0,0,0,0.25); }
+  .ugc-ig { opacity: 0; transition: opacity .2s; color: white; }
+  .ugc-item:hover .ugc-ig { opacity: 1; }
+  .ugc-ig svg { width: 24px; height: 24px; }
+  .ugc-handle { text-align: center; margin-top: 20px; font-size: 13px; color: var(--mid); }
+  .ugc-handle a { color: var(--dark); font-weight: 700; text-decoration: none; }
+
+  /* ── FAQ ── */
+  .faq-wrap { max-width: 740px; margin: 0 auto; padding: 72px 52px; }
+  @media (max-width: 768px) { .faq-wrap { padding: 52px 16px; } }
+  .faq-list { margin-top: 32px; border: 1px solid var(--border); border-radius: 14px; overflow: hidden; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { padding: 18px 22px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 14px; background: white; transition: background .15s; }
+  .faq-q:hover { background: var(--warm); }
+  .faq-q svg { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; transition: transform .2s; }
+  .faq-q.open svg { transform: rotate(45deg); }
+  .faq-a { padding: 0 22px; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .2s; font-size: 13.5px; line-height: 1.72; color: var(--mid); background: var(--warm); }
+  .faq-a.open { max-height: 200px; padding: 14px 22px 20px; }
+
+  /* ── NEWSLETTER ── */
+  .nl-wrap { background: var(--blush); border-top: 1px solid var(--rose); border-bottom: 1px solid var(--rose); padding: 64px 52px; text-align: center; }
+  @media (max-width: 768px) { .nl-wrap { padding: 48px 16px; } }
+  .nl-title { font-family: 'Cormorant Garamond', serif; font-size: 32px; font-weight: 600; color: var(--dark); margin-bottom: 8px; }
+  .nl-sub { font-size: 13.5px; color: var(--mid); margin-bottom: 22px; line-height: 1.65; font-weight: 300; max-width: 360px; margin-left: auto; margin-right: auto; }
+  .nl-form { display: flex; max-width: 420px; margin: 0 auto; border: 1.5px solid var(--border); border-radius: 10px; overflow: hidden; background: white; }
+  .nl-input { flex: 1; border: none; padding: 13px 16px; font-size: 13px; color: var(--dark); background: transparent; outline: none; }
+  .nl-btn { background: var(--dark); color: white; border: none; padding: 13px 22px; font-size: 12px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background .15s; letter-spacing: 0.06em; }
+  .nl-btn:hover { background: var(--charcoal); }
+  .nl-note { font-size: 10.5px; color: var(--muted); margin-top: 10px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); color: rgba(255,255,255,0.55); padding: 56px 52px 28px; }
+  @media (max-width: 768px) { footer { padding: 44px 16px 24px; } }
+  .footer-inner { max-width: 1180px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 44px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.1); }
+  @media (max-width: 860px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; } }
+  @media (max-width: 480px) { .footer-top { grid-template-columns: 1fr; } }
+  .footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; color: white; margin-bottom: 12px; }
+  .footer-desc { font-size: 12.5px; line-height: 1.7; max-width: 220px; }
+  .footer-col-title { font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: white; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col a { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 13px; transition: color .15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.85); }
+  .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; flex-wrap: wrap; gap: 12px; }
+  .footer-pay { display: flex; gap: 6px; flex-wrap: wrap; }
+  .pay-tag { background: rgba(255,255,255,0.07); border: 1px solid rgba(255,255,255,0.12); padding: 4px 10px; border-radius: 4px; font-size: 10px; color: rgba(255,255,255,0.4); }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="bar">
+  <span class="bar-hide-mobile">✦ Versandkostenfrei ab €49</span>
+  <span class="bar-dot">·</span>
+  <span>Lieferung in 1–3 Werktagen</span>
+  <span class="bar-dot">·</span>
+  <span>Inklusive Geschenkbox</span>
+  <span class="bar-dot">·</span>
+  <span class="bar-hide-mobile">14 Tage Rückgabe</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#">ViLou</a>
+  <ul class="nav-links">
+    <li><a href="#">Ketten</a></li>
+    <li><a href="#">Ringe</a></li>
+    <li><a href="#">Armbänder</a></li>
+    <li><a href="#">Ohrringe</a></li>
+    <li><a href="#">Sale</a></li>
+    <li><a href="#">Über uns</a></li>
+  </ul>
+  <div class="nav-right">
+    <button class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    </button>
+    <button class="nav-icon" style="position:relative;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-badge">1</span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Home</a>
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  <a href="#">Ketten</a>
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  <span>Buchstaben Kette Tahiti</span>
+</div>
+
+<!-- PRODUCT SECTION -->
+<div class="product-wrap">
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gallery-main">
+      <img id="main-img" src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/Buchstabenkette-ViLou-gold-a_0ff84036-7130-4890-ad8a-b7d6fec035e3.jpg" alt="Buchstaben Kette Tahiti">
+      <div class="gallery-tag">18K vergoldet</div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="g-thumb active" onclick="setImg(this,'https://cdn.shopify.com/s/files/1/0880/5367/8403/files/Buchstabenkette-ViLou-gold-a_0ff84036-7130-4890-ad8a-b7d6fec035e3.jpg')">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/Buchstabenkette-ViLou-gold-a_0ff84036-7130-4890-ad8a-b7d6fec035e3.jpg" alt="">
+      </div>
+      <div class="g-thumb" onclick="setImg(this,'https://cdn.shopify.com/s/files/1/0880/5367/8403/files/ketten_layering_vilou_schmuck_runde_plaettchen_gold_wasserfester_schmuck.png')">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/ketten_layering_vilou_schmuck_runde_plaettchen_gold_wasserfester_schmuck.png" alt="">
+      </div>
+      <div class="g-thumb" onclick="setImg(this,'https://cdn.shopify.com/s/files/1/0880/5367/8403/files/299973026_628275918641051_1082619210202042305_n.jpg')">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/299973026_628275918641051_1082619210202042305_n.jpg" alt="">
+      </div>
+      <div class="g-thumb" onclick="setImg(this,'https://cdn.shopify.com/s/files/1/0880/5367/8403/files/436446678_1490441168569048_6518175886471768159_n.jpg')">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/436446678_1490441168569048_6518175886471768159_n.jpg" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div>
+    <div class="prod-brand">ViLou Schmuck</div>
+    <h1 class="prod-title">Buchstaben Kette Tahiti – Perlmutt &amp; Gold</h1>
+    <div class="prod-stars-row">
+      <span class="stars">★★★★★</span>
+      <span class="review-link">33 Bewertungen</span>
+    </div>
+    <div class="price-row">
+      <span class="price-now">€34,99</span>
+      <span class="price-old">€39,99</span>
+      <span class="price-badge">−13%</span>
+    </div>
+
+    <!-- Gift Toggle -->
+    <div class="toggle-label">Ich kaufe diese Kette…</div>
+    <div class="gift-toggle" id="gift-toggle">
+      <div class="gt-opt active" onclick="setGift(this, false)">
+        <div class="gt-radio"><div class="gt-dot"></div></div>
+        <div>
+          <div class="gt-text">Für mich</div>
+          <div class="gt-sub">Mein neues Lieblingsteil</div>
+        </div>
+      </div>
+      <div class="gt-opt" onclick="setGift(this, true)">
+        <div class="gt-radio"><div class="gt-dot"></div></div>
+        <div>
+          <div class="gt-text">Als Geschenk 🎁</div>
+          <div class="gt-sub">Inkl. Geschenkbox</div>
+        </div>
+      </div>
+    </div>
+    <div class="gt-gift-note" id="gift-note">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      <div><strong style="color:var(--dark)">Inklusive ViLou Geschenkbox</strong> · Wird liebevoll verpackt geliefert – bereit zum Verschenken. Auf Wunsch mit persönlicher Karte.</div>
+    </div>
+
+    <!-- Letter Grid -->
+    <div class="letter-grid-label">
+      Buchstabe wählen
+      <span class="selected-letter-badge" id="selected-badge">A ausgewählt</span>
+    </div>
+    <div class="letter-grid" id="letter-grid">
+      <!-- Letters populated by JS -->
+    </div>
+
+    <!-- Shipping Progress -->
+    <div class="ship-progress-wrap">
+      <div class="ship-progress-text">Du bist <strong>€14,01 von kostenlosem Versand</strong> entfernt 🎉</div>
+      <div class="ship-bar-track"><div class="ship-bar-fill" id="ship-bar"></div></div>
+    </div>
+
+    <!-- CTA -->
+    <button class="btn-atc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      In den Warenkorb – €34,99
+    </button>
+    <button class="btn-wishlist">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Merkliste
+    </button>
+
+    <!-- Benefit Badges -->
+    <div class="benefit-badges">
+      <div class="bb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/></svg>
+        Wasserfest &amp; alltagstauglich
+      </div>
+      <div class="bb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Lieferung in 1–3 Werktagen
+      </div>
+      <div class="bb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+        Hypoallergen · Nickelfrei
+      </div>
+      <div class="bb">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+        14 Tage Rückgabe
+      </div>
+    </div>
+
+    <!-- Chain Length Info -->
+    <div class="chain-info">
+      <!-- Simple chain length silhouette SVG -->
+      <div class="chain-svg-wrap">
+        <svg width="54" height="70" viewBox="0 0 54 70" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Neck silhouette -->
+          <path d="M16 0 C16 0 12 8 10 18 C8 28 7 34 7 42 C7 56 14 70 27 70 C40 70 47 56 47 42 C47 34 46 28 44 18 C42 8 38 0 38 0 Z" fill="#f5f0ea" stroke="#e6ddd6" stroke-width="1"/>
+          <!-- Chain at 40cm (low on neck) -->
+          <ellipse cx="27" cy="28" rx="15" ry="4" fill="none" stroke="#c8a45a" stroke-width="1.2" stroke-dasharray="2 1.5"/>
+          <!-- Pendant -->
+          <rect x="24" y="30" width="6" height="5" rx="2" fill="#c8a45a" opacity="0.85"/>
+          <!-- Label -->
+          <text x="27" y="48" font-size="6" fill="#a39890" text-anchor="middle" font-family="Inter,sans-serif">40 cm</text>
+        </svg>
+      </div>
+      <div class="chain-info-text">
+        <strong>Kettenlänge: 40 cm</strong><br>
+        Liegt mittig auf dem Brustbein – klassische Länge, die zu jedem Ausschnitt passt. Ideal zum Layern mit längeren Ketten.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- USP BAR -->
+<div class="usp-bar">
+  <div class="usp-inner">
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 18v-6a9 9 0 0 1 18 0v6"/><path d="M21 19a2 2 0 0 1-2 2h-1a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h3zM3 19a2 2 0 0 0 2 2h1a2 2 0 0 0 2-2v-3a2 2 0 0 0-2-2H3z"/></svg>
+      <div><div class="usp-title">18K vergoldet</div><div class="usp-sub">316L Edelstahl Basis</div></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <div><div class="usp-title">Wasserfest</div><div class="usp-sub">Duschen, Sport, Alltag</div></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+      <div><div class="usp-title">Inkl. Geschenkbox</div><div class="usp-sub">Bereit zum Verschenken</div></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      <div><div class="usp-title">DHL Versand aus DE</div><div class="usp-sub">1–3 Werktage</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- MATERIAL SECTION -->
+<div class="material-wrap">
+  <div class="section">
+    <div class="material-grid">
+      <div class="material-img">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/Buchstabenkette-ViLou-gold-a_0ff84036-7130-4890-ad8a-b7d6fec035e3.jpg" alt="Perlmutt Detail">
+      </div>
+      <div>
+        <div class="section-eyebrow">Das Material</div>
+        <div class="section-title">Echter Perlmutt. Echter Glanz.</div>
+        <div class="section-sub">Kein Kunstharz, kein Plastik – jedes Pendant besteht aus echtem Perlmutt, das natürlich schimmert und sich in jedem Licht anders zeigt.</div>
+        <div class="material-specs">
+          <div class="spec-card">
+            <div class="spec-icon">💧</div>
+            <div class="spec-title">Wasserfest</div>
+            <div class="spec-text">Duschen, schwimmen, Sport – die Kette bleibt makellos.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">✨</div>
+            <div class="spec-title">18K vergoldet</div>
+            <div class="spec-text">Auf hochwertigem 316L Edelstahl – langlebig &amp; anlaufsicher.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">🌿</div>
+            <div class="spec-title">Hypoallergen</div>
+            <div class="spec-text">Nickelfrei – auch für empfindliche Haut geeignet.</div>
+          </div>
+          <div class="spec-card">
+            <div class="spec-icon">🔤</div>
+            <div class="spec-title">23 Buchstaben</div>
+            <div class="spec-text">A–Z (ohne Q, W, X) – finde deinen persönlichen Buchstaben.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LAYERING SECTION -->
+<div class="section">
+  <div class="layering-grid">
+    <div class="layering-img">
+      <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/ketten_layering_vilou_schmuck_runde_plaettchen_gold_wasserfester_schmuck.png" alt="Ketten Layering">
+    </div>
+    <div>
+      <div class="section-eyebrow">So trägst du sie</div>
+      <div class="section-title">Kombiniere &amp; kreiere deinen Look.</div>
+      <div class="section-sub">Die Tahiti-Kette ist perfekt als Einzelstück – und ein Traum in Kombination. Trage sie mit einer zweiten Kette und schaffe deinen ganz eigenen Layering-Look.</div>
+      <div class="layering-products">
+        <div class="layering-prod">
+          <div class="layering-prod-img">
+            <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/299973026_628275918641051_1082619210202042305_n.jpg" alt="">
+          </div>
+          <div>
+            <div class="layering-prod-name">Buchstaben Kette Tahiti</div>
+            <div class="layering-prod-price">€34,99 · Diese Kette</div>
+          </div>
+          <span class="layering-badge">Im Warenkorb</span>
+        </div>
+        <div class="layering-prod">
+          <div class="layering-prod-img" style="background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:22px;">💛</div>
+          <div>
+            <div class="layering-prod-name">Plättchen Kette Gold – 45 cm</div>
+            <div class="layering-prod-price">€29,99 · Perfekte Ergänzung</div>
+          </div>
+          <span class="layering-badge">+ Hinzufügen</span>
+        </div>
+        <div class="layering-prod">
+          <div class="layering-prod-img" style="background:var(--cream);display:flex;align-items:center;justify-content:center;font-size:22px;">⭕</div>
+          <div>
+            <div class="layering-prod-name">Chunky Chain – 50 cm</div>
+            <div class="layering-prod-price">€39,99 · Statement-Piece</div>
+          </div>
+          <span class="layering-badge">+ Hinzufügen</span>
+        </div>
+      </div>
+      <p style="font-size:12px;color:var(--muted);margin-top:14px;font-style:italic;">💡 Tipp: Bestelle 2 Ketten und spare dir die Versandkosten (ab €49 kostenlos).</p>
+    </div>
+  </div>
+</div>
+
+<!-- GIFT SECTION -->
+<div class="gift-wrap">
+  <div class="section">
+    <div class="gift-grid">
+      <div class="gift-img">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/436446678_1490441168569048_6518175886471768159_n.jpg" alt="ViLou Geschenkbox">
+      </div>
+      <div>
+        <div class="gift-eyebrow">Das perfekte Geschenk</div>
+        <h2 class="gift-title">Für jeden Moment. Für jeden Menschen.</h2>
+        <p class="gift-text">Personalisierter Schmuck ist das Geschenk, das berührt. Weil dahinter ein Gedanke steckt – ein Buchstabe, eine Person, eine Bedeutung.</p>
+        <p class="gift-text">Jede Tahiti-Kette wird in einer ViLou Geschenkbox geliefert – bereit zum Verschenken, ohne eigenes Einpacken.</p>
+        <div class="gift-occasions">
+          <span class="gift-tag">Geburtstag</span>
+          <span class="gift-tag">Valentinstag</span>
+          <span class="gift-tag">Muttertag</span>
+          <span class="gift-tag">Weihnachten</span>
+          <span class="gift-tag">Jubiläum</span>
+          <span class="gift-tag">Einfach so 💛</span>
+        </div>
+        <div class="gift-box-badge">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 12v10H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/></svg>
+          <div>
+            <div class="gift-box-title">Inklusive ViLou Geschenkbox</div>
+            <div class="gift-box-sub">Kostenlos · Liebevoll verpackt · Bereit zum Verschenken</div>
+          </div>
+        </div>
+        <button class="btn-gift">Jetzt als Geschenk bestellen</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- CHAIN LENGTH GUIDE -->
+<div class="length-wrap">
+  <div class="section">
+    <div class="length-grid">
+      <div>
+        <div class="section-eyebrow">Die Länge</div>
+        <div class="section-title">Welche Länge passt zu dir?</div>
+        <div class="section-sub">Die richtige Kettenlänge macht den Look. Hier siehst du, wie verschiedene Längen am Hals fallen.</div>
+        <div class="length-options">
+          <div class="length-opt active">
+            <div class="length-opt-num">40cm</div>
+            <div>
+              <div class="length-opt-name">Collier · Mittig</div>
+              <div class="length-opt-desc">Liegt auf dem Brustbein – klassisch &amp; vielseitig. Ideal zum Layern.</div>
+            </div>
+            <div class="length-opt-img">✅</div>
+          </div>
+          <div class="length-opt" style="opacity:.6;cursor:default;">
+            <div class="length-opt-num">45cm</div>
+            <div>
+              <div class="length-opt-name">Länger · Entspannt</div>
+              <div class="length-opt-desc">Fällt tiefer – wirkt lässiger. Toll unter V-Ausschnitt.</div>
+            </div>
+            <div class="length-opt-img" style="font-size:12px;color:var(--muted)">Bald</div>
+          </div>
+        </div>
+        <p class="length-note">* Aktuell nur in 40 cm erhältlich. Weitere Längen folgen.</p>
+      </div>
+      <!-- Neck silhouette with lengths -->
+      <div class="length-svg-container">
+        <svg width="200" height="300" viewBox="0 0 200 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <!-- Simplified neck + chest silhouette -->
+          <path d="M70 0 C70 0 58 30 54 65 C50 100 48 120 48 148 C48 200 68 280 100 280 C132 280 152 200 152 148 C152 120 150 100 146 65 C142 30 130 0 130 0 Z" fill="#f5f0ea" stroke="#e6ddd6" stroke-width="1.5"/>
+          <!-- Shoulder suggestion -->
+          <path d="M44 150 C30 155 10 165 0 185" stroke="#e6ddd6" stroke-width="1.5" fill="none"/>
+          <path d="M156 150 C170 155 190 165 200 185" stroke="#e6ddd6" stroke-width="1.5" fill="none"/>
+          <!-- 40cm chain -->
+          <ellipse cx="100" cy="110" rx="42" ry="8" fill="none" stroke="#c8a45a" stroke-width="1.8"/>
+          <!-- Pendant at 40cm -->
+          <rect x="93" y="116" width="14" height="11" rx="3" fill="#c8a45a" opacity="0.9"/>
+          <text x="99" y="125" font-size="8" fill="white" text-anchor="middle" font-family="Cormorant Garamond,serif" font-weight="600">A</text>
+          <!-- Label 40cm -->
+          <line x1="148" y1="110" x2="168" y2="105" stroke="#c8a45a" stroke-width="1" stroke-dasharray="2 2"/>
+          <text x="170" y="106" font-size="11" fill="#c8a45a" font-family="Inter,sans-serif" font-weight="700">40 cm</text>
+          <text x="170" y="118" font-size="9.5" fill="#a39890" font-family="Inter,sans-serif">Tahiti</text>
+        </svg>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section" id="reviews">
+  <div style="text-align:center;margin-bottom:36px;">
+    <div class="section-eyebrow">Kundenstimmen</div>
+    <div class="section-title">Was unsere Kunden sagen</div>
+  </div>
+  <div class="reviews-summary">
+    <div class="reviews-score">4,9</div>
+    <div class="reviews-score-right">
+      <div class="reviews-stars">★★★★★</div>
+      <div class="reviews-count">Basierend auf 33 Bewertungen</div>
+    </div>
+    <div class="reviews-bars">
+      <div class="rb-row"><span>5 ★</span><div class="rb-track"><div class="rb-fill" style="width:94%"></div></div><span>31</span></div>
+      <div class="rb-row"><span>4 ★</span><div class="rb-track"><div class="rb-fill" style="width:6%"></div></div><span>2</span></div>
+      <div class="rb-row"><span>3 ★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span>0</span></div>
+    </div>
+  </div>
+  <div class="reviews-grid">
+    <div class="review-card">
+      <div class="rc-top">
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-letter">L</div>
+      </div>
+      <div class="rc-text">„Wunderschöne Kette – der Perlmutt schimmert noch viel schöner als auf den Fotos. Die Geschenkverpackung war so liebevoll, ich musste sie fast nicht mehr einpacken!"</div>
+      <div class="rc-author">Laura K.</div>
+      <div class="rc-meta">Buchstabe L · München · vor 2 Wochen</div>
+    </div>
+    <div class="review-card">
+      <div class="rc-top">
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-letter">M</div>
+      </div>
+      <div class="rc-text">„Innerhalb von 2 Tagen geliefert, perfekt verpackt – und die Qualität ist wirklich beeindruckend für den Preis. Ich trage sie seitdem täglich, auch beim Sport und Duschen."</div>
+      <div class="rc-author">Mia H.</div>
+      <div class="rc-meta">Buchstabe M · Berlin · vor 3 Wochen</div>
+    </div>
+    <div class="review-card">
+      <div class="rc-top">
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-letter">S</div>
+      </div>
+      <div class="rc-text">„Als Geburtstagsgeschenk für meine Schwester – sie war hin und weg. Der Buchstabe S mit Perlmutt ist einfach elegant. Kommt definitiv nicht aus einer Massenproduktion."</div>
+      <div class="rc-author">Sophie B.</div>
+      <div class="rc-meta">Buchstabe S · Hamburg · vor 1 Monat</div>
+    </div>
+  </div>
+  <div class="reviews-cta">
+    <button class="btn-outline">Alle 33 Bewertungen lesen</button>
+  </div>
+</div>
+
+<!-- UGC / INSTAGRAM -->
+<div class="ugc-wrap">
+  <div class="section">
+    <div style="text-align:center;margin-bottom:0;">
+      <div class="section-eyebrow">Community</div>
+      <div class="section-title">Getragen von echten Menschen</div>
+    </div>
+    <div class="ugc-grid" style="margin-top:32px;">
+      <!-- 5 repeated lifestyle images from CDN with different aspect looks -->
+      <div class="ugc-item">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/299973026_628275918641051_1082619210202042305_n.jpg" alt="">
+        <div class="ugc-overlay"><div class="ugc-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div>
+      </div>
+      <div class="ugc-item">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/436446678_1490441168569048_6518175886471768159_n.jpg" alt="">
+        <div class="ugc-overlay"><div class="ugc-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div>
+      </div>
+      <div class="ugc-item">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/Buchstabenkette-ViLou-gold-a_0ff84036-7130-4890-ad8a-b7d6fec035e3.jpg" alt="">
+        <div class="ugc-overlay"><div class="ugc-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div>
+      </div>
+      <div class="ugc-item">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/ketten_layering_vilou_schmuck_runde_plaettchen_gold_wasserfester_schmuck.png" alt="">
+        <div class="ugc-overlay"><div class="ugc-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div>
+      </div>
+      <div class="ugc-item">
+        <img src="https://cdn.shopify.com/s/files/1/0880/5367/8403/files/299973026_628275918641051_1082619210202042305_n.jpg" alt="" style="object-position:30% center;">
+        <div class="ugc-overlay"><div class="ugc-ig"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg></div></div>
+      </div>
+    </div>
+    <div class="ugc-handle">Folge uns auf Instagram: <a href="#">@vilou.jewelry</a></div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="faq-wrap">
+  <div style="text-align:center;margin-bottom:0;">
+    <div class="section-eyebrow">Fragen & Antworten</div>
+    <div class="section-title">Alles, was du wissen möchtest</div>
+  </div>
+  <div class="faq-list">
+    <div class="faq-item">
+      <div class="faq-q" onclick="faq(this)">
+        Kann ich die Kette beim Duschen und Schwimmen tragen?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div class="faq-a">Ja! Die Tahiti-Kette ist durch die 316L Edelstahlbasis vollständig wasserfest. Du kannst sie beim Duschen, Schwimmen und Sport tragen. Das Chlor im Hallenbad und Salzwasser sind kein Problem.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="faq(this)">
+        Wie lange hält die Goldvergoldung?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div class="faq-a">Bei normaler Pflege (kein direkter Kontakt mit Parfum oder Chemikalien) hält die 18K Vergoldung sehr lange. Reinige die Kette gelegentlich mit einem weichen Tuch. Im Vergleich zu günstigem Modeschmuck bleibt die Farbe durch die Edelstahlbasis deutlich länger erhalten.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="faq(this)">
+        Wann kommt meine Bestellung an?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div class="faq-a">Bestellungen, die werktags bis 14 Uhr eingehen, werden noch am selben Tag verschickt. Die Lieferzeit per DHL beträgt 1–3 Werktage innerhalb Deutschlands. Du erhältst eine Sendungsverfolgungsnummer per E-Mail.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="faq(this)">
+        Ist der Schmuck auch für empfindliche Haut geeignet?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div class="faq-a">Ja. Alle ViLou Schmuckstücke sind nickelarm und hypoallergen. Die 316L Edelstahl-Basis ist dermatologisch unbedenklich und wird auch in medizinischen Anwendungen eingesetzt.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q" onclick="faq(this)">
+        Kann ich die Kette zurückgeben?
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+      </div>
+      <div class="faq-a">Du hast 14 Tage Rückgaberecht ab Lieferung. Schreibe uns einfach eine E-Mail – wir kümmern uns unkompliziert um die Abwicklung. Rücksendung auf unsere Kosten bei defekten Produkten.</div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="nl-wrap">
+  <div class="section-eyebrow" style="text-align:center;">Newsletter</div>
+  <div class="nl-title">10% auf deine erste Bestellung</div>
+  <p class="nl-sub">Neue Kollektionen, Styling-Tipps &amp; exklusive Angebote – direkt in dein Postfach.</p>
+  <div class="nl-form">
+    <input class="nl-input" type="email" placeholder="deine@email.de">
+    <button class="nl-btn">Anmelden</button>
+  </div>
+  <p class="nl-note">Kein Spam. Jederzeit abmeldbar.</p>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">ViLou</div>
+        <p class="footer-desc">Zeitloser Schmuck, der zu dir passt – handverlesen, wasserfest, ehrlich.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Kollektionen</div>
+        <ul>
+          <li><a href="#">Buchstaben Ketten</a></li>
+          <li><a href="#">Plättchen Ketten</a></li>
+          <li><a href="#">Ringe</a></li>
+          <li><a href="#">Armbänder</a></li>
+          <li><a href="#">Sale</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Über ViLou</div>
+        <ul>
+          <li><a href="#">Unsere Geschichte</a></li>
+          <li><a href="#">Materialien</a></li>
+          <li><a href="#">Nachhaltigkeit</a></li>
+          <li><a href="#">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Service</div>
+        <ul>
+          <li><a href="#">Versand &amp; Rückgabe</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+          <li><a href="#">AGB</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 ViLou Schmuck. Alle Rechte vorbehalten.</span>
+      <div class="footer-pay">
+        <span class="pay-tag">PayPal</span>
+        <span class="pay-tag">Klarna</span>
+        <span class="pay-tag">Visa</span>
+        <span class="pay-tag">Mastercard</span>
+        <span class="pay-tag">Shop Pay</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Gallery
+  function setImg(thumb, url) {
+    document.getElementById('main-img').src = url;
+    document.querySelectorAll('.g-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+
+  // Gift toggle
+  function setGift(el, isGift) {
+    document.querySelectorAll('.gt-opt').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    const note = document.getElementById('gift-note');
+    note.classList.toggle('visible', isGift);
+  }
+
+  // Letter grid
+  const letters = ['A','B','C','D','E','F','G','H','I','J','K','L','M','N','O','P','R','S','T','U','V','Y','Z'];
+  const grid = document.getElementById('letter-grid');
+  let selected = 'A';
+  letters.forEach(l => {
+    const tile = document.createElement('div');
+    tile.className = 'letter-tile' + (l === 'A' ? ' active' : '');
+    tile.textContent = l;
+    tile.onclick = () => {
+      document.querySelectorAll('.letter-tile').forEach(t => t.classList.remove('active'));
+      tile.classList.add('active');
+      selected = l;
+      document.getElementById('selected-badge').textContent = l + ' ausgewählt';
+    };
+    grid.appendChild(tile);
+  });
+
+  // FAQ
+  function faq(el) {
+    const open = el.classList.contains('open');
+    document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+    if (!open) { el.classList.add('open'); el.nextElementSibling.classList.add('open'); }
+  }
+</script>
+</body>
+</html>
