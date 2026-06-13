@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mailänder Espresso – Berliner Kafferösterei</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --espresso: #140b06;
+    --dark: #221209;
+    --brown: #4a2c1a;
+    --mid: #7a5540;
+    --muted: #a08070;
+    --gold: #c8882a;
+    --gold-dark: #a86e18;
+    --gold-light: #fdf4e3;
+    --cream: #faf6f0;
+    --warm: #f5ede3;
+    --border: #e8ddd4;
+    --white: #ffffff;
+    --green: #2e7d52;
+    --green-light: #edf7f1;
+  }
+  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--espresso); -webkit-font-smoothing: antialiased; }
+  img { display: block; max-width: 100%; }
+
+  /* ── ANNOUNCE BAR ── */
+  .bar {
+    background: var(--espresso);
+    color: rgba(255,255,255,0.75);
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    font-weight: 500;
+    padding: 9px 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+  .bar-dot { color: var(--gold); opacity: 0.5; }
+  .bar strong { color: var(--gold); font-weight: 700; }
+  @media (max-width: 640px) { .bar-dot, .bar-hide { display: none; } .bar { gap: 6px; font-size: 9.5px; } }
+
+  /* ── NAV ── */
+  nav {
+    background: var(--espresso);
+    padding: 0 52px;
+    height: 66px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 200;
+    border-bottom: 1px solid rgba(255,255,255,0.07);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 17px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: white;
+    text-decoration: none;
+    line-height: 1.2;
+    text-align: center;
+  }
+  .nav-logo span { display: block; font-size: 8px; font-family: 'Inter', sans-serif; font-weight: 400; letter-spacing: 0.3em; color: rgba(255,255,255,0.45); text-transform: uppercase; margin-top: 2px; }
+  .nav-links { display: flex; gap: 24px; list-style: none; }
+  .nav-links a { text-decoration: none; color: rgba(255,255,255,0.6); font-size: 11.5px; font-weight: 500; letter-spacing: 0.05em; transition: color .15s; }
+  .nav-links a:hover { color: white; }
+  .nav-right { display: flex; align-items: center; gap: 14px; }
+  .nav-icon { background: none; border: none; cursor: pointer; color: rgba(255,255,255,0.6); display: flex; align-items: center; transition: color .15s; position: relative; }
+  .nav-icon:hover { color: white; }
+  .nav-icon svg { width: 19px; height: 19px; }
+  .cart-badge { position: absolute; top: -5px; right: -6px; background: var(--gold); color: white; border-radius: 50%; width: 15px; height: 15px; font-size: 8px; font-weight: 700; display: flex; align-items: center; justify-content: center; }
+  @media (max-width: 900px) { nav { padding: 0 20px; } .nav-links { display: none; } }
+
+  /* ── BREADCRUMB ── */
+  .breadcrumb { padding: 10px 52px; font-size: 11.5px; color: var(--muted); display: flex; gap: 6px; align-items: center; background: var(--cream); border-bottom: 1px solid var(--border); }
+  .breadcrumb a { color: var(--muted); text-decoration: none; }
+  .breadcrumb a:hover { color: var(--espresso); }
+  @media (max-width: 768px) { .breadcrumb { padding: 10px 16px; } }
+
+  /* ── PRODUCT SECTION ── */
+  .product-wrap { max-width: 1180px; margin: 0 auto; padding: 40px 52px 68px; display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: start; }
+  @media (max-width: 960px) { .product-wrap { grid-template-columns: 1fr; gap: 28px; padding: 20px 16px 48px; } }
+
+  /* Gallery */
+  .gallery { position: sticky; top: 80px; }
+  .gallery-main {
+    border-radius: 16px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--cream);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .gallery-main img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+    padding: 24px;
+    transition: transform .3s ease;
+  }
+  .gallery-main:hover img { transform: scale(1.03); }
+  .gallery-badge { position: absolute; top: 14px; left: 14px; background: var(--espresso); color: white; border-radius: 20px; padding: 6px 14px; font-size: 10.5px; font-weight: 700; letter-spacing: 0.08em; display: flex; align-items: center; gap: 7px; }
+  .gallery-badge::before { content: ''; width: 7px; height: 7px; border-radius: 50%; background: #4caf6e; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.4} }
+  .fresh-badge { position: absolute; bottom: 14px; left: 14px; right: 14px; background: white; border-radius: 10px; padding: 10px 14px; font-size: 11px; display: flex; align-items: center; gap: 8px; box-shadow: 0 2px 16px rgba(0,0,0,0.10); }
+  .fresh-badge-icon { font-size: 18px; flex-shrink: 0; }
+  .fresh-badge-text { font-weight: 700; color: var(--espresso); font-size: 11px; line-height: 1.3; }
+  .fresh-badge-sub { font-size: 10px; color: var(--muted); font-weight: 400; }
+  .gallery-thumbs { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-top: 10px; }
+  .g-thumb {
+    border-radius: 10px;
+    overflow: hidden;
+    aspect-ratio: 1/1;
+    background: var(--cream);
+    cursor: pointer;
+    border: 2px solid transparent;
+    transition: border-color .15s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .g-thumb.active { border-color: var(--gold); }
+  .g-thumb img { width: 100%; height: 100%; object-fit: contain; padding: 8px; transition: transform .2s; }
+  .g-thumb:hover img { transform: scale(1.06); }
+
+  /* ── PRODUCT INFO ── */
+  .prod-brand { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 6px; }
+  .prod-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; line-height: 1.15; color: var(--espresso); margin-bottom: 4px; }
+  .prod-sub { font-size: 13px; color: var(--mid); margin-bottom: 14px; font-weight: 300; }
+  .stars-row { display: flex; align-items: center; gap: 8px; margin-bottom: 20px; cursor: pointer; }
+  .stars { color: #c8882a; font-size: 13px; letter-spacing: 1.5px; }
+  .review-link { font-size: 12px; color: var(--muted); text-decoration: underline; text-underline-offset: 3px; }
+
+  /* ROAST label */
+  .roast-row { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .roast-tag { background: var(--warm); border: 1px solid var(--border); border-radius: 20px; padding: 5px 12px; font-size: 11.5px; font-weight: 600; color: var(--brown); display: flex; align-items: center; gap: 6px; }
+  .flavor-bar { display: flex; align-items: center; gap: 6px; font-size: 11.5px; }
+  .flavor-dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  /* ── ABO TOGGLE ── */
+  .abo-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 10px; }
+  .abo-toggle { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 22px; }
+  .abo-opt { border: 2px solid var(--border); border-radius: 12px; padding: 13px 16px; cursor: pointer; transition: all .15s; background: var(--white); position: relative; }
+  .abo-opt.active { border-color: var(--gold); background: var(--gold-light); }
+  .abo-opt-title { font-size: 13px; font-weight: 700; color: var(--espresso); display: flex; align-items: center; gap: 8px; }
+  .abo-opt-sub { font-size: 11.5px; color: var(--mid); margin-top: 3px; line-height: 1.5; }
+  .abo-save-badge { background: var(--gold); color: white; border-radius: 20px; padding: 2px 9px; font-size: 10px; font-weight: 700; letter-spacing: 0.04em; }
+  .abo-interval { background: white; border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 18px; font-size: 12.5px; color: var(--espresso); display: none; }
+  .abo-interval.visible { display: block; }
+  .abo-interval-label { font-weight: 700; margin-bottom: 8px; }
+  .interval-opts { display: flex; gap: 8px; flex-wrap: wrap; }
+  .int-opt { border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 14px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--mid); transition: all .12s; }
+  .int-opt.active { border-color: var(--gold); color: var(--gold-dark); background: var(--gold-light); }
+
+  /* ── SIZE SELECTOR ── */
+  .size-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 10px; display: flex; justify-content: space-between; }
+  .size-opts { display: grid; grid-template-columns: repeat(3,1fr); gap: 8px; margin-bottom: 22px; }
+  .size-opt { border: 2px solid var(--border); border-radius: 12px; padding: 14px 10px; cursor: pointer; text-align: center; transition: all .15s; background: white; position: relative; }
+  .size-opt.active { border-color: var(--espresso); background: var(--cream); }
+  .size-opt.popular::before { content: 'Beliebteste'; position: absolute; top: -10px; left: 50%; transform: translateX(-50%); background: var(--espresso); color: white; font-size: 9px; font-weight: 700; letter-spacing: 0.08em; padding: 2px 9px; border-radius: 20px; white-space: nowrap; }
+  .size-opt-g { font-size: 17px; font-weight: 800; color: var(--espresso); font-family: 'Playfair Display', serif; }
+  .size-opt-price { font-size: 12.5px; font-weight: 700; color: var(--gold-dark); margin: 3px 0; }
+  .size-opt-meta { font-size: 10px; color: var(--muted); line-height: 1.5; }
+
+  /* ── GRIND SELECTOR ── */
+  .grind-label { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; }
+  .grind-link { font-size: 11px; color: var(--gold-dark); text-decoration: underline; text-underline-offset: 3px; font-weight: 400; cursor: pointer; text-transform: none; letter-spacing: 0; }
+  .grind-tabs { display: flex; gap: 6px; margin-bottom: 10px; }
+  .grind-tab { border: 1.5px solid var(--border); border-radius: 8px; padding: 7px 14px; cursor: pointer; font-size: 12px; font-weight: 600; color: var(--mid); transition: all .12s; white-space: nowrap; }
+  .grind-tab.active { border-color: var(--espresso); background: var(--espresso); color: white; }
+  .grind-sub-opts { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 18px; }
+  .grind-sub { border: 1.5px solid var(--border); border-radius: 8px; padding: 6px 14px; cursor: pointer; font-size: 11.5px; font-weight: 500; color: var(--mid); transition: all .12s; }
+  .grind-sub.active { border-color: var(--gold); color: var(--gold-dark); background: var(--gold-light); }
+  .grind-hint { font-size: 11px; color: var(--green); background: var(--green-light); border-radius: 8px; padding: 9px 12px; margin-bottom: 18px; font-weight: 500; display: flex; align-items: center; gap: 8px; }
+  .grind-hint svg { width: 13px; height: 13px; flex-shrink: 0; }
+
+  /* ── TIER PRICING ── */
+  .tier-wrap { background: var(--cream); border: 1px solid var(--border); border-radius: 12px; padding: 14px 16px; margin-bottom: 18px; }
+  .tier-title { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--mid); margin-bottom: 10px; }
+  .tier-row { display: flex; justify-content: space-between; align-items: center; padding: 7px 0; border-bottom: 1px solid var(--border); font-size: 12.5px; }
+  .tier-row:last-child { border-bottom: none; }
+  .tier-row.active { color: var(--espresso); font-weight: 700; }
+  .tier-row:not(.active) { color: var(--muted); }
+  .tier-badge { background: var(--gold); color: white; border-radius: 20px; padding: 2px 9px; font-size: 10px; font-weight: 700; }
+  .tier-note { font-size: 10.5px; color: var(--muted); margin-top: 8px; font-style: italic; }
+
+  /* ── PRICE + CTA ── */
+  .price-row { display: flex; align-items: baseline; gap: 12px; margin-bottom: 16px; }
+  .price-now { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: var(--espresso); }
+  .price-per { font-size: 13px; color: var(--muted); }
+  .btn-atc { width: 100%; background: var(--espresso); color: white; border: none; padding: 16px; border-radius: 10px; font-size: 14px; font-weight: 700; letter-spacing: 0.06em; cursor: pointer; transition: background .15s; margin-bottom: 10px; display: flex; align-items: center; justify-content: center; gap: 10px; }
+  .btn-atc:hover { background: var(--brown); }
+  .btn-atc svg { width: 18px; height: 18px; }
+  .btn-wishlist { width: 100%; background: none; border: 1.5px solid var(--border); color: var(--espresso); padding: 13px; border-radius: 10px; font-size: 13px; font-weight: 600; cursor: pointer; transition: all .15s; margin-bottom: 18px; display: flex; align-items: center; justify-content: center; gap: 8px; }
+  .btn-wishlist:hover { border-color: var(--gold); color: var(--gold-dark); }
+
+  /* Benefit row */
+  .benefit-row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .bene { display: flex; align-items: center; gap: 8px; font-size: 12px; color: var(--mid); font-weight: 500; }
+  .bene svg { width: 14px; height: 14px; color: var(--gold); flex-shrink: 0; }
+
+  /* ── USP BAR ── */
+  .usp-bar { background: var(--espresso); }
+  .usp-inner { max-width: 1180px; margin: 0 auto; display: grid; grid-template-columns: repeat(4,1fr); }
+  .usp-item { display: flex; align-items: center; gap: 12px; padding: 18px 24px; border-right: 1px solid rgba(255,255,255,0.08); }
+  .usp-item:last-child { border-right: none; }
+  .usp-item svg { width: 20px; height: 20px; color: var(--gold); flex-shrink: 0; }
+  .usp-title { font-size: 12px; font-weight: 700; color: white; }
+  .usp-sub { font-size: 11px; color: rgba(255,255,255,0.45); margin-top: 2px; }
+  @media (max-width: 860px) { .usp-inner { grid-template-columns: repeat(2,1fr); } .usp-item:nth-child(2) { border-right: none; } }
+
+  /* ── SHARED SECTION ── */
+  .section-outer { padding: 80px 52px; }
+  .section-outer.bg-cream { background: var(--cream); }
+  .section-outer.bg-warm { background: var(--warm); }
+  .section-outer.bg-dark { background: var(--espresso); color: white; }
+  .section-inner { max-width: 1180px; margin: 0 auto; }
+  @media (max-width: 768px) { .section-outer { padding: 52px 16px; } }
+  .section-eyebrow { font-size: 10px; font-weight: 700; letter-spacing: 0.25em; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; }
+  .section-title { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 700; line-height: 1.18; color: var(--espresso); }
+  .section-title.white { color: white; }
+  .section-sub { font-size: 14px; color: var(--mid); margin-top: 10px; line-height: 1.75; font-weight: 300; max-width: 540px; }
+  .section-sub.white { color: rgba(255,255,255,0.6); }
+  @media (max-width: 768px) { .section-title { font-size: 28px; } }
+
+  /* ── TASTE PROFILE ── */
+  .taste-grid { display: grid; grid-template-columns: 1fr 1.2fr; gap: 72px; align-items: center; }
+  @media (max-width: 860px) { .taste-grid { grid-template-columns: 1fr; gap: 36px; } }
+  /* Radar SVG */
+  .radar-wrap { display: flex; justify-content: center; align-items: center; padding: 20px; }
+  .taste-bars { display: flex; flex-direction: column; gap: 16px; }
+  .taste-bar-row { display: flex; align-items: center; gap: 12px; }
+  .taste-bar-label { font-size: 12.5px; font-weight: 600; color: var(--espresso); min-width: 90px; }
+  .taste-bar-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .taste-bar-fill { height: 100%; border-radius: 3px; background: linear-gradient(90deg, var(--gold-dark), var(--gold)); }
+  .taste-bar-val { font-size: 12px; font-weight: 700; color: var(--gold-dark); min-width: 28px; text-align: right; }
+  .tasting-notes { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 24px; }
+  .tn-tag { background: var(--warm); border: 1px solid var(--border); border-radius: 20px; padding: 6px 14px; font-size: 12.5px; font-weight: 600; color: var(--brown); display: flex; align-items: center; gap: 7px; }
+  .blend-info { background: var(--cream); border-radius: 12px; padding: 16px 18px; margin-top: 22px; border: 1px solid var(--border); }
+  .blend-info-title { font-size: 12px; font-weight: 700; color: var(--espresso); margin-bottom: 10px; letter-spacing: 0.04em; text-transform: uppercase; }
+  .blend-bar { display: flex; height: 10px; border-radius: 20px; overflow: hidden; margin-bottom: 10px; }
+  .blend-arabica { background: var(--gold); }
+  .blend-robusta { background: var(--brown); }
+  .blend-legend { display: flex; gap: 16px; font-size: 11.5px; color: var(--mid); }
+  .blend-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 5px; vertical-align: middle; }
+
+  /* ── FRESHNESS SECTION ── */
+  .fresh-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 72px; align-items: center; }
+  @media (max-width: 860px) { .fresh-grid { grid-template-columns: 1fr; gap: 36px; } }
+  .fresh-img {
+    border-radius: 20px;
+    overflow: hidden;
+    aspect-ratio: 4/5;
+    background: var(--cream);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .fresh-img img { width: 100%; height: 100%; object-fit: contain; padding: 32px; }
+  /* SVG placeholder for roastery image */
+  .fresh-img-placeholder { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; background: linear-gradient(160deg, #2c1810, #1a0f07); }
+  .roast-timeline { display: flex; flex-direction: column; gap: 0; margin-top: 28px; position: relative; }
+  .roast-timeline::before { content:''; position:absolute; left:18px; top:0; bottom:0; width:2px; background:var(--border); z-index:0; }
+  .rt-step { display: flex; gap: 16px; align-items: flex-start; padding-bottom: 22px; position: relative; z-index: 1; }
+  .rt-step:last-child { padding-bottom: 0; }
+  .rt-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 16px; flex-shrink: 0; border: 2px solid white; }
+  .rt-dot.done { background: var(--gold); }
+  .rt-dot.now { background: var(--espresso); border-color: var(--gold); }
+  .rt-dot.soon { background: var(--border); }
+  .rt-content { padding-top: 6px; }
+  .rt-title { font-size: 13.5px; font-weight: 700; color: var(--espresso); }
+  .rt-sub { font-size: 12px; color: var(--muted); margin-top: 2px; }
+  .rt-date { font-size: 11.5px; font-weight: 700; color: var(--gold-dark); margin-top: 3px; }
+
+  /* ── BREW GUIDE ── */
+  .brew-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 22px; margin-top: 40px; }
+  @media (max-width: 768px) { .brew-grid { grid-template-columns: 1fr; } }
+  .brew-card { background: white; border: 1px solid var(--border); border-radius: 16px; padding: 28px 24px; transition: box-shadow .2s, transform .2s; }
+  .brew-card:hover { box-shadow: 0 8px 30px rgba(0,0,0,0.08); transform: translateY(-2px); }
+  .brew-icon { font-size: 36px; margin-bottom: 14px; }
+  .brew-title { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 700; color: var(--espresso); margin-bottom: 6px; }
+  .brew-desc { font-size: 13px; color: var(--mid); line-height: 1.65; margin-bottom: 18px; font-weight: 300; }
+  .brew-params { display: flex; flex-direction: column; gap: 8px; }
+  .brew-param { display: flex; justify-content: space-between; align-items: center; font-size: 12.5px; border-top: 1px solid var(--border); padding-top: 8px; }
+  .brew-param:first-child { border-top: none; padding-top: 0; }
+  .bp-key { color: var(--muted); font-weight: 500; }
+  .bp-val { color: var(--espresso); font-weight: 700; }
+  .brew-tip { background: var(--gold-light); border-left: 3px solid var(--gold); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 11.5px; color: var(--brown); margin-top: 14px; line-height: 1.55; }
+
+  /* ── BUNDLE ── */
+  .bundle-card { background: var(--warm); border: 2px solid var(--border); border-radius: 20px; padding: 32px; display: grid; grid-template-columns: 1fr auto; gap: 32px; align-items: center; margin-top: 40px; }
+  @media (max-width: 768px) { .bundle-card { grid-template-columns: 1fr; gap: 20px; } }
+  .bundle-items { display: flex; flex-direction: column; gap: 14px; }
+  .bundle-item { display: flex; align-items: center; gap: 14px; }
+  .bundle-item-img { width: 68px; height: 68px; border-radius: 12px; background: var(--cream); overflow: hidden; flex-shrink: 0; display: flex; align-items: center; justify-content: center; border: 1px solid var(--border); }
+  .bundle-item-img img { width: 100%; height: 100%; object-fit: contain; padding: 6px; }
+  .bundle-item-name { font-size: 13.5px; font-weight: 700; color: var(--espresso); }
+  .bundle-item-price { font-size: 12px; color: var(--mid); margin-top: 2px; }
+  .bundle-plus { text-align: center; color: var(--muted); font-size: 22px; font-weight: 300; }
+  .bundle-price-box { text-align: center; }
+  .bundle-label { font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.14em; color: var(--mid); margin-bottom: 8px; }
+  .bundle-total { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 700; color: var(--espresso); }
+  .bundle-old { font-size: 14px; color: var(--muted); text-decoration: line-through; margin-top: 2px; }
+  .bundle-save { background: var(--gold); color: white; border-radius: 20px; padding: 4px 14px; font-size: 11px; font-weight: 700; margin: 8px auto; display: inline-block; }
+  .bundle-cta { width: 100%; background: var(--espresso); color: white; border: none; padding: 14px; border-radius: 10px; font-size: 13.5px; font-weight: 700; cursor: pointer; margin-top: 14px; transition: background .15s; }
+  .bundle-cta:hover { background: var(--brown); }
+
+  /* ── REVIEWS ── */
+  .reviews-head { display: flex; align-items: flex-start; gap: 48px; margin-bottom: 40px; flex-wrap: wrap; }
+  .reviews-score-big { font-family: 'Playfair Display', serif; font-size: 68px; font-weight: 700; color: var(--espresso); line-height: 1; }
+  .reviews-stars-big { color: var(--gold); font-size: 22px; letter-spacing: 3px; }
+  .reviews-count { font-size: 13px; color: var(--mid); margin-top: 6px; }
+  .reviews-bars { flex: 1; min-width: 180px; display: flex; flex-direction: column; gap: 8px; margin-top: 8px; }
+  .rb-row { display: flex; align-items: center; gap: 10px; font-size: 12px; color: var(--mid); }
+  .rb-track { flex: 1; height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+  .rb-fill { height: 100%; background: var(--gold); border-radius: 3px; }
+  .reviews-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 18px; }
+  @media (max-width: 768px) { .reviews-grid { grid-template-columns: 1fr; max-width: 500px; } }
+  .rc { background: var(--cream); border: 1px solid var(--border); border-radius: 14px; padding: 24px; }
+  .rc-stars { color: var(--gold); font-size: 12px; letter-spacing: 2px; margin-bottom: 12px; }
+  .rc-text { font-family: 'Playfair Display', serif; font-size: 15px; font-style: italic; line-height: 1.7; color: var(--brown); margin-bottom: 16px; }
+  .rc-author { font-size: 12.5px; font-weight: 700; color: var(--espresso); }
+  .rc-meta { font-size: 11px; color: var(--muted); margin-top: 2px; }
+  .rc-variant { font-size: 10.5px; color: var(--gold-dark); margin-top: 4px; font-weight: 600; }
+
+  /* ── FAQ ── */
+  .faq-list { border: 1px solid var(--border); border-radius: 16px; overflow: hidden; margin-top: 36px; max-width: 780px; margin-left: auto; margin-right: auto; }
+  .faq-item { border-bottom: 1px solid var(--border); }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { padding: 18px 22px; font-size: 14px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; gap: 14px; background: white; transition: background .15s; color: var(--espresso); }
+  .faq-q:hover { background: var(--cream); }
+  .faq-q svg { width: 18px; height: 18px; color: var(--gold); flex-shrink: 0; transition: transform .2s; }
+  .faq-q.open svg { transform: rotate(45deg); }
+  .faq-a { padding: 0 22px; max-height: 0; overflow: hidden; transition: max-height .3s ease, padding .2s; font-size: 13.5px; line-height: 1.75; color: var(--mid); background: var(--cream); }
+  .faq-a.open { max-height: 200px; padding: 14px 22px 20px; }
+
+  /* ── NEWSLETTER ── */
+  .nl-inner { text-align: center; max-width: 520px; margin: 0 auto; }
+  .nl-title { font-family: 'Playfair Display', serif; font-size: 32px; font-weight: 700; color: white; margin-bottom: 8px; }
+  .nl-sub { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 26px; font-weight: 300; line-height: 1.7; }
+  .nl-form { display: flex; border: 1px solid rgba(255,255,255,0.2); border-radius: 10px; overflow: hidden; background: rgba(255,255,255,0.07); }
+  .nl-input { flex: 1; border: none; padding: 14px 18px; font-size: 13.5px; color: white; background: transparent; outline: none; }
+  .nl-input::placeholder { color: rgba(255,255,255,0.35); }
+  .nl-btn { background: var(--gold); color: white; border: none; padding: 14px 24px; font-size: 13px; font-weight: 700; cursor: pointer; white-space: nowrap; transition: background .15s; }
+  .nl-btn:hover { background: var(--gold-dark); }
+  .nl-note { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 10px; }
+
+  /* ── FOOTER ── */
+  footer { background: var(--dark); color: rgba(255,255,255,0.5); padding: 60px 52px 28px; }
+  @media (max-width: 768px) { footer { padding: 44px 16px 24px; } }
+  .footer-inner { max-width: 1180px; margin: 0 auto; }
+  .footer-top { display: grid; grid-template-columns: 1.6fr 1fr 1fr 1fr; gap: 44px; padding-bottom: 44px; border-bottom: 1px solid rgba(255,255,255,0.08); }
+  @media (max-width: 860px) { .footer-top { grid-template-columns: 1fr 1fr; gap: 28px; } }
+  .footer-logo { font-family: 'Playfair Display', serif; font-size: 17px; font-weight: 700; color: white; margin-bottom: 12px; letter-spacing: 0.06em; }
+  .footer-desc { font-size: 12.5px; line-height: 1.7; max-width: 220px; }
+  .footer-col-title { font-size: 9.5px; font-weight: 700; letter-spacing: 0.2em; text-transform: uppercase; color: white; margin-bottom: 14px; }
+  .footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 9px; }
+  .footer-col a { color: rgba(255,255,255,0.45); text-decoration: none; font-size: 13px; transition: color .15s; }
+  .footer-col a:hover { color: rgba(255,255,255,0.85); }
+  .footer-bottom { padding-top: 24px; display: flex; justify-content: space-between; align-items: center; font-size: 11.5px; flex-wrap: wrap; gap: 12px; }
+  .pay-tag { background: rgba(255,255,255,0.06); border: 1px solid rgba(255,255,255,0.1); padding: 4px 10px; border-radius: 4px; font-size: 10px; color: rgba(255,255,255,0.35); }
+</style>
+</head>
+<body>
+
+<!-- ANNOUNCE BAR -->
+<div class="bar">
+  <span class="bar-hide">☕ Seit 1963 in Berlin</span>
+  <span class="bar-dot">·</span>
+  <span><strong>Kostenloser Versand</strong> ab €25</span>
+  <span class="bar-dot">·</span>
+  <span>Frisch geröstet · Versand täglich</span>
+  <span class="bar-dot">·</span>
+  <span class="bar-hide">Abo: 15% sparen &amp; nie ohne Kaffee sein</span>
+</div>
+
+<!-- NAV -->
+<nav>
+  <button class="nav-icon" style="color:rgba(255,255,255,0.5);">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+  </button>
+  <a class="nav-logo" href="#"><img src="https://shop.berliner-kaffeeroesterei.de/media/dc/0e/4b/1701969526/BKR_Logo_2022.png?ts=1701969526" alt="Berliner Kafferösterei" style="height:38px;width:auto;filter:brightness(0) invert(1);"></a>
+  <div class="nav-right">
+    <button class="nav-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+    </button>
+    <button class="nav-icon" style="position:relative;">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      <span class="cart-badge">2</span>
+    </button>
+  </div>
+</nav>
+
+<!-- BREADCRUMB -->
+<div class="breadcrumb">
+  <a href="#">Start</a>
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+  <a href="#">Espresso</a>
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="9 18 15 12 9 6"/></svg>
+  <span>Mailänder Espresso</span>
+</div>
+
+<!-- PRODUCT WRAP -->
+<div class="product-wrap">
+
+  <!-- GALLERY -->
+  <div class="gallery">
+    <div class="gallery-main">
+      <img id="main-img" src="https://shop.berliner-kaffeeroesterei.de/media/23/0e/90/1733761513/1060102-0.jpg?ts=1780928713" alt="Mailänder Espresso">
+      <div class="gallery-badge">Frisch geröstet</div>
+      <div class="fresh-badge">
+        <div class="fresh-badge-icon">🌱</div>
+        <div>
+          <div class="fresh-badge-text">Geröstet: 11. Juni 2025</div>
+          <div class="fresh-badge-sub">Optimale Extraktion: ab 14. Juni</div>
+        </div>
+      </div>
+    </div>
+    <div class="gallery-thumbs">
+      <div class="g-thumb active" onclick="switchImg(this,'https://shop.berliner-kaffeeroesterei.de/media/23/0e/90/1733761513/1060102-0.jpg?ts=1780928713')">
+        <img src="https://shop.berliner-kaffeeroesterei.de/media/23/0e/90/1733761513/1060102-0.jpg?ts=1780928713" alt="">
+      </div>
+      <div class="g-thumb" onclick="switchImg(this,'https://shop.berliner-kaffeeroesterei.de/media/c7/70/18/1733761514/1060102-1.jpg?ts=1780928714')">
+        <img src="https://shop.berliner-kaffeeroesterei.de/media/c7/70/18/1733761514/1060102-1.jpg?ts=1780928714" alt="">
+      </div>
+      <div class="g-thumb" onclick="switchImg(this,'https://shop.berliner-kaffeeroesterei.de/media/11/5e/12/1740065045/1060102-2.jpg?ts=1780928714')">
+        <img src="https://shop.berliner-kaffeeroesterei.de/media/11/5e/12/1740065045/1060102-2.jpg?ts=1780928714" alt="">
+      </div>
+    </div>
+  </div>
+
+  <!-- PRODUCT INFO -->
+  <div>
+    <div class="prod-brand">Berliner Kafferösterei · Espresso</div>
+    <h1 class="prod-title">Mailänder Espresso</h1>
+    <div class="prod-sub">60% Arabica · 40% Robusta · Mitteldunkle Röstung</div>
+    <div class="stars-row">
+      <span class="stars">★★★★★</span>
+      <span style="font-size:13px;font-weight:700;color:var(--espresso)">4,8</span>
+      <a class="review-link" href="#reviews">25 Bewertungen</a>
+    </div>
+
+    <!-- Roast tags -->
+    <div class="roast-row">
+      <span class="roast-tag">🍫 Brauner Zucker</span>
+      <span class="roast-tag">🍫 Zartbitterschokolade</span>
+      <span class="roast-tag">🍓 Erdbeere</span>
+    </div>
+
+    <!-- ABO TOGGLE -->
+    <div class="abo-label">Kaufoptionen</div>
+    <div class="abo-toggle" id="abo-toggle">
+      <div class="abo-opt active" onclick="setAbo(this, false)">
+        <div class="abo-opt-title">Einmalig</div>
+        <div class="abo-opt-sub">Normaler Preis<br>Kein Abo, keine Bindung</div>
+      </div>
+      <div class="abo-opt" onclick="setAbo(this, true)">
+        <div class="abo-opt-title">Kaffee-Abo <span class="abo-save-badge">15% sparen</span></div>
+        <div class="abo-opt-sub">Automatisch geliefert<br>Jederzeit kündbar</div>
+      </div>
+    </div>
+    <div class="abo-interval" id="abo-interval">
+      <div class="abo-interval-label">Lieferintervall wählen:</div>
+      <div class="interval-opts">
+        <div class="int-opt" onclick="setInterval(this)">1 Woche</div>
+        <div class="int-opt active" onclick="setInterval(this)">2 Wochen</div>
+        <div class="int-opt" onclick="setInterval(this)">3 Wochen</div>
+        <div class="int-opt" onclick="setInterval(this)">4 Wochen</div>
+      </div>
+    </div>
+
+    <!-- SIZE SELECTOR -->
+    <div class="size-label">
+      <span>Menge</span>
+    </div>
+    <div class="size-opts" id="size-opts">
+      <div class="size-opt" onclick="setSize(this,'250g','€8,95','~17 Espressi','reicht ~1–2 Wochen')">
+        <div class="size-opt-g">250g</div>
+        <div class="size-opt-price">€8,95</div>
+        <div class="size-opt-meta">~17 Espressi<br>reicht ~1–2 Wochen</div>
+      </div>
+      <div class="size-opt popular active" onclick="setSize(this,'500g','€17,90','~34 Espressi','reicht ~3–4 Wochen')">
+        <div class="size-opt-g">500g</div>
+        <div class="size-opt-price">€17,90</div>
+        <div class="size-opt-meta">~34 Espressi<br>reicht ~3–4 Wochen</div>
+      </div>
+      <div class="size-opt" onclick="setSize(this,'1000g','€35,80','~68 Espressi','reicht ~6–8 Wochen')">
+        <div class="size-opt-g">1000g</div>
+        <div class="size-opt-price">€35,80</div>
+        <div class="size-opt-meta">~68 Espressi<br>reicht ~6–8 Wochen</div>
+      </div>
+    </div>
+
+    <!-- GRIND SELECTOR -->
+    <div class="grind-label">
+      Mahlgrad
+      <span class="grind-link" onclick="scrollTo(0,3800)">Welcher passt zu mir? →</span>
+    </div>
+    <div class="grind-tabs">
+      <div class="grind-tab active" onclick="setGrind(this,'ganz')">Ganze Bohne</div>
+      <div class="grind-tab" onclick="setGrind(this,'gemahlen')">Gemahlen</div>
+    </div>
+    <div class="grind-sub-opts" id="grind-sub" style="display:none;">
+      <div class="grind-sub active">Siebträger</div>
+      <div class="grind-sub" onclick="this.parentElement.querySelectorAll('.grind-sub').forEach(e=>e.classList.remove('active'));this.classList.add('active')">Espressomaschine</div>
+      <div class="grind-sub" onclick="this.parentElement.querySelectorAll('.grind-sub').forEach(e=>e.classList.remove('active'));this.classList.add('active')">Moka Kanne</div>
+      <div class="grind-sub" onclick="this.parentElement.querySelectorAll('.grind-sub').forEach(e=>e.classList.remove('active'));this.classList.add('active')">French Press</div>
+      <div class="grind-sub" onclick="this.parentElement.querySelectorAll('.grind-sub').forEach(e=>e.classList.remove('active'));this.classList.add('active')">Handfilter</div>
+    </div>
+    <div class="grind-hint" id="grind-hint">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Ganze Bohne empfohlen – für optimale Frische und Aroma bis zur letzten Tasse.
+    </div>
+
+    <!-- TIER PRICING -->
+    <div class="tier-wrap">
+      <div class="tier-title">Mengenrabatt</div>
+      <div class="tier-row active">
+        <span>1–3 Pakete</span>
+        <span style="display:flex;align-items:center;gap:8px;">€8,95 / 250g <span style="color:var(--muted);font-weight:400;">(Aktuell)</span></span>
+      </div>
+      <div class="tier-row">
+        <span>4–6 Pakete</span>
+        <span>€8,68 / 250g</span>
+        <span class="tier-badge">−3%</span>
+      </div>
+      <div class="tier-row">
+        <span>7–9 Pakete</span>
+        <span>€8,41 / 250g</span>
+        <span class="tier-badge">−6%</span>
+      </div>
+      <div class="tier-row">
+        <span>10+ Pakete</span>
+        <span>€8,14 / 250g</span>
+        <span class="tier-badge">−9%</span>
+      </div>
+      <div class="tier-note">💡 Tipp: Mit dem Kaffee-Abo sparst du 15% – mehr als der Mengenrabatt.</div>
+    </div>
+
+    <!-- PRICE + CTA -->
+    <div class="price-row">
+      <span class="price-now" id="price-display">€17,90</span>
+      <span class="price-per">/ 500g · €35,80 / kg</span>
+    </div>
+    <button class="btn-atc">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 2L3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 0 1-8 0"/></svg>
+      In den Warenkorb
+    </button>
+    <button class="btn-wishlist">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"/></svg>
+      Auf die Merkliste
+    </button>
+
+    <!-- BENEFIT ROW -->
+    <div class="benefit-row">
+      <div class="bene">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+        Abo jederzeit kündbar
+      </div>
+      <div class="bene">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+        Versand ab €25 kostenlos
+      </div>
+      <div class="bene">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        Frisch geröstet · tägl. Versand
+      </div>
+      <div class="bene">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+        Lieferung in 1–3 Werktagen
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- USP BAR -->
+<div class="usp-bar">
+  <div class="usp-inner">
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <div><div class="usp-title">Seit 1963 in Berlin</div><div class="usp-sub">Familienrösterei mit Tradition</div></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M12 1v4M12 19v4M4.22 4.22l2.83 2.83M16.95 16.95l2.83 2.83M1 12h4M19 12h4M4.22 19.78l2.83-2.83M16.95 7.05l2.83-2.83"/></svg>
+      <div><div class="usp-title">Frisch geröstet</div><div class="usp-sub">Täglich in Berlin Schöneberg</div></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+      <div><div class="usp-title">Direkter Einkauf</div><div class="usp-sub">Nachhaltige Lieferketten</div></div>
+    </div>
+    <div class="usp-item">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="1 4 1 10 7 10"/><path d="M3.51 15a9 9 0 1 0 .49-3.51"/></svg>
+      <div><div class="usp-title">Abo – 15% sparen</div><div class="usp-sub">Nie ohne Kaffee, jederzeit kündbar</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- TASTE PROFILE -->
+<div class="section-outer bg-cream">
+  <div class="section-inner">
+    <div class="taste-grid">
+      <div>
+        <div class="section-eyebrow">Geschmacksprofil</div>
+        <div class="section-title">Was dich erwartet.</div>
+        <div class="section-sub">Ein klassischer italiano – dicht, vollmundig, mit langem Abgang. Brauner Zucker und Zartbitterschokolade, begleitet von einer leisen Erdbeernote.</div>
+        <div class="taste-bars" style="margin-top:28px;">
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Aroma</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" style="width:80%"></div></div>
+            <div class="taste-bar-val">4/5</div>
+          </div>
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Körper</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" style="width:100%"></div></div>
+            <div class="taste-bar-val">5/5</div>
+          </div>
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Süße</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" style="width:60%"></div></div>
+            <div class="taste-bar-val">3/5</div>
+          </div>
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Balance</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" style="width:80%"></div></div>
+            <div class="taste-bar-val">4/5</div>
+          </div>
+          <div class="taste-bar-row">
+            <div class="taste-bar-label">Komplexität</div>
+            <div class="taste-bar-track"><div class="taste-bar-fill" style="width:60%"></div></div>
+            <div class="taste-bar-val">3/5</div>
+          </div>
+        </div>
+        <div class="tasting-notes">
+          <span class="tn-tag">🍫 Zartbitterschokolade</span>
+          <span class="tn-tag">🟤 Brauner Zucker</span>
+          <span class="tn-tag">🍓 Erdbeere</span>
+          <span class="tn-tag">☕ Dichte Crema</span>
+        </div>
+      </div>
+      <div>
+        <div class="blend-info">
+          <div class="blend-info-title">Die Mischung</div>
+          <div class="blend-bar">
+            <div class="blend-arabica" style="width:60%;"></div>
+            <div class="blend-robusta" style="width:40%;"></div>
+          </div>
+          <div class="blend-legend">
+            <span><span class="blend-dot" style="background:var(--gold)"></span>60% Arabica</span>
+            <span><span class="blend-dot" style="background:var(--brown)"></span>40% Robusta</span>
+          </div>
+        </div>
+        <div style="margin-top:22px;background:white;border:1px solid var(--border);border-radius:12px;padding:20px 22px;">
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:var(--mid);margin-bottom:14px;">Details</div>
+          <div style="display:flex;flex-direction:column;gap:10px;">
+            <div style="display:flex;justify-content:space-between;font-size:13px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+              <span style="color:var(--muted)">Herkunft</span><span style="font-weight:600;color:var(--espresso)">Zentralamerika, Brasilien, Vietnam</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+              <span style="color:var(--muted)">Röstung</span><span style="font-weight:600;color:var(--espresso)">Mitteldunkel</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;border-bottom:1px solid var(--border);padding-bottom:10px;">
+              <span style="color:var(--muted)">Aufbereitung</span><span style="font-weight:600;color:var(--espresso)">Gewaschen &amp; Natural</span>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:13px;">
+              <span style="color:var(--muted)">Koffeingehalt</span><span style="font-weight:600;color:var(--espresso)">~2,2% (Normal)</span>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:16px;background:var(--gold-light);border:1px solid #e8d5a0;border-radius:12px;padding:16px 18px;font-size:13px;color:var(--brown);line-height:1.65;">
+          <strong>Ideal für Milchgetränke:</strong> Der starke Robusta-Anteil sorgt dafür, dass der Espresso auch hinter Milch und Milchschaum klar durchkommt – perfekt für Cappuccino, Latte &amp; Co.
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FRESHNESS SECTION -->
+<div class="section-outer">
+  <div class="section-inner">
+    <div class="fresh-grid">
+      <div>
+        <div class="section-eyebrow">Unsere Rösterei</div>
+        <div class="section-title">Frischer als im Supermarkt. Wirklich.</div>
+        <div class="section-sub">Was du im Regal kaufst, wurde vor Wochen oder Monaten geröstet. Was wir dir schicken, war gestern noch grüne Bohne. Der Unterschied liegt auf der Zunge.</div>
+        <div class="roast-timeline">
+          <div class="rt-step">
+            <div class="rt-dot done">🌍</div>
+            <div class="rt-content">
+              <div class="rt-title">Direkter Einkauf</div>
+              <div class="rt-sub">Rohbohnen direkt von Kleinbauern</div>
+              <div class="rt-date">Kontinuierlich</div>
+            </div>
+          </div>
+          <div class="rt-step">
+            <div class="rt-dot done">🔥</div>
+            <div class="rt-content">
+              <div class="rt-title">Röstung in Berlin-Schöneberg</div>
+              <div class="rt-sub">Täglich frisch, in kleinen Chargen</div>
+              <div class="rt-date">11. Juni 2025</div>
+            </div>
+          </div>
+          <div class="rt-step">
+            <div class="rt-dot now">📦</div>
+            <div class="rt-content">
+              <div class="rt-title">Verpackung &amp; Versand</div>
+              <div class="rt-sub">In aromadichter Schutzgasverpackung</div>
+              <div class="rt-date">12. Juni 2025 → heute</div>
+            </div>
+          </div>
+          <div class="rt-step">
+            <div class="rt-dot soon">☕</div>
+            <div class="rt-content">
+              <div class="rt-title">Optimale Extraktion</div>
+              <div class="rt-sub">Nach 3–5 Tagen Ruhezeit am besten</div>
+              <div class="rt-date">Ab 14. Juni 2025</div>
+            </div>
+          </div>
+        </div>
+        <!-- Gold-Siegel als Trust-Badge -->
+        <div style="display:flex;align-items:center;gap:16px;margin-top:28px;padding:16px 20px;background:var(--gold-light);border:1px solid #e8d5a0;border-radius:14px;">
+          <img src="https://shop.berliner-kaffeeroesterei.de/media/11/5e/12/1740065045/1060102-2.jpg?ts=1780928714" alt="Gold Röstergilde 2026" style="width:64px;height:64px;object-fit:contain;flex-shrink:0;">
+          <div>
+            <div style="font-size:12.5px;font-weight:700;color:var(--espresso);">Deutsche Röstergilde – Gold 2026</div>
+            <div style="font-size:11.5px;color:var(--mid);margin-top:3px;line-height:1.55;">Ausgezeichnet beim Verkostungswettbewerb der Elite des deutschen Kaffeeröstens.</div>
+          </div>
+        </div>
+      </div>
+      <div class="fresh-img">
+        <img src="https://shop.berliner-kaffeeroesterei.de/media/c7/70/18/1733761514/1060102-1.jpg?ts=1780928714" alt="Mailänder Espresso Inhaltsstoffe">
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BREW GUIDE -->
+<div class="section-outer bg-warm" id="brew-guide">
+  <div class="section-inner">
+    <div style="text-align:center;">
+      <div class="section-eyebrow">Zubereitungsguide</div>
+      <div class="section-title">Welcher Mahlgrad passt zu dir?</div>
+      <div class="section-sub" style="margin-left:auto;margin-right:auto;text-align:center;">Der Mailänder ist vielseitig – hier zeigen wir dir, wie du ihn für jede Methode optimal zubereitest.</div>
+    </div>
+    <div class="brew-grid">
+      <div class="brew-card">
+        <div class="brew-icon">☕</div>
+        <div class="brew-title">Siebträger</div>
+        <div class="brew-desc">Die Königsdisziplin. Fein gemahlen, hoch gedrückt, dichte Crema. Hier entfaltet der Mailänder sein volles Potenzial.</div>
+        <div class="brew-params">
+          <div class="brew-param"><span class="bp-key">Mahlgrad</span><span class="bp-val">Sehr fein</span></div>
+          <div class="brew-param"><span class="bp-key">Kaffeemenge</span><span class="bp-val">18–20g</span></div>
+          <div class="brew-param"><span class="bp-key">Wassertemp.</span><span class="bp-val">90–93°C</span></div>
+          <div class="brew-param"><span class="bp-key">Bezugszeit</span><span class="bp-val">25–30 Sek.</span></div>
+          <div class="brew-param"><span class="bp-key">Output</span><span class="bp-val">36–40ml</span></div>
+        </div>
+        <div class="brew-tip">💡 Tampdruck ca. 15–20kg – die Crema sollte honigbraun und dicht sein.</div>
+      </div>
+      <div class="brew-card">
+        <div class="brew-icon">🫙</div>
+        <div class="brew-title">Moka Kanne</div>
+        <div class="brew-desc">Der klassische Haushaltskaffee. Einfach, robust, vollmundig. Mit dem Robusta-Anteil des Mailänders ein echtes Erlebnis.</div>
+        <div class="brew-params">
+          <div class="brew-param"><span class="bp-key">Mahlgrad</span><span class="bp-val">Mittel-fein</span></div>
+          <div class="brew-param"><span class="bp-key">Füllung</span><span class="bp-val">Sieb randvoll</span></div>
+          <div class="brew-param"><span class="bp-key">Wassermenge</span><span class="bp-val">Bis zum Ventil</span></div>
+          <div class="brew-param"><span class="bp-key">Hitze</span><span class="bp-val">Mittel, nicht stampfen</span></div>
+          <div class="brew-param"><span class="bp-key">Abnahme</span><span class="bp-val">Bei erstem Zischen</span></div>
+        </div>
+        <div class="brew-tip">💡 Niemals festdrücken – locker lassen für bessere Extraktion.</div>
+      </div>
+      <div class="brew-card">
+        <div class="brew-icon">🫖</div>
+        <div class="brew-title">French Press</div>
+        <div class="brew-desc">Full Immersion – grobes Mahlgut, lange Ziehzeit, kein Filter. Fettreich, körpervoll, charakterstark.</div>
+        <div class="brew-params">
+          <div class="brew-param"><span class="bp-key">Mahlgrad</span><span class="bp-val">Grob</span></div>
+          <div class="brew-param"><span class="bp-key">Verhältnis</span><span class="bp-val">1:15 (Kaffee:Wasser)</span></div>
+          <div class="brew-param"><span class="bp-key">Wassertemp.</span><span class="bp-val">94–96°C</span></div>
+          <div class="brew-param"><span class="bp-key">Ziehzeit</span><span class="bp-val">4 Minuten</span></div>
+          <div class="brew-param"><span class="bp-key">Drücken</span><span class="bp-val">Langsam, gleichmäßig</span></div>
+        </div>
+        <div class="brew-tip">💡 Nach dem Drücken sofort einschenken – sonst zieht er nach und wird bitter.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- BUNDLE -->
+<div class="section-outer">
+  <div class="section-inner">
+    <div class="section-eyebrow">Perfekt zusammen</div>
+    <div class="section-title">Das Mailand-Starter-Set</div>
+    <div class="section-sub">Alles, was du für einen echten Espresso zuhause brauchst – Kaffee und die legendäre Bialetti Moka.</div>
+    <div class="bundle-card">
+      <div>
+        <div class="bundle-items">
+          <div class="bundle-item">
+            <div class="bundle-item-img"><img src="https://shop.berliner-kaffeeroesterei.de/media/23/0e/90/1733761513/1060102-0.jpg?ts=1780928713" alt="Mailänder Espresso"></div>
+            <div>
+              <div class="bundle-item-name">Mailänder Espresso 500g</div>
+              <div class="bundle-item-price">€17,90 · Ganze Bohne oder gemahlen</div>
+            </div>
+          </div>
+          <div class="bundle-plus">+</div>
+          <div class="bundle-item">
+            <div class="bundle-item-img"><img src="https://shop.berliner-kaffeeroesterei.de/media/10/d1/46/1709797631/604045_00.jpg?ts=1780932030" alt="Bialetti Moka Express"></div>
+            <div>
+              <div class="bundle-item-name">Bialetti Moka Express 3-Tassen</div>
+              <div class="bundle-item-price">€37,90 · Das Original aus Italien</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="bundle-price-box">
+        <div class="bundle-label">Bundle-Preis</div>
+        <div class="bundle-total">€49,90</div>
+        <div class="bundle-old">statt €55,80</div>
+        <div class="bundle-save">Du sparst €5,90</div>
+        <button class="bundle-cta">Bundle in den Warenkorb</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- REVIEWS -->
+<div class="section-outer bg-cream" id="reviews">
+  <div class="section-inner">
+    <div class="reviews-head">
+      <div>
+        <div class="reviews-score-big">4,8</div>
+        <div class="reviews-stars-big">★★★★★</div>
+        <div class="reviews-count">25 verifizierte Bewertungen</div>
+      </div>
+      <div class="reviews-bars">
+        <div class="rb-row"><span style="min-width:30px;">5 ★</span><div class="rb-track"><div class="rb-fill" style="width:88%"></div></div><span>22</span></div>
+        <div class="rb-row"><span style="min-width:30px;">4 ★</span><div class="rb-track"><div class="rb-fill" style="width:12%"></div></div><span>3</span></div>
+        <div class="rb-row"><span style="min-width:30px;">3 ★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span>0</span></div>
+        <div class="rb-row"><span style="min-width:30px;">2 ★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span>0</span></div>
+        <div class="rb-row"><span style="min-width:30px;">1 ★</span><div class="rb-track"><div class="rb-fill" style="width:0%"></div></div><span>0</span></div>
+      </div>
+    </div>
+    <div class="reviews-grid">
+      <div class="rc">
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">„Genau so muss ein klassischer italienischer Espresso schmecken – dicht, vollmundig, mit langem Abgang. Kein Vergleich zu dem, was ich im Supermarkt bekomme."</div>
+        <div class="rc-author">Michael R.</div>
+        <div class="rc-meta">Berlin · vor 2 Wochen</div>
+        <div class="rc-variant">500g · Ganze Bohne</div>
+      </div>
+      <div class="rc">
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">„Habe das Abo jetzt seit 3 Monaten – ich bemerke sofort, wenn der neue Beutel eintrifft. Der Geruch allein ist schon ein Erlebnis. Wirklich frisch geröstet."</div>
+        <div class="rc-author">Sabine M.</div>
+        <div class="rc-meta">Hamburg · vor 1 Monat</div>
+        <div class="rc-variant">250g Abo · Siebträger gemahlen</div>
+      </div>
+      <div class="rc">
+        <div class="rc-stars">★★★★★</div>
+        <div class="rc-text">„Für meine Bialetti perfekt. Ich hab vorher immer Illy genommen – aber der Mailänder ist frischer, aromatischer und dazu noch günstiger. Bleibe dabei."</div>
+        <div class="rc-author">Thomas K.</div>
+        <div class="rc-meta">München · vor 3 Wochen</div>
+        <div class="rc-variant">500g · Moka Kanne gemahlen</div>
+      </div>
+    </div>
+    <div style="text-align:center;margin-top:28px;">
+      <button style="border:1.5px solid var(--espresso);color:var(--espresso);background:none;padding:12px 28px;border-radius:8px;font-size:13px;font-weight:600;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='var(--espresso)';this.style.color='white'" onmouseout="this.style.background='none';this.style.color='var(--espresso)'">Alle 25 Bewertungen lesen</button>
+    </div>
+  </div>
+</div>
+
+<!-- FAQ -->
+<div class="section-outer" style="text-align:center;">
+  <div class="section-inner">
+    <div class="section-eyebrow">Häufige Fragen</div>
+    <div class="section-title">Alles rund um den Mailänder</div>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Wie lange ist der Kaffee haltbar?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">Ungeöffnet ist der Kaffee in der Schutzgasverpackung ca. 12 Monate haltbar. Nach dem Öffnen empfehlen wir, ihn innerhalb von 4–6 Wochen zu verbrauchen und luftdicht zu lagern. Nicht im Kühlschrank – Raumtemperatur ist optimal.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Warum enthält der Blend Robusta? Ist das nicht minderwertig?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">Gutes Robusta ist kein Kompromiss – es ist Tradition. Hochwertiger Robusta aus Vietnam gibt dem Blend seinen vollmundigen Körper, die dichte Crema und die nötige Kraft, um auch hinter Milch nicht zu verschwinden. Das ist die klassische süditalienische Espresso-Schule.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Wie viel Koffein steckt im Mailänder Espresso?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">Der Koffeingehalt liegt bei ca. 2,2% – das entspricht etwa 70–80mg Koffein pro Espresso (25ml). Der Robusta-Anteil enthält mehr Koffein als Arabica, was den Blend etwas gehaltvoller macht als reine Arabica-Espressos.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Kann ich das Abo jederzeit pausieren oder kündigen?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">Ja, jederzeit – ohne Mindestlaufzeit, ohne Kündigungsfrist. Du kannst dein Abo in deinem Kundenkonto pausieren, das Intervall anpassen oder mit einem Klick kündigen. Keine Haken, keine versteckten Gebühren.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="faq(this)">Welcher Mahlgrad ist für meine Maschine richtig?
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
+        </div>
+        <div class="faq-a">Siebträger → sehr fein; Espressomaschine mit Pad-System → fein; Moka-Kanne → mittel-fein; French Press → grob; Handfilter → mittel. Bei Unsicherheit empfehlen wir ganze Bohne und eigenes Mahlen für maximale Frische und Flexibilität.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- NEWSLETTER -->
+<div class="section-outer bg-dark">
+  <div class="section-inner">
+    <div class="nl-inner">
+      <div class="section-eyebrow">Newsletter</div>
+      <div class="nl-title">Immer frisch informiert.</div>
+      <div class="nl-sub">Neue Sorten, Röst-Geschichten &amp; exklusive Angebote für Abonnenten – direkt in dein Postfach.</div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" placeholder="deine@email.de">
+        <button class="nl-btn">Anmelden</button>
+      </div>
+      <div class="nl-note">Kein Spam. Jederzeit abmeldbar.</div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-top">
+      <div>
+        <div class="footer-logo">Berliner Kafferösterei</div>
+        <p class="footer-desc">Seit 1963 rösten wir in Berlin-Schöneberg. Frisch, direkt, mit Leidenschaft.</p>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Kaffee</div>
+        <ul>
+          <li><a href="#">Espresso</a></li>
+          <li><a href="#">Filter</a></li>
+          <li><a href="#">Entkoffeiniert</a></li>
+          <li><a href="#">Specialty</a></li>
+          <li><a href="#">Abo</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Über uns</div>
+        <ul>
+          <li><a href="#">Geschichte</a></li>
+          <li><a href="#">Rösterei</a></li>
+          <li><a href="#">Nachhaltigkeit</a></li>
+          <li><a href="#">Cafés in Berlin</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <div class="footer-col-title">Service</div>
+        <ul>
+          <li><a href="#">Versand &amp; Rückgabe</a></li>
+          <li><a href="#">FAQ</a></li>
+          <li><a href="#">Kontakt</a></li>
+          <li><a href="#">Impressum</a></li>
+          <li><a href="#">Datenschutz</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2025 Berliner Kafferösterei. Alle Rechte vorbehalten.</span>
+      <div style="display:flex;gap:6px;flex-wrap:wrap;">
+        <span class="pay-tag">PayPal</span>
+        <span class="pay-tag">Klarna</span>
+        <span class="pay-tag">Visa</span>
+        <span class="pay-tag">Mastercard</span>
+        <span class="pay-tag">Vorkasse</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // Gallery switcher
+  function switchImg(thumb, url) {
+    document.getElementById('main-img').src = url;
+    document.querySelectorAll('.g-thumb').forEach(t => t.classList.remove('active'));
+    thumb.classList.add('active');
+  }
+
+  // Abo toggle
+  function setAbo(el, isAbo) {
+    document.querySelectorAll('.abo-opt').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('abo-interval').classList.toggle('visible', isAbo);
+  }
+
+  // Interval toggle
+  function setInterval(el) {
+    document.querySelectorAll('.int-opt').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+  }
+
+  // Size selector
+  const prices = { '250g': '€8,95', '500g': '€17,90', '1000g': '€35,80' };
+  function setSize(el, size, price) {
+    document.querySelectorAll('.size-opt').forEach(o => o.classList.remove('active'));
+    el.classList.add('active');
+    document.getElementById('price-display').textContent = price;
+  }
+
+  // Grind selector
+  function setGrind(el, type) {
+    document.querySelectorAll('.grind-tab').forEach(t => t.classList.remove('active'));
+    el.classList.add('active');
+    const sub = document.getElementById('grind-sub');
+    const hint = document.getElementById('grind-hint');
+    if (type === 'gemahlen') {
+      sub.style.display = 'flex';
+      hint.textContent = '✓ Wir mahlen frisch auf Bestellung – Mahlgrad nach deiner Wahl.';
+      hint.style.color = 'var(--brown)';
+    } else {
+      sub.style.display = 'none';
+      hint.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:13px;height:13px;flex-shrink:0"><polyline points="9 11 12 14 22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg> Ganze Bohne empfohlen – für optimale Frische und Aroma bis zur letzten Tasse.';
+    }
+  }
+
+  // FAQ
+  function faq(el) {
+    const open = el.classList.contains('open');
+    document.querySelectorAll('.faq-q').forEach(q => { q.classList.remove('open'); q.nextElementSibling.classList.remove('open'); });
+    if (!open) { el.classList.add('open'); el.nextElementSibling.classList.add('open'); }
+  }
+</script>
+</body>
+</html>
