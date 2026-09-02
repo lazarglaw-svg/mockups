@@ -1,0 +1,205 @@
+<script id="v47-depth-rail-script">
+(function () {
+  const rail = document.querySelector('.depth-rail');
+  const progress = document.getElementById('depthRailProgress');
+  const current = document.getElementById('depthRailCurrent');
+  const value = document.getElementById('depthRailValue');
+  const hint = document.getElementById('depthRailHint');
+  const badge = current ? current.querySelector('.depth-rail__badge') : null;
+  const items = Array.from(document.querySelectorAll('.depth-rail__item'));
+  if (!rail || !progress || !current || !value || !badge || !hint || !items.length) return;
+
+  const MAX_DEPTH = 10935;
+
+  const milestoneLabels = {
+    18: 'Open Water',
+    200: 'Sunlight zone',
+    332: 'Scuba record',
+    480: 'Orca dive',
+    1000: 'Midnight zone',
+    2992: 'Beaked whale',
+    10908: 'Deepest sub',
+    10935: 'Challenger Deep'
+  };
+
+  /* Milestones are deliberately tied to quiet section boundaries,
+     so labels never sit on top of headings, cards or other content. */
+  const boundaryMap = [
+    { depth: 18, selector: '.depth-anchor-18-v62', offset: 0.50 },
+    { depth: 200, selector: '.ocean-blend--liked-map', offset: 0.50 },
+    { depth: 332, selector: '.ocean-blend--map-team', offset: 0.50 },
+    { depth: 480, selector: '.ocean-blend--team-kite', offset: 0.50 },
+    { depth: 1000, selector: '.ocean-blend--kite-reviews', offset: 0.50 },
+    { depth: 2992, selector: '.ocean-blend--reviews-footer', offset: 0.50 },
+    { depth: 10908, selector: '.site-footer-v17', offset: 0.72 },
+    { depth: 10935, selector: '.site-footer-v17', offset: 0.98 }
+  ];
+
+  let anchors = [{ p: 0, depth: 0 }];
+
+  function clamp(v, min, max) {
+    return Math.min(max, Math.max(min, v));
+  }
+
+  function formatDepth(v) {
+    return Math.round(v).toLocaleString('en-US') + ' m';
+  }
+
+  function pageProgress() {
+    const doc = document.documentElement;
+    const scrollable = doc.scrollHeight - window.innerHeight;
+    if (scrollable <= 0) return 0;
+    return clamp(window.scrollY / scrollable, 0, 1);
+  }
+
+  function getRailDocumentTop() {
+    const rect = rail.getBoundingClientRect();
+    return rect.top + window.scrollY;
+  }
+
+  function boundaryProgress(entry) {
+    const target = document.querySelector(entry.selector);
+    if (!target) return null;
+
+    const railTop = getRailDocumentTop();
+    const railHeight = rail.offsetHeight || 1;
+    const rect = target.getBoundingClientRect();
+    const targetTop = rect.top + window.scrollY;
+    const targetHeight = rect.height || target.offsetHeight || 0;
+    const y = targetTop + targetHeight * (entry.offset || 0);
+
+    return clamp((y - railTop) / railHeight, 0.004, 0.996);
+  }
+
+  function positionItems() {
+    anchors = [{ p: 0, depth: 0 }];
+
+    boundaryMap.forEach((entry) => {
+      const item = items.find(el => Number(el.dataset.depth) === entry.depth);
+      if (!item) return;
+
+      let p = boundaryProgress(entry);
+
+      /* Fallback only if a transition element is missing. */
+      if (p == null) {
+        p = clamp(entry.depth / MAX_DEPTH, 0.01, 0.99);
+      }
+
+      item.dataset.railProgress = String(p);
+      item.style.top = (p * 100) + '%';
+      anchors.push({ p, depth: entry.depth });
+    });
+
+    anchors.sort((a, b) => a.p - b.p);
+
+    /* Make sure the interpolation has a final endpoint. */
+    if (anchors[anchors.length - 1].p < 1) {
+      anchors.push({ p: 1, depth: MAX_DEPTH });
+    }
+  }
+
+  function progressToDepth(p) {
+    p = clamp(p, 0, 1);
+
+    for (let i = 0; i < anchors.length - 1; i++) {
+      const a = anchors[i];
+      const b = anchors[i + 1];
+
+      if (p >= a.p && p <= b.p) {
+        const span = Math.max(0.000001, b.p - a.p);
+        const t = (p - a.p) / span;
+        return a.depth + (b.depth - a.depth) * t;
+      }
+    }
+
+    return MAX_DEPTH;
+  }
+
+  function update() {
+    const p = pageProgress();
+    const currentDepth = progressToDepth(p);
+
+    progress.style.height = (p * 100) + '%';
+    current.style.top = (p * 100) + '%';
+
+    let active = null;
+    let next = null;
+    let snapItem = null;
+    let snapDistance = Infinity;
+
+    items.forEach((item) => {
+      const itemP = Number(item.dataset.railProgress || 0);
+      const depth = Number(item.dataset.depth || 0);
+      const d = Math.abs(itemP - p);
+
+      if (p >= itemP) active = item;
+      if (!next && p < itemP) next = item;
+
+      if (d < snapDistance) {
+        snapDistance = d;
+        snapItem = item;
+      }
+
+      item.classList.remove('is-active', 'is-visible', 'is-current');
+    });
+
+    /* Keep the rail visually quiet:
+       only the last reached and next upcoming milestone are shown. */
+    if (active) active.classList.add('is-active', 'is-visible');
+    if (next) next.classList.add('is-visible');
+
+    const SNAP_PROGRESS = 0.0065;
+    let displayText = formatDepth(currentDepth);
+    let displayHint = '';
+
+    if (p <= 0.01 || currentDepth < 5) {
+      displayText = '0 m';
+      displayHint = 'Surface';
+    }
+
+    badge.classList.remove('is-event');
+
+    if (snapItem && snapDistance <= SNAP_PROGRESS) {
+      const snapDepth = Number(snapItem.dataset.depth || currentDepth);
+      const label = milestoneLabels[snapDepth];
+
+      displayText = label || formatDepth(snapDepth);
+      displayHint = '';
+      badge.classList.add('is-event');
+      snapItem.classList.add('is-current', 'is-active', 'is-visible');
+    }
+
+    value.textContent = displayText;
+    hint.textContent = displayHint;
+  }
+
+  function refresh() {
+    positionItems();
+    update();
+  }
+
+  /* Wait until layout/images settle, then lock markers to section boundaries. */
+  window.addEventListener('load', refresh);
+
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(refresh);
+  }
+
+  refresh();
+
+  let ticking = false;
+  window.addEventListener('scroll', () => {
+    if (ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      update();
+      ticking = false;
+    });
+  }, { passive: true });
+
+  window.addEventListener('resize', () => {
+    clearTimeout(window.__depthRailResizeTimer);
+    window.__depthRailResizeTimer = setTimeout(refresh, 90);
+  });
+})();
+</script>
