@@ -3,7 +3,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<meta content="width=device-width, initial-scale=1, viewport-fit=cover" name="viewport"/>
 <meta content="#000000" name="theme-color"/>
 <title>Wind &amp; Wave — Scuba Diving Cancún</title>
 <link href="https://fonts.googleapis.com" rel="preconnect"/>
@@ -10965,7 +10965,184 @@ body.depth-rail-body {
     margin-inline: auto !important;
   }
 }
-</style></head>
+</style>
+<style id="github-clean-mobile-hero-layout">
+/* Layout/layering only — typography intentionally inherited from the existing site. */
+.ww-clean-hero-stage { position: static; }
+.ww-clean-hero-image,
+.ww-clean-hero-transition { display: none; }
+
+@media (max-width: 820px) and (orientation: portrait) {
+  header.hero {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    min-height: 0 !important;
+    max-height: none !important;
+    aspect-ratio: auto !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    overflow: visible !important;
+    background: #346f77 !important;
+    border-top: 0 !important;
+  }
+
+  header.hero::before,
+  header.hero::after {
+    content: none !important;
+    display: none !important;
+  }
+
+  .ww-clean-hero-stage {
+    position: relative !important;
+    display: block !important;
+    width: 100% !important;
+    aspect-ratio: 9 / 16 !important;
+    height: auto !important;
+    min-height: 0 !important;
+    overflow: visible !important;
+    isolation: isolate !important;
+    background: #346f77 !important;
+  }
+
+  .ww-clean-hero-image {
+    display: block !important;
+    position: absolute !important;
+    inset: 0 !important;
+    z-index: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+    max-width: none !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    pointer-events: none !important;
+  }
+
+  .ww-clean-hero-transition {
+    display: block !important;
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 0 !important;
+    z-index: 1 !important;
+    height: 15% !important;
+    pointer-events: none !important;
+    background: linear-gradient(180deg,
+      rgba(52,111,119,0) 0%,
+      rgba(52,111,119,0) 34%,
+      rgba(52,111,119,.08) 54%,
+      rgba(52,111,119,.28) 72%,
+      rgba(52,111,119,.66) 90%,
+      #346f77 100%) !important;
+  }
+
+  .site-header--rebrand {
+    position: absolute !important;
+    inset: 0 0 auto 0 !important;
+    z-index: 40 !important;
+    padding-top: max(16px, env(safe-area-inset-top)) !important;
+  }
+
+  .ww-clean-hero-stage .hero-overlay-v33 {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    bottom: 74px !important;
+    z-index: 20 !important;
+    width: 100% !important;
+    pointer-events: none !important;
+  }
+
+  .ww-clean-hero-stage .hero-overlay-shell-v33 {
+    width: 100% !important;
+    max-width: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+  }
+
+  .ww-clean-hero-stage .hero-actions-v33 {
+    position: relative !important;
+    z-index: 21 !important;
+    width: calc(100% - 20px) !important;
+    max-width: 540px !important;
+    margin: 0 auto !important;
+    display: grid !important;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr) !important;
+    gap: 9px !important;
+    align-items: center !important;
+    pointer-events: auto !important;
+  }
+
+  .ww-clean-hero-stage .hero-btn-v33 {
+    position: relative !important;
+    z-index: 21 !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .ww-clean-hero-stage .hero-trust-strip-v33 {
+    position: absolute !important;
+    left: 50% !important;
+    bottom: -128px !important;
+    z-index: 30 !important;
+    width: calc(100% - 18px) !important;
+    max-width: 540px !important;
+    transform: translateX(-50%) !important;
+    margin: 0 !important;
+  }
+
+  .ww-clean-hero-stage .hero-trust-card-v33,
+  .ww-clean-hero-stage .hero-trust-logo-v33,
+  .ww-clean-hero-stage .hero-trust-copy-v33 {
+    position: relative !important;
+    z-index: 31 !important;
+    opacity: 1 !important;
+    filter: none !important;
+  }
+
+  .ww-clean-hero-stage .hero-trust-grid-v33 {
+    display: grid !important;
+    grid-template-columns: repeat(2,minmax(0,1fr)) !important;
+    gap: 8px !important;
+  }
+
+  .ww-clean-hero-stage .hero-trust-grid-v33 > .hero-trust-card-v33:first-child {
+    grid-column: 1 / -1 !important;
+  }
+
+  .liked {
+    position: relative !important;
+    margin-top: 0 !important;
+    padding-top: 162px !important;
+    border-top: 0 !important;
+    background:
+      radial-gradient(72vw 50vw at -10% 4%, rgba(206,230,241,.07), transparent 48%),
+      linear-gradient(180deg, #346f77 0%, #327981 14%, #2e747b 34%, #286b72 100%) !important;
+  }
+
+  .liked::after {
+    display: none !important;
+    content: none !important;
+  }
+
+  .depth-anchor-18-v62 { top: 124px !important; }
+}
+
+@media (max-width: 430px) and (orientation: portrait) {
+  .ww-clean-hero-stage .hero-overlay-v33 { bottom: 70px !important; }
+  .ww-clean-hero-stage .hero-actions-v33 {
+    width: calc(100% - 16px) !important;
+    gap: 8px !important;
+  }
+  .ww-clean-hero-stage .hero-trust-strip-v33 {
+    bottom: -128px !important;
+    width: calc(100% - 14px) !important;
+  }
+}
+</style>
+
+</head>
 <body class="depth-rail-body">
 <header class="hero" id="home">
 <div class="site-header site-header--rebrand" id="siteHeader">
@@ -10983,7 +11160,11 @@ body.depth-rail-body {
 </nav>
 </div>
 </div>
-<div aria-label="Hero actions" class="hero-overlay-v33">
+
+<div class="ww-clean-hero-stage">
+  <img class="ww-clean-hero-image" src="assets/asset-fdf0bb84e597a671.webp" alt="" aria-hidden="true"/>
+  <div class="ww-clean-hero-transition" aria-hidden="true"></div>
+  <div aria-label="Hero actions" class="hero-overlay-v33">
 <div class="shell hero-overlay-shell-v33">
 <div class="hero-actions-v33">
 <a class="hero-btn-v33 hero-btn-v33--primary" href="#contact">Contact Now</a>
@@ -10991,7 +11172,7 @@ body.depth-rail-body {
 </div>
 </div>
 </div>
-<div aria-label="Why choose Wind &amp; Wave" class="hero-trust-strip-v33">
+  <div aria-label="Why choose Wind &amp; Wave" class="hero-trust-strip-v33">
 <div class="hero-trust-grid-v33">
 <a aria-label="Open our TripAdvisor reviews" class="hero-trust-card-v33 hero-trust-card-v33--link" href="https://www.tripadvisor.com/Attraction_Review-g150807-d10256598-Reviews-Wind_and_Wave-Cancun_Yucatan_Peninsula.html" rel="noopener noreferrer" target="_blank">
 <span class="hero-trust-logo-v33 hero-trust-logo-v33--tripadvisor">
@@ -11028,6 +11209,8 @@ body.depth-rail-body {
 </article>
 </div>
 </div>
+</div>
+
 </header>
 <main>
 <section class="liked" id="experiences"><div aria-hidden="true" class="depth-anchor-18-v62"></div>
