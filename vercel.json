@@ -1,6 +1,0 @@
-{
-  "rewrites": [
-    { "source": "/wind-wave", "destination": "/api/wind-wave-preview" },
-    { "source": "/wind-wave/", "destination": "/api/wind-wave-preview" }
-  ]
-}
