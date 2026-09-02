@@ -1,7 +1,7 @@
 {
   "rewrites": [
-    { "source": "/wind-wave", "destination": "/api/wind-wave-v66" },
-    { "source": "/wind-wave/", "destination": "/api/wind-wave-v66" },
-    { "source": "/wind-wave/index.html", "destination": "/api/wind-wave-v66" }
+    { "source": "/wind-wave", "destination": "/api/wind-wave-v67" },
+    { "source": "/wind-wave/", "destination": "/api/wind-wave-v67" },
+    { "source": "/wind-wave/index.html", "destination": "/api/wind-wave-v67" }
   ]
 }
