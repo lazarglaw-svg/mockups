@@ -104,9 +104,11 @@ if old_script and new_script:
     old_script.replace_with(new_script)
 
 # Append final V57–V63 style layers in order
-styles_html = (Path(__file__).parent / 'styles.html').read_text(encoding='utf-8')
-frag = BeautifulSoup(styles_html, 'html.parser')
-for style in list(frag.find_all('style')):
+for style_file in sorted(Path(__file__).parent.glob('[0-9][0-9]_*.html')):
+    frag = BeautifulSoup(style_file.read_text(encoding='utf-8'), 'html.parser')
+    style = frag.find('style')
+    if not style:
+        continue
     old = soup.find('style', id=style.get('id'))
     if old:
         old.decompose()
