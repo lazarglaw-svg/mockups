@@ -1,0 +1,780 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0a5762">
+<title>Kitesurf — Wind & Wave Cancún</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Antonio:wght@300;400;500;600&family=Open+Sans:wght@400;500;600;700&family=Fredoka:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --page-bg: #081f24;
+    --hero-overlay: linear-gradient(90deg, rgba(5,26,31,.10) 0%, rgba(5,26,31,.30) 46%, rgba(5,26,31,.72) 100%);
+    --light: #cfe4ec;
+    --light-2: #d9ebf2;
+    --card: #cbe1ea;
+    --card-border: rgba(4, 86, 96, .68);
+    --ink: #065a63;
+    --ink-soft: rgba(6, 90, 99, .88);
+    --white: #f7fbfd;
+    --pill: rgba(255,255,255,.42);
+    --pill-border: rgba(6, 90, 99, .18);
+    --shadow: 0 22px 46px rgba(4, 26, 31, .12);
+    --radius-xl: 28px;
+    --radius-lg: 24px;
+    --radius-md: 18px;
+    --page-pad: clamp(18px, 4vw, 64px);
+    --max: 1500px;
+  }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    background: var(--page-bg);
+    color: var(--white);
+    font-family: "Open Sans", Arial, sans-serif;
+    overflow-x: hidden;
+  }
+  a { color: inherit; text-decoration: none; }
+  img { display: block; max-width: 100%; }
+
+  .shell {
+    width: min(var(--max), calc(100% - 2 * var(--page-pad)));
+    margin-inline: auto;
+  }
+
+  .site-header {
+    position: fixed;
+    inset: 16px var(--page-pad) auto;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    padding: 12px 18px;
+    border-radius: 999px;
+    background: rgba(5, 26, 31, .34);
+    border: 1px solid rgba(255,255,255,.14);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+
+  .brand {
+    font-family: "Open Sans", Arial, sans-serif;
+    font-weight: 700;
+    letter-spacing: .02em;
+    white-space: nowrap;
+  }
+
+  .top-nav {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+  }
+
+  .top-nav a {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.08);
+    border: 1px solid rgba(255,255,255,.12);
+    font-size: 13px;
+    line-height: 1;
+  }
+
+  .hero {
+    position: relative;
+    min-height: min(980px, 100svh);
+    display: grid;
+    align-items: end;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background:
+      var(--hero-overlay),
+      linear-gradient(180deg, rgba(3,17,20,.1) 0%, rgba(3,17,20,.15) 35%, rgba(3,17,20,.55) 100%);
+    z-index: 1;
+  }
+
+  .hero-media {
+    position: absolute;
+    inset: 0;
+  }
+
+  .hero-media img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center center;
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    width: min(var(--max), calc(100% - 2 * var(--page-pad)));
+    margin: 0 auto;
+    padding: 148px 0 68px;
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  .hero-copy {
+    width: min(620px, 100%);
+    text-align: right;
+  }
+
+  .hero-kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 16px;
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.16);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+  }
+
+  .hero h1 {
+    margin: 0;
+    font-family: "Fredoka", "Open Sans", sans-serif;
+    font-size: clamp(64px, 11vw, 158px);
+    line-height: .9;
+    letter-spacing: -.06em;
+    color: #d7edf4;
+  }
+
+  .hero-copy p {
+    max-width: 32ch;
+    margin: 18px 0 0 auto;
+    font-size: clamp(17px, 1.65vw, 29px);
+    line-height: 1.38;
+    color: rgba(246,251,253,.94);
+  }
+
+  .hero-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: flex-end;
+    margin-top: 24px;
+  }
+
+  .hero-badges span {
+    padding: 10px 14px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.15);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+  }
+
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    justify-content: flex-end;
+    margin-top: 28px;
+  }
+
+  .hero-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 154px;
+    padding: 14px 20px;
+    border-radius: 999px;
+    border: 1px solid rgba(255,255,255,.16);
+    font-size: 14px;
+    font-weight: 700;
+  }
+
+  .hero-btn.primary {
+    background: rgba(207,228,236,.96);
+    color: var(--ink);
+  }
+
+  .hero-btn.secondary {
+    background: rgba(8,31,36,.32);
+    color: #f7fbfd;
+  }
+
+  .packages {
+    position: relative;
+    background:
+      radial-gradient(900px 420px at 18% 0%, rgba(255,255,255,.26), transparent 65%),
+      linear-gradient(180deg, var(--light-2) 0%, var(--light) 100%);
+    color: var(--ink);
+    padding: clamp(54px, 6vw, 88px) 0 clamp(80px, 8vw, 110px);
+  }
+
+  .packages-head {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+
+  .packages-head h2 {
+    margin: 0;
+    font-family: "Fredoka", "Open Sans", sans-serif;
+    font-size: clamp(48px, 7vw, 92px);
+    line-height: .92;
+    letter-spacing: -.06em;
+    color: var(--ink);
+  }
+
+  .packages-copy {
+    max-width: 58ch;
+    margin-top: 10px;
+    font-size: clamp(15px, 1.12vw, 18px);
+    line-height: 1.58;
+    color: rgba(6,90,99,.84);
+  }
+
+  .packages-actions {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    white-space: nowrap;
+  }
+
+  .packages-actions .label {
+    font-family: "Antonio", "Arial Narrow", sans-serif;
+    font-size: clamp(22px, 2vw, 32px);
+    letter-spacing: -.03em;
+    color: var(--ink);
+  }
+
+  .arrow-set {
+    display: flex;
+    gap: 8px;
+  }
+
+  .carousel-arrow {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid rgba(6,90,99,.2);
+    background: rgba(255,255,255,.48);
+    color: var(--ink);
+    display: grid;
+    place-items: center;
+    cursor: pointer;
+    transition: transform .2s ease, background .2s ease, opacity .2s ease;
+  }
+
+  .carousel-arrow:hover:not(:disabled) {
+    transform: translateY(-1px);
+    background: rgba(255,255,255,.72);
+  }
+
+  .carousel-arrow:disabled {
+    opacity: .4;
+    cursor: default;
+  }
+
+  .carousel-arrow svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .carousel-wrap {
+    overflow: hidden;
+  }
+
+  .card-track {
+    display: grid;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(320px, 430px);
+    gap: clamp(16px, 1.6vw, 24px);
+    overflow-x: auto;
+    overscroll-behavior-inline: contain;
+    scroll-snap-type: x proximity;
+    padding: 4px 2px 10px;
+    scrollbar-width: none;
+  }
+
+  .card-track::-webkit-scrollbar {
+    display: none;
+  }
+
+  .kite-card {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    min-height: 100%;
+    background: rgba(208, 229, 237, .88);
+    border: 1.5px solid var(--card-border);
+    border-radius: var(--radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow);
+    scroll-snap-align: start;
+  }
+
+  .kite-card-image {
+    position: relative;
+    aspect-ratio: 1.42 / 1;
+    overflow: hidden;
+    background: #bcdbe6;
+  }
+
+  .kite-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .kite-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding: 16px 18px 18px;
+  }
+
+  .kite-meta-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+  }
+
+  .kite-duration {
+    font-size: 13px;
+    color: rgba(6,90,99,.88);
+  }
+
+  .kite-price {
+    padding: 8px 11px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.5);
+    border: 1px solid var(--pill-border);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: .06em;
+    color: var(--ink);
+  }
+
+  .kite-card h3 {
+    margin: 0;
+    font-family: "Antonio", "Arial Narrow", sans-serif;
+    font-weight: 500;
+    font-size: clamp(34px, 3vw, 48px);
+    line-height: .92;
+    letter-spacing: -.04em;
+    color: #055862;
+  }
+
+  .kite-card p {
+    margin: 0;
+    font-size: 14px;
+    line-height: 1.56;
+    color: rgba(6,90,99,.92);
+  }
+
+  .kite-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .kite-tags span {
+    padding: 8px 12px;
+    border-radius: 999px;
+    background: rgba(255,255,255,.34);
+    border: 1px solid rgba(6,90,99,.14);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: rgba(6,90,99,.86);
+  }
+
+  .kite-card-footer {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid rgba(6,90,99,.12);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+  }
+
+  .kite-note {
+    font-size: 13px;
+    color: rgba(6,90,99,.72);
+  }
+
+  .kite-arrow {
+    width: 52px;
+    height: 52px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    background: #05626a;
+    color: #dff2f8;
+    flex: 0 0 52px;
+  }
+
+  .kite-arrow svg {
+    width: 24px;
+    height: 24px;
+  }
+
+  .footer-mini {
+    padding: 22px var(--page-pad) 38px;
+    background: #08242b;
+    border-top: 1px solid rgba(255,255,255,.08);
+  }
+
+  .footer-mini .shell {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .footer-mini a {
+    color: rgba(255,255,255,.84);
+    font-size: 14px;
+  }
+
+  @media (max-width: 980px) {
+    .packages-head {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+
+    .hero-content {
+      justify-content: flex-start;
+    }
+
+    .hero-copy {
+      text-align: left;
+    }
+
+    .hero-copy p {
+      margin-left: 0;
+      margin-right: 0;
+    }
+
+    .hero-badges,
+    .hero-actions {
+      justify-content: flex-start;
+    }
+  }
+
+  @media (max-width: 760px) {
+    .site-header {
+      inset: 12px 14px auto;
+      padding: 10px 14px;
+    }
+
+    .top-nav a {
+      font-size: 12px;
+      padding: 9px 12px;
+    }
+
+    .hero {
+      min-height: 86svh;
+    }
+
+    .hero-content {
+      padding-top: 122px;
+      padding-bottom: 54px;
+    }
+
+    .hero h1 {
+      font-size: clamp(58px, 16vw, 92px);
+    }
+
+    .hero-copy p {
+      font-size: 18px;
+      max-width: 24ch;
+    }
+
+    .packages {
+      padding-top: 48px;
+    }
+
+    .card-track {
+      grid-auto-columns: minmax(286px, 78vw);
+      gap: 14px;
+      padding-right: 10vw;
+    }
+  }
+
+  @media (max-width: 520px) {
+    .site-header {
+      position: absolute;
+    }
+
+    .brand {
+      font-size: 13px;
+    }
+
+    .top-nav {
+      gap: 8px;
+    }
+
+    .hero-badges span,
+    .hero-kicker {
+      font-size: 11px;
+    }
+
+    .hero-actions {
+      width: 100%;
+    }
+
+    .hero-btn {
+      min-width: 0;
+      flex: 1 1 calc(50% - 6px);
+      padding-inline: 14px;
+      font-size: 13px;
+    }
+
+    .packages-head h2 {
+      font-size: clamp(42px, 15vw, 58px);
+    }
+
+    .packages-copy {
+      font-size: 14px;
+    }
+
+    .packages-actions .label {
+      font-size: 22px;
+    }
+  }
+</style>
+</head>
+<body>
+  <header class="site-header" aria-label="Kitesurf page header">
+    <a class="brand" href="index.html">Wind &amp; Wave</a>
+    <nav class="top-nav">
+      <a href="index.html">Back to Home</a>
+      <a href="#packages">Kite Packages</a>
+    </nav>
+  </header>
+
+  <section class="hero">
+    <div class="hero-media">
+      <img src="assets/asset-73bb6723e3bde890.webp" alt="Kitesurfer riding on turquoise water in Cancún">
+    </div>
+    <div class="hero-content">
+      <div class="hero-copy">
+        <div class="hero-kicker">Cancún Kitesurf Season</div>
+        <h1>Kitesurf</h1>
+        <p>See the kitesurf options in Cancún during the windy season from September to January.</p>
+        <div class="hero-badges">
+          <span>September–January</span>
+          <span>Private lessons</span>
+          <span>Beginner to advanced</span>
+        </div>
+        <div class="hero-actions">
+          <a class="hero-btn primary" href="#packages">See Packages</a>
+          <a class="hero-btn secondary" href="index.html">Back to Scuba Home</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="packages" id="packages" aria-labelledby="packagesTitle">
+    <div class="shell">
+      <div class="packages-head">
+        <div>
+          <h2 id="packagesTitle">Most liked</h2>
+          <p class="packages-copy">Private kitesurf packages in Cancún — from a single introductory lesson to longer one-on-one progression packages. Swipe through all five options.</p>
+        </div>
+        <div class="packages-actions">
+          <span class="label">See all options</span>
+          <div class="arrow-set">
+            <button class="carousel-arrow" id="prevBtn" type="button" aria-label="Scroll packages left">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M15.5 5L8.5 12L15.5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <button class="carousel-arrow" id="nextBtn" type="button" aria-label="Scroll packages right">
+              <svg viewBox="0 0 24 24" fill="none"><path d="M8.5 5L15.5 12L8.5 19" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <div class="carousel-wrap">
+        <div class="card-track" id="kiteTrack">
+          
+        <article class="kite-card">
+          <div class="kite-card-image">
+            <img src="assets/asset-0c24644f24fcea08.webp" alt="Private Lesson">
+          </div>
+          <div class="kite-card-body">
+            <div class="kite-meta-row">
+              <span class="kite-duration">1 hour</span>
+              <span class="kite-price">$1,650 MXN</span>
+            </div>
+            <h3>Private Lesson</h3>
+            <p>A one-on-one kitesurfing lesson with your instructor. Perfect for a first introduction, a technique reset or a focused private session.</p>
+            <div class="kite-tags"><span>1:1 session</span><span>Beginner friendly</span></div>
+            <div class="kite-card-footer">
+              <span class="kite-note">Private instruction in Cancún</span>
+              <span class="kite-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="kite-card">
+          <div class="kite-card-image">
+            <img src="assets/asset-73bb6723e3bde890.webp" alt="3-Hour Package">
+          </div>
+          <div class="kite-card-body">
+            <div class="kite-meta-row">
+              <span class="kite-duration">3 hours</span>
+              <span class="kite-price">$4,400 MXN</span>
+            </div>
+            <h3>3-Hour Package</h3>
+            <p>Three hours of private instruction tailored to your level. Great for building confidence, learning the basics and getting solid time on the water.</p>
+            <div class="kite-tags"><span>1:1 coaching</span><span>Core progression</span></div>
+            <div class="kite-card-footer">
+              <span class="kite-note">Private instruction in Cancún</span>
+              <span class="kite-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="kite-card">
+          <div class="kite-card-image">
+            <img src="assets/asset-4f4cec9e6988d501.webp" alt="6-Hour Package">
+          </div>
+          <div class="kite-card-body">
+            <div class="kite-meta-row">
+              <span class="kite-duration">6 hours</span>
+              <span class="kite-price">$8,100 MXN</span>
+            </div>
+            <h3>6-Hour Package</h3>
+            <p>A longer one-on-one training block with your instructor over six hours. Ideal for faster progression, better control and more consistent riding.</p>
+            <div class="kite-tags"><span>Private package</span><span>Stronger progression</span></div>
+            <div class="kite-card-footer">
+              <span class="kite-note">Private instruction in Cancún</span>
+              <span class="kite-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="kite-card">
+          <div class="kite-card-image">
+            <img src="assets/asset-8d473c124df53f66.webp" alt="9-Hour Package">
+          </div>
+          <div class="kite-card-body">
+            <div class="kite-meta-row">
+              <span class="kite-duration">9 hours</span>
+              <span class="kite-price">$11,325 MXN</span>
+            </div>
+            <h3>9-Hour Package</h3>
+            <p>Nine hours of private coaching designed to take you from the basics toward your next level, as far as your current ability and conditions allow.</p>
+            <div class="kite-tags"><span>From basics onward</span><span>Level-up option</span></div>
+            <div class="kite-card-footer">
+              <span class="kite-note">Private instruction in Cancún</span>
+              <span class="kite-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+        
+        <article class="kite-card">
+          <div class="kite-card-image">
+            <img src="assets/asset-d21224fed552cb2c.webp" alt="12-Hour Package">
+          </div>
+          <div class="kite-card-body">
+            <div class="kite-meta-row">
+              <span class="kite-duration">12 hours</span>
+              <span class="kite-price">$14,100 MXN</span>
+            </div>
+            <h3>12-Hour Package</h3>
+            <p>The best-value extended private package: twelve full hours one-on-one with a personal instructor for the most complete learning experience.</p>
+            <div class="kite-tags"><span>Best value</span><span>Personal instructor</span></div>
+            <div class="kite-card-footer">
+              <span class="kite-note">Private instruction in Cancún</span>
+              <span class="kite-arrow" aria-hidden="true">
+                <svg viewBox="0 0 24 24" fill="none">
+                  <path d="M7 17L17 7M17 7H8.5M17 7V15.5" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </span>
+            </div>
+          </div>
+        </article>
+        
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer-mini">
+    <div class="shell">
+      <a href="index.html">← Return to homepage</a>
+      <a href="#top" onclick="window.scrollTo({top:0,behavior:'smooth'}); return false;">Back to top</a>
+    </div>
+  </footer>
+
+<script>
+(() => {
+  const track = document.getElementById('kiteTrack');
+  const prev = document.getElementById('prevBtn');
+  const next = document.getElementById('nextBtn');
+
+  if (!track || !prev || !next) return;
+
+  const getStep = () => {
+    const firstCard = track.querySelector('.kite-card');
+    if (!firstCard) return Math.max(track.clientWidth * 0.8, 280);
+    const gap = parseFloat(getComputedStyle(track).columnGap || getComputedStyle(track).gap || 0) || 0;
+    return firstCard.getBoundingClientRect().width + gap;
+  };
+
+  const update = () => {
+    const maxScroll = track.scrollWidth - track.clientWidth - 2;
+    prev.disabled = track.scrollLeft <= 2;
+    next.disabled = track.scrollLeft >= maxScroll;
+  };
+
+  prev.addEventListener('click', () => {
+    track.scrollBy({ left: -getStep(), behavior: 'smooth' });
+  });
+
+  next.addEventListener('click', () => {
+    track.scrollBy({ left: getStep(), behavior: 'smooth' });
+  });
+
+  track.addEventListener('scroll', update, { passive: true });
+  window.addEventListener('resize', update);
+  window.addEventListener('load', update);
+  update();
+})();
+</script>
+</body>
+</html>
