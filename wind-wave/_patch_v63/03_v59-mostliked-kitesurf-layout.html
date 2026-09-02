@@ -1,0 +1,415 @@
+<style id="v59-mostliked-kitesurf-layout">
+/* =========================================================
+   V59 — MOST LIKED
+   Mirrors the successful Kitesurf packages section structure,
+   while keeping the scuba colors, imagery and content.
+   ========================================================= */
+
+.liked {
+  color: #d9edf4 !important;
+  padding: clamp(54px, 6vw, 86px) 0 clamp(78px, 8vw, 108px) !important;
+}
+
+/* Header = same structure as Kitesurf packages */
+.liked .section-header {
+  width: min(var(--max), calc(100% - (var(--page-pad) * 2))) !important;
+  margin: 0 auto 28px !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-end !important;
+  justify-content: space-between !important;
+  gap: 24px !important;
+}
+
+.liked .heading-wrap {
+  width: auto !important;
+  max-width: 760px !important;
+  padding: 0 !important;
+}
+
+.liked .heading-line {
+  display: block !important;
+}
+
+.liked .heading-line::after {
+  display: none !important;
+  content: none !important;
+}
+
+.liked .heading-line h2.hero-title {
+  margin: 0 !important;
+  width: auto !important;
+  max-width: none !important;
+  font-family: "Fredoka", "Open Sans", sans-serif !important;
+  font-size: clamp(48px, 7vw, 92px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.06em !important;
+  color: #cee6f1 !important;
+  -webkit-text-stroke: 0 !important;
+  text-shadow: none !important;
+}
+
+.liked .section-copy {
+  width: auto !important;
+  max-width: 58ch !important;
+  margin: 10px 0 0 !important;
+  font-size: clamp(15px, 1.12vw, 18px) !important;
+  line-height: 1.58 !important;
+  color: rgba(216,237,244,.82) !important;
+  white-space: normal !important;
+  text-wrap: pretty !important;
+}
+
+.liked .carousel-head-actions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 14px !important;
+  width: auto !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  white-space: nowrap !important;
+}
+
+.liked .ghost-link {
+  font-family: "Antonio", "Arial Narrow", sans-serif !important;
+  font-size: clamp(22px, 2vw, 32px) !important;
+  line-height: 1 !important;
+  letter-spacing: -.03em !important;
+  font-weight: 400 !important;
+  color: #cee6f1 !important;
+  text-decoration: underline !important;
+  text-decoration-thickness: 1px !important;
+  text-underline-offset: 5px !important;
+}
+
+.liked .arrow-set {
+  display: flex !important;
+  gap: 8px !important;
+  margin: 0 !important;
+}
+
+.liked .carousel-arrow {
+  width: 48px !important;
+  height: 48px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(206,230,241,.28) !important;
+  background: rgba(206,230,241,.10) !important;
+  color: #cee6f1 !important;
+}
+
+/* Carousel = same sizing logic as Kitesurf */
+.liked .carousel-viewport {
+  width: 100% !important;
+  overflow: hidden !important;
+}
+
+.liked .card-track {
+  display: grid !important;
+  grid-auto-flow: column !important;
+  grid-auto-columns: minmax(330px, 430px) !important;
+  gap: clamp(16px, 1.6vw, 24px) !important;
+  overflow-x: auto !important;
+  overscroll-behavior-inline: contain !important;
+  scroll-snap-type: x proximity !important;
+  scroll-padding-left: var(--page-pad) !important;
+  padding: 4px var(--page-pad) 10px !important;
+  margin: 0 !important;
+  scrollbar-width: none !important;
+  -webkit-overflow-scrolling: touch !important;
+  touch-action: pan-x pan-y !important;
+}
+
+.liked .card-track::-webkit-scrollbar {
+  display: none !important;
+}
+
+/* Cards = Kitesurf card proportions, scuba palette */
+.liked .dive-card {
+  display: grid !important;
+  grid-template-rows: auto 1fr !important;
+  min-height: 100% !important;
+  background:
+    linear-gradient(180deg, rgba(18,72,80,.97), rgba(13,58,66,.98)) !important;
+  color: #d9edf4 !important;
+  border: 1.5px solid rgba(206,230,241,.52) !important;
+  border-radius: 24px !important;
+  overflow: hidden !important;
+  box-shadow: 0 20px 44px rgba(2,31,36,.16) !important;
+  scroll-snap-align: start !important;
+  transform: none !important;
+}
+
+.liked .dive-card::before,
+.liked .dive-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+.liked .dive-card:hover {
+  transform: none !important;
+  box-shadow: 0 20px 44px rgba(2,31,36,.16) !important;
+}
+
+.liked .dive-card .card-image {
+  position: relative !important;
+  width: 100% !important;
+  aspect-ratio: 1.42 / 1 !important;
+  overflow: hidden !important;
+  background: #174b55 !important;
+}
+
+.liked .dive-card .card-image::after {
+  display: none !important;
+  content: none !important;
+}
+
+.liked .dive-card .card-image img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  transform: none !important;
+}
+
+.liked .dive-card .card-body {
+  position: static !important;
+  min-height: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 12px !important;
+  padding: 16px 18px 18px !important;
+  background: transparent !important;
+}
+
+.liked .dive-card .card-body::before {
+  display: none !important;
+  content: none !important;
+}
+
+.scuba-meta-row-v59 {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.scuba-duration-v59 {
+  font-size: 13px;
+  color: rgba(220,240,246,.82);
+}
+
+.scuba-type-v59 {
+  padding: 8px 11px;
+  border-radius: 999px;
+  background: rgba(206,230,241,.10);
+  border: 1px solid rgba(206,230,241,.18);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .06em;
+  color: #d8edf4;
+  white-space: nowrap;
+}
+
+.liked .dive-card .card-title {
+  margin: 0 !important;
+  font-family: "Antonio", "Arial Narrow", sans-serif !important;
+  font-weight: 500 !important;
+  font-size: clamp(34px, 3vw, 48px) !important;
+  line-height: .92 !important;
+  letter-spacing: -.04em !important;
+  color: #d5edf5 !important;
+}
+
+.liked .dive-card .card-text {
+  margin: 0 !important;
+  max-width: none !important;
+  font-size: 14px !important;
+  line-height: 1.56 !important;
+  color: rgba(221,239,245,.88) !important;
+}
+
+.scuba-tags-v59 {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.scuba-tags-v59 span {
+  padding: 8px 12px;
+  border-radius: 999px;
+  background: rgba(206,230,241,.075);
+  border: 1px solid rgba(206,230,241,.14);
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: .075em;
+  text-transform: uppercase;
+  color: rgba(220,240,246,.82);
+}
+
+.scuba-card-footer-v59 {
+  margin-top: auto;
+  padding-top: 12px;
+  border-top: 1px solid rgba(206,230,241,.14);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 14px;
+}
+
+.scuba-note-v59 {
+  font-size: 12px;
+  color: rgba(220,240,246,.68);
+}
+
+.liked .dive-card .scuba-arrow-v59 {
+  position: static !important;
+  inset: auto !important;
+  width: 50px !important;
+  height: 50px !important;
+  flex: 0 0 50px !important;
+  border-radius: 50% !important;
+  border: 1px solid rgba(206,230,241,.34) !important;
+  background: rgba(206,230,241,.11) !important;
+  color: #d9edf4 !important;
+  display: grid !important;
+  place-items: center !important;
+  transform: none !important;
+}
+
+.liked .dive-card:hover .scuba-arrow-v59 {
+  background: rgba(206,230,241,.16) !important;
+  color: #fff !important;
+  transform: none !important;
+}
+
+/* Tablet = Kitesurf section stacks its heading/action area */
+@media (max-width: 980px) {
+  .liked .section-header {
+    align-items: flex-start !important;
+    flex-direction: column !important;
+  }
+}
+
+/* Mobile: essentially the same responsive behavior as Kitesurf */
+@media (max-width: 760px) {
+  .liked {
+    padding-top: 48px !important;
+    padding-bottom: 72px !important;
+  }
+
+  .liked .section-header {
+    width: calc(100% - 32px) !important;
+    margin: 0 auto 24px !important;
+    gap: 18px !important;
+  }
+
+  .liked .heading-wrap {
+    max-width: 100% !important;
+  }
+
+  .liked .heading-line h2.hero-title {
+    font-size: clamp(42px, 15vw, 58px) !important;
+  }
+
+  .liked .section-copy {
+    max-width: 34ch !important;
+    margin-top: 10px !important;
+    font-size: 14px !important;
+    line-height: 1.48 !important;
+  }
+
+  .liked .carousel-head-actions {
+    width: 100% !important;
+    justify-content: space-between !important;
+  }
+
+  .liked .ghost-link {
+    font-size: 22px !important;
+  }
+
+  .liked .carousel-arrow {
+    width: 42px !important;
+    height: 42px !important;
+  }
+
+  .liked .card-track {
+    grid-auto-columns: minmax(286px, 78vw) !important;
+    gap: 14px !important;
+    padding: 4px 10vw 10px 16px !important;
+    scroll-padding-left: 16px !important;
+    scroll-snap-type: x mandatory !important;
+  }
+
+  .liked .dive-card {
+    border-radius: 22px !important;
+    scroll-snap-stop: always !important;
+  }
+
+  .liked .dive-card .card-image {
+    aspect-ratio: 1.42 / 1 !important;
+  }
+
+  .liked .dive-card .card-body {
+    gap: 10px !important;
+    padding: 14px 16px 16px !important;
+  }
+
+  .scuba-duration-v59 {
+    font-size: 12px !important;
+  }
+
+  .scuba-type-v59 {
+    padding: 7px 9px !important;
+    font-size: 9.5px !important;
+  }
+
+  .liked .dive-card .card-title {
+    font-size: 34px !important;
+  }
+
+  .liked .dive-card .card-text {
+    font-size: 13px !important;
+    line-height: 1.5 !important;
+  }
+
+  .scuba-tags-v59 {
+    gap: 6px !important;
+  }
+
+  .scuba-tags-v59 span {
+    padding: 7px 9px !important;
+    font-size: 8.5px !important;
+  }
+
+  .scuba-note-v59 {
+    font-size: 10.5px !important;
+  }
+
+  .liked .dive-card .scuba-arrow-v59 {
+    width: 44px !important;
+    height: 44px !important;
+    flex-basis: 44px !important;
+  }
+}
+
+@media (max-width: 420px) {
+  .liked .section-header {
+    width: calc(100% - 26px) !important;
+  }
+
+  .liked .section-copy {
+    max-width: 32ch !important;
+    font-size: 13px !important;
+  }
+
+  .liked .card-track {
+    grid-auto-columns: 80vw !important;
+    padding-left: 13px !important;
+    scroll-padding-left: 13px !important;
+    padding-right: 12vw !important;
+  }
+
+  .liked .dive-card .card-title {
+    font-size: 32px !important;
+  }
+}
+</style>
