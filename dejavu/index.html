@@ -1,0 +1,1315 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Déjà Vu — Clínica Estética & Spa</title>
+  <meta name="description" content="Mockup de homepage para Déjà Vu Clínica Estética & Spa." />
+  <style>
+    :root {
+      --bg:#f6f1ef;
+      --paper:#fffaf8;
+      --paper-2:#fdf7f5;
+      --ink:#3a2b33;
+      --ink-soft:#75656d;
+      --muted:#b8aab0;
+      --line:rgba(74,46,59,.10);
+      --rose:#ca4d8d;
+      --rose-deep:#8f315f;
+      --rose-dark:#5a2743;
+      --beige:#e9dbd4;
+      --shadow:0 20px 60px rgba(80,48,62,.08);
+      --shadow-strong:0 28px 90px rgba(80,48,62,.14);
+    }
+
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body {
+      margin:0;
+      font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:var(--bg);
+      color:var(--ink);
+      -webkit-font-smoothing:antialiased;
+      text-rendering:optimizeLegibility;
+    }
+    a { color:inherit; text-decoration:none; }
+    img { display:block; max-width:100%; }
+
+    .page { min-height:100vh; overflow:hidden; }
+
+    .announcement {
+      height:30px;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      position:relative;
+      background:#fff9f7;
+      border-bottom:1px solid rgba(0,0,0,.05);
+      font-size:10px;
+      letter-spacing:.16em;
+      text-transform:uppercase;
+      color:#7d6b73;
+    }
+    .announcement .arr {
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      opacity:.5;
+      font-size:15px;
+    }
+    .announcement .left { left:29%; }
+    .announcement .right { right:29%; }
+
+    .hero {
+      position:relative;
+      background:#b4788d;
+    }
+    .nav {
+      position:absolute;
+      inset:0 0 auto 0;
+      z-index:15;
+      height:76px;
+      display:grid;
+      grid-template-columns:1.2fr 1fr 1.2fr;
+      align-items:center;
+      gap:20px;
+      padding:0 42px;
+      color:#fff;
+      border-bottom:1px solid rgba(255,255,255,.15);
+    }
+    .brand {
+      display:flex;
+      align-items:center;
+      gap:12px;
+      white-space:nowrap;
+      font-size:20px;
+      letter-spacing:.28em;
+      text-transform:uppercase;
+      font-weight:520;
+    }
+    .brand-mark {
+      width:34px;
+      height:34px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.72);
+      display:grid;
+      place-items:center;
+      font-size:12px;
+      letter-spacing:0;
+    }
+
+    .hero-brand{
+      width:max-content;
+      line-height:0;
+    }
+    .hero-logo{
+      width:118px;
+      height:auto;
+      max-height:58px;
+      object-fit:contain;
+      object-position:left center;
+      filter:drop-shadow(0 2px 9px rgba(255,255,255,.12));
+    }
+    .navlinks {
+      display:flex;
+      justify-content:center;
+      gap:34px;
+      font-size:13px;
+    }
+    .navlinks a { opacity:.92; transition:.2s ease; }
+    .navlinks a:hover { opacity:1; }
+    .navtools {
+      display:flex;
+      justify-content:flex-end;
+      align-items:center;
+      gap:16px;
+    }
+    .nav-cta, .pill-btn {
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      height:42px;
+      padding:0 22px;
+      border-radius:999px;
+      border:0;
+      font-size:13px;
+      cursor:pointer;
+      transition:.2s ease;
+    }
+    .nav-cta {
+      background:#fff;
+      color:var(--rose-deep);
+      font-weight:600;
+    }
+    .pill-btn {
+      background:#fff;
+      color:var(--rose-dark);
+    }
+    .pill-btn:hover, .nav-cta:hover { transform:translateY(-1px); }
+    .pill-btn.ghost {
+      background:rgba(255,255,255,.11);
+      color:#fff;
+      border:1px solid rgba(255,255,255,.40);
+      backdrop-filter:blur(12px);
+    }
+    .mobile-menu {
+      display:none;
+      background:none;
+      border:0;
+      color:inherit;
+      padding:0;
+      cursor:pointer;
+    }
+    .mobile-menu svg, .navtools svg {
+      width:20px;
+      height:20px;
+      stroke:currentColor;
+      fill:none;
+      stroke-width:1.65;
+    }
+
+    .hero-photo {
+      position:relative;
+      min-height:700px;
+      height:min(82vh,860px);
+      overflow:hidden;
+    }
+    .hero-photo picture, .hero-photo img {
+      width:100%;
+      height:100%;
+    }
+    .hero-photo img {
+      object-fit:cover;
+      object-position:center 48%;
+      min-height:700px;
+    }
+    .hero-photo::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(90deg, rgba(42,20,31,.55) 0%, rgba(58,26,42,.18) 40%, rgba(80,49,63,.03) 70%),
+        linear-gradient(0deg, rgba(47,20,35,.30) 0%, rgba(47,20,35,.04) 48%, transparent 80%);
+      z-index:2;
+      pointer-events:none;
+    }
+    .hero-copy {
+      position:absolute;
+      left:58px;
+      bottom:76px;
+      max-width:650px;
+      color:#fff;
+      z-index:4;
+    }
+    .hero-kicker {
+      font-size:10px;
+      letter-spacing:.32em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+      opacity:.9;
+    }
+    .hero-copy h1 {
+      margin:0 0 18px;
+      font-size:clamp(58px,5.3vw,88px);
+      line-height:.92;
+      font-weight:430;
+      letter-spacing:-.055em;
+    }
+    .hero-copy p {
+      margin:0 0 25px;
+      max-width:520px;
+      font-size:18px;
+      line-height:1.42;
+      color:rgba(255,255,255,.90);
+    }
+    .hero-actions {
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+    }
+    .hero-side-copy {
+      position:absolute;
+      right:7%;
+      top:40%;
+      z-index:4;
+      color:#fff;
+      font-size:11px;
+      letter-spacing:.34em;
+      line-height:1.9;
+      text-transform:uppercase;
+      text-align:right;
+      opacity:.9;
+    }
+
+    .content {
+      max-width:1440px;
+      margin:0 auto;
+      padding:0 36px 40px;
+    }
+
+    .section-head {
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      padding:36px 0 18px;
+    }
+    .tabs {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      font-size:34px;
+      letter-spacing:-.045em;
+    }
+    .tabs .active {
+      display:flex;
+      align-items:center;
+      gap:18px;
+      font-weight:560;
+    }
+    .tabs .inactive {
+      color:var(--muted);
+      font-weight:380;
+    }
+    .dot {
+      width:21px;
+      height:21px;
+      border-radius:50%;
+      background:var(--rose);
+      display:inline-block;
+    }
+    .small-link {
+      font-size:13px;
+      display:flex;
+      align-items:center;
+      gap:12px;
+      color:#5f4d56;
+    }
+    .small-link span {
+      font-size:20px;
+      line-height:1;
+    }
+
+    .treatments {
+      display:grid;
+      grid-template-columns:repeat(4,minmax(0,1fr));
+      gap:16px;
+    }
+    .service-card {
+      position:relative;
+      min-height:510px;
+      border-radius:28px;
+      overflow:hidden;
+      box-shadow:var(--shadow-strong);
+      isolation:isolate;
+      background:#d7c3cb;
+      display:flex;
+      align-items:flex-end;
+      padding:18px;
+    }
+    .service-card::before {
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image:var(--bg-image);
+      background-size:cover;
+      background-position:center;
+      z-index:-3;
+      transform:scale(1.01);
+      transition:transform .55s ease;
+    }
+    .service-card::after {
+      content:"";
+      position:absolute;
+      inset:0;
+      background:
+        linear-gradient(180deg, rgba(0,0,0,.06) 0%, rgba(0,0,0,.04) 30%, rgba(59,29,44,.44) 100%),
+        linear-gradient(180deg, rgba(255,255,255,.0) 0%, rgba(255,255,255,.0) 58%, rgba(255,255,255,.06) 100%);
+      z-index:-2;
+    }
+    .service-card:hover::before { transform:scale(1.05); }
+    .service-pill {
+      position:absolute;
+      left:18px;
+      top:18px;
+      z-index:2;
+      padding:9px 13px;
+      border-radius:999px;
+      background:rgba(255,255,255,.18);
+      border:1px solid rgba(255,255,255,.28);
+      backdrop-filter:blur(14px);
+      color:#fff;
+      font-size:10px;
+      letter-spacing:.18em;
+      text-transform:uppercase;
+    }
+    .service-content {
+      width:100%;
+      position:relative;
+      z-index:2;
+      background:rgba(255,255,255,.14);
+      border:1px solid rgba(255,255,255,.26);
+      backdrop-filter:blur(16px);
+      border-radius:22px;
+      padding:18px 18px 18px;
+      color:#fff;
+    }
+    .service-title {
+      font-size:30px;
+      line-height:.98;
+      letter-spacing:-.042em;
+      font-weight:480;
+      margin:0 0 10px;
+      max-width:260px;
+    }
+    .service-copy {
+      margin:0;
+      color:rgba(255,255,255,.88);
+      font-size:13px;
+      line-height:1.45;
+      max-width:260px;
+    }
+    .service-bottom {
+      margin-top:16px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:12px;
+    }
+    .service-link {
+      font-size:12px;
+      letter-spacing:.10em;
+      text-transform:uppercase;
+      color:rgba(255,255,255,.92);
+    }
+    .service-arrow {
+      width:44px;
+      height:44px;
+      flex:0 0 auto;
+      border-radius:50%;
+      display:grid;
+      place-items:center;
+      border:1px solid rgba(255,255,255,.35);
+      background:rgba(255,255,255,.10);
+      backdrop-filter:blur(10px);
+    }
+    .service-arrow svg {
+      width:19px;
+      height:19px;
+      stroke:#fff;
+      fill:none;
+      stroke-width:1.6;
+    }
+
+    .families {
+      padding-top:4px;
+    }
+    .families .section-head {
+      padding-top:28px;
+    }
+    .families h2 {
+      margin:0;
+      font-size:36px;
+      font-weight:470;
+      letter-spacing:-.045em;
+    }
+    .chips {
+      display:grid;
+      grid-template-columns:repeat(6,1fr);
+      gap:8px;
+    }
+    .chip {
+      height:60px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      display:flex;
+      align-items:center;
+      gap:11px;
+      padding:6px 13px;
+      background:rgba(255,255,255,.62);
+      font-size:12px;
+      color:#5b4a53;
+      min-width:0;
+    }
+    .chip-thumb {
+      width:42px;
+      height:42px;
+      border-radius:50%;
+      flex:0 0 auto;
+      box-shadow:inset 0 0 0 1px rgba(0,0,0,.04);
+    }
+    .c1 { background:radial-gradient(circle at 35% 32%,#fff 0 13%,#efc4d7 14% 42%,#c94d8b 43%); }
+    .c2 { background:linear-gradient(135deg,#f0d8cf 0 46%,#ca8499 47% 72%,#a84b77 73%); }
+    .c3 { background:conic-gradient(from 35deg,#faedf2,#cf6a9c,#f2d2de,#b8447c,#faedf2); }
+    .c4 { background:radial-gradient(circle at 40% 40%,#fffafc 0 24%,transparent 25%),linear-gradient(145deg,#b55581,#842e5a); }
+    .c5 { background:linear-gradient(145deg,#fff6ef 0 42%,#e1b4a6 43% 64%,#c26c8f 65%); }
+    .c6 { background:radial-gradient(circle at 60% 40%,#f8edf2 0 25%,#d68ba9 26% 55%,#8d355f 56%); }
+
+    .promos {
+      display:grid;
+      grid-template-columns:2fr 1fr;
+      gap:12px;
+      margin-top:24px;
+    }
+    .promo {
+      position:relative;
+      min-height:320px;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+    }
+    .promo.big {
+      color:#fff;
+      background:
+        radial-gradient(circle at 82% 28%, rgba(255,255,255,.18), transparent 23%),
+        linear-gradient(112deg,#c74d89 0%, #b1447a 50%, #812c59 100%);
+    }
+    .promo.small {
+      background:linear-gradient(125deg,#fff9f6,#eadad3);
+      color:var(--ink);
+    }
+    .promo-content {
+      position:relative;
+      z-index:3;
+      padding:32px;
+      max-width:58%;
+    }
+    .promo.small .promo-content {
+      max-width:84%;
+    }
+    .promo-kicker {
+      font-size:10px;
+      letter-spacing:.30em;
+      text-transform:uppercase;
+      margin-bottom:8px;
+    }
+    .promo h3 {
+      margin:0 0 16px;
+      font-size:46px;
+      line-height:.93;
+      letter-spacing:-.055em;
+      font-weight:460;
+    }
+    .promo.small h3 {
+      font-size:34px;
+      line-height:.98;
+      color:var(--rose-deep);
+    }
+    .promo p {
+      margin:0 0 20px;
+      font-size:14px;
+      line-height:1.46;
+      max-width:420px;
+    }
+    .rings {
+      position:absolute;
+      right:3%;
+      bottom:-25%;
+      width:380px;
+      height:380px;
+      z-index:1;
+    }
+    .rings span {
+      position:absolute;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.28);
+    }
+    .rings span:nth-child(1) { inset:0; }
+    .rings span:nth-child(2) { inset:44px; }
+    .rings span:nth-child(3) { inset:88px; }
+    .rings span:nth-child(4) { inset:132px; background:rgba(255,255,255,.07); }
+
+    .rating {
+      display:flex;
+      align-items:center;
+      gap:10px;
+      margin:10px 0 14px;
+    }
+    .rating strong {
+      font-size:42px;
+      line-height:1;
+      color:var(--rose-deep);
+      font-weight:520;
+      letter-spacing:-.05em;
+    }
+    .stars {
+      font-size:13px;
+      letter-spacing:.12em;
+      color:var(--rose);
+    }
+    .quote {
+      font-size:13px;
+      line-height:1.55;
+      color:#735f68;
+      max-width:320px;
+    }
+
+    .brand-story {
+      margin-top:12px;
+      display:grid;
+      grid-template-columns:1fr 1.1fr;
+      gap:12px;
+    }
+    .story-card {
+      border-radius:22px;
+      overflow:hidden;
+      min-height:380px;
+      box-shadow:var(--shadow);
+    }
+    .story-logo {
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fffaf7;
+      padding:40px;
+    }
+    .story-logo img {
+      width:min(360px,80%);
+      height:auto;
+    }
+    .story-copy {
+      background:linear-gradient(120deg,#b9497f,#8d315f);
+      color:#fff;
+      padding:44px 46px;
+      display:flex;
+      flex-direction:column;
+      justify-content:center;
+    }
+    .story-copy .label {
+      font-size:10px;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      margin-bottom:16px;
+      opacity:.86;
+    }
+    .story-copy h2 {
+      margin:0 0 18px;
+      font-size:48px;
+      line-height:.95;
+      letter-spacing:-.055em;
+      font-weight:450;
+      max-width:620px;
+    }
+    .story-copy p {
+      margin:0 0 24px;
+      font-size:15px;
+      line-height:1.56;
+      max-width:590px;
+      color:rgba(255,255,255,.90);
+    }
+
+    .cta {
+      max-width:1440px;
+      margin:0 auto;
+      padding:0 36px 28px;
+    }
+    .cta-inner {
+      position:relative;
+      overflow:hidden;
+      min-height:250px;
+      border-radius:22px;
+      background:linear-gradient(110deg,#6b284b,#9d3769 56%,#c7578d);
+      color:#fff;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:30px;
+      padding:44px 50px;
+    }
+    .cta-inner::after {
+      content:"";
+      position:absolute;
+      right:-70px;
+      top:-126px;
+      width:320px;
+      height:320px;
+      border-radius:50%;
+      border:1px solid rgba(255,255,255,.18);
+      box-shadow:0 0 0 45px rgba(255,255,255,.035),0 0 0 90px rgba(255,255,255,.025);
+    }
+    .cta-text {
+      position:relative;
+      z-index:2;
+    }
+    .cta-text .label {
+      font-size:10px;
+      letter-spacing:.3em;
+      text-transform:uppercase;
+      margin-bottom:12px;
+      opacity:.86;
+    }
+    .cta h2 {
+      margin:0;
+      font-size:46px;
+      line-height:.95;
+      letter-spacing:-.05em;
+      font-weight:460;
+      max-width:720px;
+    }
+
+    footer {
+      max-width:1440px;
+      margin:0 auto;
+      padding:34px 36px 44px;
+      display:grid;
+      grid-template-columns:1.2fr 1.1fr .9fr 1fr;
+      gap:0;
+      border-top:1px solid var(--line);
+    }
+    .footer-brand {
+      padding-right:30px;
+    }
+    .footer-brand .brand {
+      color:var(--ink);
+      font-size:17px;
+      letter-spacing:.26em;
+    }
+    .tagline {
+      margin-top:8px;
+      font-size:8px;
+      letter-spacing:.35em;
+      text-transform:uppercase;
+      color:#7c6770;
+    }
+    .footer-item {
+      display:flex;
+      align-items:flex-start;
+      gap:13px;
+      padding:0 24px;
+      border-left:1px solid var(--line);
+      font-size:12px;
+      line-height:1.5;
+      color:#65525b;
+    }
+    .footer-item svg {
+      width:21px;
+      height:21px;
+      flex:0 0 auto;
+      stroke:var(--rose-deep);
+      fill:none;
+      stroke-width:1.8;
+    }
+
+
+    .swipe-dots{
+      display:none;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      margin-top:16px;
+    }
+    .swipe-dot{
+      width:7px;
+      height:7px;
+      border-radius:999px;
+      border:0;
+      padding:0;
+      background:#d8c8cf;
+      cursor:pointer;
+      transition:width .25s ease, background .25s ease, transform .25s ease;
+    }
+    .swipe-dot.active{
+      width:22px;
+      background:var(--rose);
+    }
+
+    @media (max-width: 1180px) {
+      .service-card {
+        min-height:520px;
+      }
+    }
+
+    @media (max-width: 900px) {
+      .announcement { display:none; }
+
+      /* Mobile/tablet treatment carousel: ~1.2 cards visible */
+      .treatments{
+        display:flex;
+        grid-template-columns:none;
+        gap:12px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        scroll-snap-type:x mandatory;
+        scroll-padding-left:0;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        margin-right:-20px;
+        padding-right:20px;
+        padding-bottom:3px;
+      }
+      .treatments::-webkit-scrollbar{
+        display:none;
+      }
+      .service-card{
+        flex:0 0 82%;
+        min-width:82%;
+        scroll-snap-align:start;
+        scroll-snap-stop:always;
+      }
+      .swipe-dots{
+        display:flex;
+      }
+      .hero-logo{
+        width:96px;
+        max-height:50px;
+      }
+      .nav {
+        position:absolute;
+        height:64px;
+        padding:0 20px;
+        display:flex;
+        justify-content:space-between;
+        background:linear-gradient(180deg,rgba(56,24,40,.45),rgba(56,24,40,0));
+        border-bottom:0;
+      }
+      .brand {
+        font-size:15px;
+        letter-spacing:.22em;
+      }
+      .brand-mark {
+        width:28px;
+        height:28px;
+      }
+      .navlinks, .nav-cta {
+        display:none;
+      }
+      .mobile-menu {
+        display:block;
+      }
+      .hero-photo {
+        min-height:620px;
+        height:76vh;
+      }
+      .hero-photo img {
+        min-height:620px;
+        object-position:center 46%;
+      }
+      .hero-photo::before {
+        background:linear-gradient(0deg,rgba(49,20,35,.62) 0%, rgba(49,20,35,.16) 58%, rgba(49,20,35,.08) 100%);
+      }
+      .hero-copy {
+        left:24px;
+        right:24px;
+        bottom:48px;
+        max-width:none;
+      }
+      .hero-copy h1 {
+        font-size:52px;
+        line-height:.96;
+        max-width:420px;
+      }
+      .hero-copy p {
+        font-size:15px;
+        max-width:390px;
+        margin-bottom:18px;
+      }
+      .hero-side-copy {
+        display:none;
+      }
+      .content {
+        padding:0 20px 28px;
+      }
+      .section-head {
+        padding:22px 0 14px;
+      }
+      .tabs {
+        font-size:31px;
+        gap:18px;
+      }
+      .tabs .active {
+        gap:14px;
+      }
+      .dot {
+        width:17px;
+        height:17px;
+      }
+      .small-link {
+        font-size:11px;
+      }
+      .service-card {
+        min-height:460px;
+        border-radius:24px;
+        padding:14px;
+      }
+      .service-pill {
+        left:14px;
+        top:14px;
+        font-size:9px;
+      }
+      .service-content {
+        padding:16px;
+        border-radius:18px;
+      }
+      .service-title {
+        font-size:25px;
+        max-width:220px;
+      }
+      .service-copy {
+        font-size:12px;
+        max-width:220px;
+      }
+      .families h2 {
+        font-size:29px;
+      }
+      .families .section-head {
+        align-items:flex-end;
+      }
+      .chips {
+        display:flex;
+        flex-wrap:wrap;
+        gap:8px;
+      }
+      .chip {
+        flex:0 0 auto;
+        height:52px;
+        padding:5px 12px;
+      }
+      .chip-thumb {
+        width:38px;
+        height:38px;
+      }
+      .promos {
+        grid-template-columns:1fr;
+        gap:10px;
+        margin-top:20px;
+      }
+      .promo {
+        min-height:255px;
+      }
+      .promo-content {
+        padding:24px;
+        max-width:66%;
+      }
+      .promo.small .promo-content {
+        max-width:80%;
+      }
+      .promo h3 {
+        font-size:37px;
+      }
+      .promo.small h3 {
+        font-size:30px;
+      }
+      .rings {
+        right:-18%;
+        bottom:-38%;
+        transform:scale(.8);
+      }
+      .brand-story {
+        grid-template-columns:1fr;
+        gap:10px;
+      }
+      .story-card {
+        min-height:300px;
+      }
+      .story-logo {
+        min-height:270px;
+      }
+      .story-copy {
+        padding:34px 28px;
+      }
+      .story-copy h2 {
+        font-size:40px;
+      }
+      .cta {
+        padding:0 20px 24px;
+      }
+      .cta-inner {
+        padding:34px 28px;
+        min-height:260px;
+        flex-direction:column;
+        align-items:flex-start;
+        justify-content:center;
+      }
+      .cta h2 {
+        font-size:39px;
+      }
+      footer {
+        padding:28px 20px 38px;
+        grid-template-columns:1fr 1fr;
+        gap:22px;
+      }
+      .footer-brand {
+        grid-column:1/-1;
+        padding-right:0;
+      }
+      .footer-item {
+        border-left:0;
+        padding:0;
+        font-size:11px;
+      }
+    }
+
+    @media (max-width: 560px) {
+      .hero-photo {
+        min-height:620px;
+        height:78vh;
+      }
+      .hero-copy {
+        bottom:42px;
+      }
+      .hero-kicker {
+        font-size:9px;
+      }
+      .hero-copy h1 {
+        font-size:47px;
+      }
+      .hero-copy p {
+        font-size:14px;
+      }
+      .tabs {
+        font-size:27px;
+      }
+      .treatments {
+        display:flex;
+        grid-template-columns:none;
+        gap:12px;
+        overflow-x:auto;
+        overflow-y:hidden;
+        scroll-snap-type:x mandatory;
+        scroll-padding-left:0;
+        -webkit-overflow-scrolling:touch;
+        scrollbar-width:none;
+        margin-right:-20px;
+        padding-right:20px;
+        padding-bottom:2px;
+      }
+      .treatments::-webkit-scrollbar{
+        display:none;
+      }
+      .service-card {
+        flex:0 0 82%;
+        min-width:82%;
+        min-height:420px;
+        padding:12px;
+        scroll-snap-align:start;
+        scroll-snap-stop:always;
+      }
+      .swipe-dots{
+        display:flex;
+      }
+      .service-pill {
+        left:12px;
+        top:12px;
+      }
+      .service-content {
+        padding:15px;
+      }
+      .service-title {
+        font-size:23px;
+        max-width:200px;
+      }
+      .service-copy {
+        font-size:11px;
+      }
+      .service-arrow {
+        width:40px;
+        height:40px;
+      }
+      .promo-content {
+        max-width:76%;
+      }
+      .promo.small .promo-content {
+        max-width:86%;
+      }
+      .promo h3 {
+        font-size:33px;
+      }
+      .promo.small h3 {
+        font-size:28px;
+      }
+      .rings {
+        right:-44%;
+        bottom:-45%;
+        transform:scale(.66);
+      }
+      .story-copy h2 {
+        font-size:36px;
+      }
+      .cta h2 {
+        font-size:35px;
+      }
+      footer {
+        grid-template-columns:1fr;
+        gap:16px;
+      }
+      .footer-brand {
+        grid-column:auto;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <div class="announcement">
+      <span class="arr left">‹</span>
+      <span>Estética avanzada · Playa del Carmen · Valoración personalizada</span>
+      <span class="arr right">›</span>
+    </div>
+
+    <section class="hero" id="inicio">
+      <header class="nav">
+        <a class="brand hero-brand" href="#inicio" aria-label="Déjà Vu"><img class="hero-logo" src="assets/logo-hero.webp" alt="Déjà Vu" /></a>
+        <nav class="navlinks" aria-label="Principal">
+          <a href="#tratamientos">tratamientos</a>
+          <a href="#categorias">servicios</a>
+          <a href="#nosotros">nosotros</a>
+          <a href="#contacto">contacto</a>
+        </nav>
+        <div class="navtools">
+          <a class="nav-cta" href="#reserva">reservar cita</a>
+          <button class="mobile-menu" aria-label="Abrir menú">
+            <svg viewBox="0 0 24 24"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+          </button>
+        </div>
+      </header>
+
+      <div class="hero-photo">
+        <picture>
+          <source media="(max-width: 900px)" srcset="assets/hero-mobile.webp" />
+          <img src="assets/hero-desktop.webp" alt="Déjà Vu Clínica Estética & Spa" />
+        </picture>
+
+        <div class="hero-copy">
+          <div class="hero-kicker">clínica estética & spa</div>
+          <h1>Tu mejor versión,<br>sin dejar de ser tú.</h1>
+          <p>Tratamientos faciales y corporales personalizados, tecnología estética avanzada y un espacio creado para sentirte bien en tu piel.</p>
+          <div class="hero-actions">
+            <a class="pill-btn" href="#reserva">reservar mi cita</a>
+            <a class="pill-btn ghost" href="#tratamientos">ver tratamientos</a>
+          </div>
+        </div>
+
+        <div class="hero-side-copy">belleza<br>bienestar<br>tecnología</div>
+      </div>
+    </section>
+
+    <main class="content">
+      <section id="tratamientos">
+        <div class="section-head">
+          <div class="tabs">
+            <div class="active"><span class="dot"></span>tratamientos</div>
+            <div class="inactive">para ti</div>
+          </div>
+          <a class="small-link" href="#categorias">ver todos <span>→</span></a>
+        </div>
+
+        <div class="treatments">
+          <article class="service-card" style="--bg-image:url('assets/tratamiento-faciales.webp')">
+            <div class="service-pill">piel & glow</div>
+            <div class="service-content">
+              <h3 class="service-title">Tratamientos faciales</h3>
+              <p class="service-copy">Limpieza, aparatología y cuidado avanzado para una piel más luminosa, fresca y cuidada.</p>
+              <div class="service-bottom">
+                <span class="service-link">descubrir</span>
+                <span class="service-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"></path></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="--bg-image:url('assets/tratamiento-moldeo-corporal.webp')">
+            <div class="service-pill">define & reafirma</div>
+            <div class="service-content">
+              <h3 class="service-title">Moldeo corporal</h3>
+              <p class="service-copy">Tecnología enfocada en reducción de medidas, firmeza y mejora visual del contorno corporal.</p>
+              <div class="service-bottom">
+                <span class="service-link">explorar</span>
+                <span class="service-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"></path></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="--bg-image:url('assets/tratamiento-depilacion-laser.webp')">
+            <div class="service-pill">suavidad que dura</div>
+            <div class="service-content">
+              <h3 class="service-title">Depilación láser</h3>
+              <p class="service-copy">Tratamientos láser para reducir progresivamente el vello y lograr una piel más suave.</p>
+              <div class="service-bottom">
+                <span class="service-link">conocer más</span>
+                <span class="service-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"></path></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+
+          <article class="service-card" style="--bg-image:url('assets/tratamiento-tattoo-removal.webp')">
+            <div class="service-pill">nuevo comienzo</div>
+            <div class="service-content">
+              <h3 class="service-title">Eliminación de tatuajes</h3>
+              <p class="service-copy">Tecnología láser para borrar tatuajes de forma progresiva con un enfoque profesional y cuidado.</p>
+              <div class="service-bottom">
+                <span class="service-link">ver servicio</span>
+                <span class="service-arrow" aria-hidden="true">
+                  <svg viewBox="0 0 24 24"><path d="M5 12h14M14 7l5 5-5 5"></path></svg>
+                </span>
+              </div>
+            </div>
+          </article>
+        </div>
+
+        <div class="swipe-dots" aria-label="Navegación de tratamientos">
+          <button class="swipe-dot active" type="button" aria-label="Tratamiento 1"></button>
+          <button class="swipe-dot" type="button" aria-label="Tratamiento 2"></button>
+          <button class="swipe-dot" type="button" aria-label="Tratamiento 3"></button>
+          <button class="swipe-dot" type="button" aria-label="Tratamiento 4"></button>
+        </div>
+      </section>
+
+      <section class="families" id="categorias">
+        <div class="section-head">
+          <h2>encuentra lo que necesitas</h2>
+          <a class="small-link" href="#reserva">orientación personalizada <span>→</span></a>
+        </div>
+
+        <div class="chips">
+          <div class="chip"><span class="chip-thumb c1"></span><span>faciales</span></div>
+          <div class="chip"><span class="chip-thumb c2"></span><span>corporales</span></div>
+          <div class="chip"><span class="chip-thumb c3"></span><span>depilación láser</span></div>
+          <div class="chip"><span class="chip-thumb c4"></span><span>medicina estética</span></div>
+          <div class="chip"><span class="chip-thumb c5"></span><span>postquirúrgicos</span></div>
+          <div class="chip"><span class="chip-thumb c6"></span><span>tattoo removal</span></div>
+        </div>
+      </section>
+
+      <section class="promos" id="resultados">
+        <article class="promo big">
+          <div class="promo-content">
+            <div class="promo-kicker">tu cuerpo · tu piel · tu momento</div>
+            <h3>No se trata<br>de cambiarte.</h3>
+            <p>Se trata de volver a sentirte bien contigo. Cada tratamiento comienza escuchando tus objetivos y creando un plan pensado para ti.</p>
+            <a class="pill-btn" href="#reserva">agenda una valoración&nbsp; →</a>
+          </div>
+          <div class="rings" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+        </article>
+
+        <article class="promo small">
+          <div class="promo-content">
+            <div class="promo-kicker">experiencia déjà vu</div>
+            <h3>Confianza que<br>puedes sentir.</h3>
+            <div class="rating">
+              <strong>4.9</strong>
+              <div>
+                <div class="stars">★★★★★</div>
+                <div style="font-size:11px;color:#8b7480;margin-top:4px">reseñas de clientes</div>
+              </div>
+            </div>
+            <div class="quote">“Un espacio donde el cuidado, la tecnología y la atención personalizada se encuentran.”</div>
+          </div>
+        </article>
+      </section>
+
+      <section class="brand-story" id="nosotros">
+        <article class="story-card story-logo">
+          <img src="assets/logo-hero.webp" alt="Logo Déjà Vu" />
+        </article>
+        <article class="story-card story-copy">
+          <div class="label">déjà vu clínica estética & spa</div>
+          <h2>Belleza que se siente.<br>Resultados que se ven.</h2>
+          <p>Combinamos estética, tecnología y atención personalizada para crear una experiencia centrada en tu piel, tu cuerpo y tus objetivos.</p>
+          <a class="pill-btn" href="#reserva">conócenos&nbsp; →</a>
+        </article>
+      </section>
+    </main>
+
+    <section class="cta" id="reserva">
+      <div class="cta-inner">
+        <div class="cta-text">
+          <div class="label">¿no sabes qué tratamiento es para ti?</div>
+          <h2>Empecemos por escucharte.</h2>
+        </div>
+        <a class="pill-btn" href="#contacto">reservar valoración&nbsp; →</a>
+      </div>
+    </section>
+
+    <footer id="contacto">
+      <div class="footer-brand">
+        <div class="brand"><span class="brand-mark" style="border-color:#bb5a88;color:#95355f">D</span><span>Déjà Vu</span></div>
+        <div class="tagline">clínica estética & spa</div>
+      </div>
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24"><path d="M12 21s6-6.3 6-12A6 6 0 1 0 6 9c0 5.7 6 12 6 12Z"></path><circle cx="12" cy="9" r="2"></circle></svg>
+        <span>Playa del Carmen<br>Quintana Roo, México</span>
+      </div>
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24"><path d="M6.6 2.9 9 7l-1.7 1.7c1.3 2.7 3.3 4.8 6 6.1l1.8-1.7 4 2.4c.4.3.6.8.4 1.3-.7 2-2.5 3.3-4.6 3.1C8.7 19.5 4.4 15.2 4 9c-.2-2.1 1-3.9 3-4.6.5-.2 1 .1 1.3.5Z"></path></svg>
+        <span>Agenda tu cita<br>por WhatsApp</span>
+      </div>
+
+      <div class="footer-item">
+        <svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".8" fill="currentColor" stroke="none"></circle></svg>
+        <span>Instagram<br>@dejavuclinicaesteticayspa</span>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    (() => {
+      const carousel = document.querySelector('.treatments');
+      const cards = Array.from(document.querySelectorAll('.service-card'));
+      const dots = Array.from(document.querySelectorAll('.swipe-dot'));
+
+      if (!carousel || !cards.length || !dots.length) return;
+
+      const setActiveDot = () => {
+        if (window.innerWidth > 900) return;
+
+        const carouselLeft = carousel.getBoundingClientRect().left;
+        let activeIndex = 0;
+        let smallestDistance = Infinity;
+
+        cards.forEach((card, index) => {
+          const distance = Math.abs(card.getBoundingClientRect().left - carouselLeft);
+          if (distance < smallestDistance) {
+            smallestDistance = distance;
+            activeIndex = index;
+          }
+        });
+
+        dots.forEach((dot, index) => {
+          dot.classList.toggle('active', index === activeIndex);
+          dot.setAttribute('aria-current', index === activeIndex ? 'true' : 'false');
+        });
+      };
+
+      let ticking = false;
+      carousel.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(() => {
+            setActiveDot();
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+
+      dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+          cards[index]?.scrollIntoView({
+            behavior: 'smooth',
+            block: 'nearest',
+            inline: 'start'
+          });
+        });
+      });
+
+      window.addEventListener('resize', setActiveDot);
+      setActiveDot();
+    })();
+  </script>
+
+</body>
+</html>
+
+# Déjà Vu mockup
+
+Static standalone mockup prepared for GitHub/Vercel.
+
+- `index.html` — homepage
+- `assets/` — all images used by the page
+
+For Vercel, deploy this folder as a static site with no build command required.
