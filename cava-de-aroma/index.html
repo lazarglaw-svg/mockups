@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Cava de Aroma — Perfumería</title>
+  <meta name="description" content="Fragancias inspiradas en aromas icónicos para mujer, hombre y unisex." />
+  <style>
+    :root{
+      --bg:#f6f2ec;
+      --paper:#fbf8f3;
+      --ink:#1f1c19;
+      --muted:#bcb5ac;
+      --line:rgba(31,28,25,.12);
+      --card-1:rgb(250,244,235);
+      --card-2:rgb(249,241,231);
+      --card-3:rgb(244,234,223);
+      --card-4:rgb(250,241,230);
+      --shadow:0 18px 50px rgba(69,53,40,.08);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{margin:0;background:var(--bg);color:var(--ink);font-family:Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;-webkit-font-smoothing:antialiased;}
+    a{color:inherit;text-decoration:none}
+    img{display:block;max-width:100%}
+    .page{min-height:100vh;overflow:hidden}
+
+    .announcement{height:30px;display:flex;align-items:center;justify-content:center;position:relative;background:#f8f6f1;border-bottom:1px solid rgba(0,0,0,.06);font-size:10px;letter-spacing:.12em;text-transform:uppercase;z-index:20}
+    .announcement span{opacity:.88}
+    .announcement .arr{position:absolute;top:50%;transform:translateY(-50%);font-size:15px;opacity:.65}
+    .announcement .arr.left{left:29%}
+    .announcement .arr.right{right:29%}
+
+    .hero{position:relative;background:#c8aa92}
+    .nav{position:absolute;inset:0 0 auto 0;height:72px;display:grid;grid-template-columns:1.2fr 1fr 1.2fr;align-items:center;gap:20px;padding:0 42px;z-index:10;color:#fff}
+    .brand{font-size:21px;letter-spacing:.28em;text-transform:uppercase;white-space:nowrap}
+    .navlinks{display:flex;justify-content:center;gap:34px;font-size:13px}
+    .navtools{display:flex;justify-content:flex-end;align-items:center;gap:18px;font-size:12px}
+    .navtools svg{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.65}
+    .currency{display:flex;align-items:center;gap:7px}
+    .flag{font-size:14px}
+    .mobile-menu{display:none}
+
+    .hero-photo{position:relative;min-height:620px;overflow:hidden;background:#c8aa92}
+    .hero-photo picture,.hero-photo img{width:100%;height:100%}
+    .hero-photo img{object-fit:cover;object-position:center;min-height:620px}
+    .hero-copy{position:absolute;left:58px;bottom:78px;max-width:500px;color:#fff;z-index:4}
+    .hero-copy h1{margin:0 0 12px;font-size:clamp(58px,5vw,82px);line-height:.9;font-weight:450;letter-spacing:-.055em}
+    .hero-copy p{margin:0 0 24px;font-size:19px;line-height:1.28;max-width:470px}
+    .hero-side-copy{position:absolute;right:9%;top:37%;z-index:4;font-size:15px;line-height:1.8;letter-spacing:.36em;text-transform:uppercase;color:#3d352f;max-width:180px}
+    .pill-btn{display:inline-flex;align-items:center;justify-content:center;min-width:125px;height:44px;padding:0 24px;border-radius:999px;background:#fff;color:#201e1c;border:0;font-size:14px;cursor:pointer;transition:.2s ease}
+    .pill-btn:hover{transform:translateY(-1px)}
+
+    .content{max-width:1440px;margin:0 auto;padding:0 36px 34px}
+    .section-head{display:flex;align-items:center;justify-content:space-between;padding:34px 0 18px}
+    .tabs{display:flex;align-items:center;gap:18px;font-size:34px;letter-spacing:-.045em}
+    .tabs .active{display:flex;align-items:center;gap:18px;font-weight:520}
+    .dot{width:21px;height:21px;border-radius:50%;background:#201d1a;display:inline-block}
+    .tabs .inactive{color:var(--muted);font-weight:390}
+    .small-link{font-size:13px;display:flex;gap:12px;align-items:center;opacity:.86}
+    .small-link span{font-size:20px}
+
+    .products{display:grid;grid-template-columns:repeat(4,1fr);border-top:1px solid var(--line);border-left:1px solid var(--line)}
+    .product-card{position:relative;min-height:370px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);padding:18px 22px 22px;display:flex;flex-direction:column;overflow:hidden}
+    .bg1{background:var(--card-1)} .bg2{background:var(--card-2)} .bg3{background:var(--card-3)} .bg4{background:var(--card-4)}
+    .eyebrow{font-size:10px;letter-spacing:.18em;text-transform:uppercase;margin-bottom:4px}
+    .product-visual{height:228px;display:flex;align-items:center;justify-content:center;margin:0 -22px 8px}
+    .product-photo{width:100%;height:100%;object-fit:contain;object-position:center center}
+    .product-photo.set{transform:scale(1.02)}
+    .product-bottom{margin-top:auto;display:flex;align-items:flex-end;justify-content:space-between;gap:10px}
+    .product-title{font-size:17px;margin-bottom:4px}
+    .price{font-size:14px;color:#58514b}
+    .price s{color:#a79f98;margin-right:7px}
+    .cart-btn{width:38px;height:38px;border-radius:50%;border:1px solid rgba(31,28,25,.14);background:transparent;display:grid;place-items:center;cursor:pointer}
+    .cart-btn svg{width:18px;height:18px;stroke:currentColor;fill:none;stroke-width:1.5}
+
+    .families{padding-top:2px}
+    .families .section-head{padding-top:28px}
+    .families h2{font-size:36px;font-weight:470;letter-spacing:-.045em;margin:0}
+    .chips{display:grid;grid-template-columns:repeat(7,1fr);gap:8px}
+    .chip{height:58px;border:1px solid var(--line);border-radius:999px;display:flex;align-items:center;gap:11px;padding:6px 13px;background:rgba(255,255,255,.13);font-size:12px;min-width:0;transition:transform .2s ease,background .2s ease}.chip:hover{transform:translateY(-1px);background:rgba(255,255,255,.36)}
+    .chip-thumb{width:42px;height:42px;border-radius:50%;flex:0 0 auto;display:block;object-fit:cover;box-shadow:inset 0 0 0 1px rgba(0,0,0,.05)}
+    .flower{background:radial-gradient(circle at 50% 50%,#d7c18c 0 8%,#fbf8ef 9% 35%,#e8ded1 36% 49%,#cdb899 50%)}
+    .fruit{background:radial-gradient(circle at 30% 35%,#b20f1a 0 24%,transparent 25%),radial-gradient(circle at 68% 55%,#6b0912 0 26%,transparent 27%),#291b18}
+    .citrus{background:conic-gradient(from 0deg,#f4bf28 0 15deg,#fff1b5 15deg 20deg,#f4bf28 20deg 45deg,#fff1b5 45deg 50deg,#f4bf28 50deg 80deg,#fff1b5 80deg 85deg,#f4bf28 85deg 120deg,#fff1b5 120deg 125deg,#f4bf28 125deg 170deg,#fff1b5 170deg 175deg,#f4bf28 175deg 220deg,#fff1b5 220deg 225deg,#f4bf28 225deg 275deg,#fff1b5 275deg 280deg,#f4bf28 280deg 330deg,#fff1b5 330deg 335deg,#f4bf28 335deg)}
+    .wood{background:repeating-linear-gradient(12deg,#553725 0 4px,#7b5031 5px 7px,#3f281b 8px 11px)}
+    .oriental{background:radial-gradient(circle at 40% 40%,#f5efe0 0 23%,transparent 24%),linear-gradient(135deg,#241914 0 45%,#a78053 46% 60%,#4b3322 61%)}
+    .sweet{background:radial-gradient(circle at 30% 35%,#d99d3d,transparent 28%),radial-gradient(circle at 65% 60%,#9c5e22,transparent 35%),#e6bd71}
+    .herbal{background:conic-gradient(from 45deg,#183a1d,#416d35,#2b5a27,#779355,#1f4722,#183a1d)}
+
+    .promos{display:grid;grid-template-columns:2fr 1fr;gap:12px;margin-top:24px}
+    .promo{position:relative;min-height:285px;border-radius:16px;overflow:hidden;border:1px solid rgba(0,0,0,.05);box-shadow:var(--shadow)}
+    .promo-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+    .promo-overlay{position:absolute;inset:0}
+    .promo.big .promo-overlay{background:linear-gradient(90deg, rgba(28,20,15,.54) 0%, rgba(28,20,15,.34) 35%, rgba(28,20,15,.10) 68%, rgba(28,20,15,.08) 100%)}
+    .promo.small .promo-overlay{background:linear-gradient(180deg, rgba(13,24,13,.46) 0%, rgba(13,24,13,.38) 50%, rgba(13,24,13,.52) 100%)}
+    .promo-content{position:relative;z-index:3;padding:28px 30px;max-width:48%;color:#fff;text-shadow:0 2px 10px rgba(0,0,0,.18)}
+    .promo.small .promo-content{max-width:78%}
+    .promo-kicker{font-size:10px;letter-spacing:.3em;text-transform:uppercase;line-height:1.5;margin-bottom:8px;opacity:.92}
+    .promo h3{font-size:40px;line-height:.92;letter-spacing:-.055em;font-weight:470;margin:0 0 15px}
+    .promo.small h3{font-size:31px;line-height:.98}
+    .promo p{font-size:14px;line-height:1.35;margin:0 0 20px;max-width:320px}
+    .dark-btn{background:#fff;color:#201e1c}
+    .promo-bottles{display:none}
+
+    footer{max-width:1440px;margin:0 auto;padding:34px 36px 44px;display:grid;grid-template-columns:1.2fr 1.1fr .9fr 1fr;gap:0;border-top:1px solid var(--line)}
+    .footer-brand{padding-right:30px}
+    .footer-brand .brand{font-size:17px;letter-spacing:.28em;color:var(--ink)}
+    .tagline{font-size:8px;letter-spacing:.35em;text-transform:uppercase;margin-top:8px;color:#69625c}
+    .footer-item{display:flex;gap:13px;align-items:flex-start;padding:0 24px;border-left:1px solid var(--line);font-size:12px;line-height:1.5}
+    .footer-item svg{width:21px;height:21px;flex:0 0 auto;stroke:currentColor;fill:none;stroke-width:1.8}
+
+    @media (max-width: 900px){
+      .announcement{display:none}
+      .nav{position:relative;height:62px;padding:0 22px;background:var(--paper);color:var(--ink);display:flex;justify-content:space-between}
+      .brand{font-size:16px;letter-spacing:.25em}
+      .navlinks,.currency,.account-icon{display:none}
+      .navtools{gap:18px}
+      .mobile-menu{display:block}
+      .hero-photo{min-height:440px}
+      .hero-photo img{min-height:440px;object-position:center 46%}
+      .hero-copy{left:26px;right:24px;bottom:56px;max-width:none}
+      .hero-copy h1{font-size:52px;line-height:.96;max-width:330px}
+      .hero-copy p{font-size:16px;max-width:350px;margin-bottom:18px}
+      .hero-side-copy{display:none}
+      .content{padding:0 20px 28px}
+      .section-head{padding:20px 0 14px}
+      .tabs{font-size:31px;gap:18px}
+      .tabs .active{gap:14px}
+      .dot{width:17px;height:17px}
+      .small-link{font-size:11px}
+      .products{grid-template-columns:repeat(2,1fr);border-radius:12px;overflow:hidden}
+      .product-card{min-height:300px;padding:13px 14px 15px}
+      .product-visual{height:188px;margin:0 -14px 8px}
+      .product-title{font-size:15px}
+      .price{font-size:12px}
+      .cart-btn{width:34px;height:34px}
+      .families h2{font-size:29px}
+      .families .section-head{align-items:flex-end}
+      .chips{display:flex;flex-wrap:wrap;gap:8px}
+      .chip{height:52px;flex:0 0 auto;padding:5px 12px}
+      .chip-thumb{width:38px;height:38px}
+      .promos{grid-template-columns:1fr;gap:10px;margin-top:20px}
+      .promo{min-height:230px}
+      .promo-content{padding:20px 22px;max-width:66%}
+      .promo.small .promo-content{max-width:78%}
+      .promo h3{font-size:34px}
+      .promo.small h3{font-size:28px}
+      .promo p{font-size:12px}
+      footer{padding:28px 20px 38px;grid-template-columns:1fr 1fr;gap:22px}
+      .footer-brand{grid-column:1/-1;padding-right:0}
+      .footer-item{border-left:0;padding:0;font-size:11px}
+    }
+
+    @media (max-width: 560px){
+      .hero-photo{min-height:440px}
+      .hero-copy{bottom:52px}
+      .hero-copy h1{font-size:50px}
+      .tabs{font-size:27px}
+      .products{grid-template-columns:repeat(2,minmax(0,1fr))}
+      .product-card{min-height:275px;padding:11px 12px}
+      .product-visual{height:165px;margin:0 -12px 8px}
+      .eyebrow{font-size:9px}
+      .product-title{font-size:14px}
+      .price{font-size:11px}
+      .cart-btn{width:31px;height:31px}
+      .cart-btn svg{width:15px;height:15px}
+      .promo-content{max-width:72%}
+      .promo.small .promo-content{max-width:88%}
+      footer{grid-template-columns:1fr;gap:16px}
+      .footer-brand{grid-column:auto}
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="announcement">
+    <span class="arr left">‹</span>
+    <span>Envío gratis en compras mayores a $999 MXN</span>
+    <span class="arr right">›</span>
+  </div>
+
+  <section class="hero" id="inicio">
+    <header class="nav">
+      <a class="brand" href="#inicio">Cava de Aroma</a>
+      <nav class="navlinks" aria-label="Principal">
+        <a href="#favoritos">shop</a>
+        <a href="#familias">familias</a>
+        <a href="#nosotros">nosotros</a>
+        <a href="#mayoreo">mayoreo</a>
+      </nav>
+      <div class="navtools">
+        <div class="currency"><span class="flag">🇲🇽</span><span>MXN⌄</span></div>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-4.2-4.2"></path></svg>
+        <svg class="account-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"></circle><path d="M4.8 20c.8-4.1 3.2-6.2 7.2-6.2S18.4 15.9 19.2 20"></path></svg>
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8h11l1 12h-13z"></path><path d="M9 8V5.5a3 3 0 0 1 6 0V8"></path></svg>
+        <svg class="mobile-menu" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"></path></svg>
+      </div>
+    </header>
+
+    <div class="hero-photo">
+      <picture>
+        <source media="(max-width: 900px)" srcset="assets/hero-mobile.png">
+        <img src="assets/hero-desktop.png" alt="Cava de Aroma hero" />
+      </picture>
+      <div class="hero-copy">
+        <h1>tu aroma,<br>tu esencia.</h1>
+        <p>Fragancias inspiradas en aromas icónicos<br>para mujer, hombre y unisex.</p>
+        <a class="pill-btn" href="#favoritos">descubrir</a>
+      </div>
+      <div class="hero-side-copy">aromas<br>que hacen<br>historias</div>
+    </div>
+  </section>
+
+  <main class="content">
+    <section id="favoritos">
+      <div class="section-head">
+        <div class="tabs"><div class="active"><span class="dot"></span>favoritos</div><div class="inactive">colecciones</div></div>
+        <a class="small-link" href="#">ver todos <span>→</span></a>
+      </div>
+      <div class="products">
+        <article class="product-card bg1">
+          <div class="eyebrow">floral</div>
+          <div class="product-visual"><img class="product-photo" src="assets/product-floral.png" alt="Esencia Floral" /></div>
+          <div class="product-bottom"><div><div class="product-title">Esencia Floral</div><div class="price">$270 MXN</div></div><button class="cart-btn" aria-label="Añadir Esencia Floral"><svg viewBox="0 0 24 24"><path d="M5 6h2l2 10h8l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="17" cy="19" r="1"></circle></svg></button></div>
+        </article>
+        <article class="product-card bg2">
+          <div class="eyebrow">cítrica</div>
+          <div class="product-visual"><img class="product-photo" src="assets/product-citrica.png" alt="Bruma Cítrica" /></div>
+          <div class="product-bottom"><div><div class="product-title">Bruma Cítrica</div><div class="price">$270 MXN</div></div><button class="cart-btn" aria-label="Añadir Bruma Cítrica"><svg viewBox="0 0 24 24"><path d="M5 6h2l2 10h8l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="17" cy="19" r="1"></circle></svg></button></div>
+        </article>
+        <article class="product-card bg3">
+          <div class="eyebrow">sets</div>
+          <div class="product-visual"><img class="product-photo set" src="assets/product-set.png" alt="Set Signature" /></div>
+          <div class="product-bottom"><div><div class="product-title">Set Signature</div><div class="price"><s>$980 MXN</s>$749 MXN</div></div><button class="cart-btn" aria-label="Añadir Set Signature"><svg viewBox="0 0 24 24"><path d="M5 6h2l2 10h8l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="17" cy="19" r="1"></circle></svg></button></div>
+        </article>
+        <article class="product-card bg4">
+          <div class="eyebrow">oriental</div>
+          <div class="product-visual"><img class="product-photo" src="assets/product-oriental.png" alt="Aroma Oriental" /></div>
+          <div class="product-bottom"><div><div class="product-title">Aroma Oriental</div><div class="price">$270 MXN</div></div><button class="cart-btn" aria-label="Añadir Aroma Oriental"><svg viewBox="0 0 24 24"><path d="M5 6h2l2 10h8l2-7H8"></path><circle cx="10" cy="19" r="1"></circle><circle cx="17" cy="19" r="1"></circle></svg></button></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="families" id="familias">
+      <div class="section-head"><h2>familias olfativas</h2><a class="small-link" href="#">explorar todas <span>→</span></a></div>
+      <div class="chips">
+        <div class="chip"><img class="chip-thumb" src="assets/family-floral.png" alt="floral" /><span>floral</span></div>
+        <div class="chip"><img class="chip-thumb" src="assets/family-frutal.png" alt="frutal" /><span>frutal</span></div>
+        <div class="chip"><img class="chip-thumb" src="assets/family-citrica.png" alt="cítrica" /><span>cítrica</span></div>
+        <div class="chip"><img class="chip-thumb" src="assets/family-amaderada.png" alt="amaderada" /><span>amaderada</span></div>
+        <div class="chip"><img class="chip-thumb" src="assets/family-oriental.png" alt="oriental" /><span>oriental</span></div>
+        <div class="chip"><img class="chip-thumb" src="assets/family-dulce.png" alt="dulce" /><span>dulce</span></div>
+        <div class="chip"><img class="chip-thumb" src="assets/family-herbal.png" alt="herbal" /><span>herbal</span></div>
+      </div>
+    </section>
+
+    <section class="promos" id="nosotros">
+      <article class="promo big">
+        <img class="promo-bg" src="assets/promo-big.png" alt="" aria-hidden="true" />
+        <div class="promo-overlay"></div>
+        <div class="promo-content">
+          <div class="promo-kicker">más aromas,<br>más historias</div>
+          <h3>a solo<br>$250 c/u</h3>
+          <p>Síguenos en Instagram y descubre promociones exclusivas.</p>
+          <a class="pill-btn dark-btn" href="https://www.instagram.com/cavadearoma/">síguenos ahora&nbsp; →</a>
+        </div>
+      </article>
+      <article class="promo small" id="mayoreo">
+        <img class="promo-bg" src="assets/promo-small.png" alt="" aria-hidden="true" />
+        <div class="promo-overlay"></div>
+        <div class="promo-content">
+          <div class="promo-kicker">mayoreo</div>
+          <h3>precios especiales<br>para distribuidores</h3>
+          <p>Haz crecer tu negocio con Cava de Aroma.</p>
+          <a class="pill-btn dark-btn" href="#contacto">más información&nbsp; →</a>
+        </div>
+      </article>
+    </section>
+  </main>
+
+  <footer id="contacto">
+    <div class="footer-brand"><div class="brand">Cava de Aroma</div><div class="tagline">aromas que hacen historias</div></div>
+    <div class="footer-item"><svg viewBox="0 0 24 24"><path d="M12 21s6-6.3 6-12A6 6 0 1 0 6 9c0 5.7 6 12 6 12Z"></path><circle cx="12" cy="9" r="2"></circle></svg><span>Av. 135, MasterPlaza Local 6<br>Cancún, Q. Roo</span></div>
+    <div class="footer-item"><svg viewBox="0 0 24 24"><path d="M6.6 2.9 9 7l-1.7 1.7c1.3 2.7 3.3 4.8 6 6.1l1.8-1.7 4 2.4c.4.3.6.8.4 1.3-.7 2-2.5 3.3-4.6 3.1C8.7 19.5 4.4 15.2 4 9c-.2-2.1 1-3.9 3-4.6.5-.2 1 .1 1.3.5Z"></path></svg><span>+52 998 148 8406</span></div>
+    <div class="footer-item"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="5"></rect><circle cx="12" cy="12" r="4"></circle><circle cx="17.3" cy="6.7" r=".8" fill="currentColor" stroke="none"></circle></svg><span>Instagram<br>@cavadearoma</span></div>
+  </footer>
+</div>
+</body>
+</html>
