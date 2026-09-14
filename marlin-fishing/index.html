@@ -21,29 +21,33 @@
     html=html.replace(/<div aria-label="Language" class="lang-switch">[\s\S]*?<\/div>/,'');
 
     // Mobile fleet: show roughly 1.2 cards so the swipe interaction is obvious.
-    // Floating WhatsApp button: fixed bottom-right on desktop and mobile.
+    // Floating WhatsApp button: refined, smaller and cleaner.
     const liveOverrides=`<style id="live-overrides">
       .lang-switch{display:none!important}
       .floating-whatsapp{
         position:fixed;
-        right:22px;
-        bottom:22px;
+        right:18px;
+        bottom:18px;
         z-index:9999;
-        width:58px;
-        height:58px;
+        width:52px;
+        height:52px;
         display:grid;
         place-items:center;
         border-radius:50%;
         background:#25D366;
         color:#fff;
-        box-shadow:0 12px 30px rgba(0,0,0,.28);
-        border:1px solid rgba(255,255,255,.28);
-        transition:transform .2s ease,box-shadow .2s ease,background .2s ease;
+        box-shadow:0 7px 20px rgba(0,0,0,.22);
+        border:0;
+        transition:transform .18s ease,box-shadow .18s ease,background .18s ease;
         -webkit-tap-highlight-color:transparent;
       }
-      .floating-whatsapp:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 16px 36px rgba(0,0,0,.34);background:#20bd5a}
-      .floating-whatsapp:focus-visible{outline:3px solid #fff;outline-offset:3px}
-      .floating-whatsapp svg{width:30px;height:30px;display:block;fill:currentColor}
+      .floating-whatsapp:hover{
+        transform:translateY(-2px);
+        box-shadow:0 10px 24px rgba(0,0,0,.27);
+        background:#22c55e;
+      }
+      .floating-whatsapp:focus-visible{outline:2px solid #fff;outline-offset:3px}
+      .floating-whatsapp svg{width:25px;height:25px;display:block;fill:currentColor}
       @media(max-width:640px){
         .boats .boat-grid{
           display:flex!important;
@@ -68,12 +72,13 @@
           scroll-snap-align:start!important;
         }
         .floating-whatsapp{
-          width:56px;
-          height:56px;
-          right:16px;
-          bottom:calc(16px + env(safe-area-inset-bottom));
+          width:50px;
+          height:50px;
+          right:14px;
+          bottom:calc(14px + env(safe-area-inset-bottom));
+          box-shadow:0 6px 16px rgba(0,0,0,.20);
         }
-        .floating-whatsapp svg{width:29px;height:29px}
+        .floating-whatsapp svg{width:24px;height:24px}
       }
     </style>`;
     html=html.replace('</head>',liveOverrides+'</head>');
